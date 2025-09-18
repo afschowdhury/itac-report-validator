@@ -465,10 +465,49 @@ def extract_energy_usage(annual_energy_html: str) -> Dict[str, Any]:
             continue
             
         # Extract data from each cell
-        energy_type = cells[0].get_text(strip=True).replace('**', '').strip()
+        energy_type_raw = cells[0].get_text(strip=True).replace('**', '').strip()
         usage_text = cells[1].get_text()
         cost_text = cells[2].get_text()
         unit_cost_text = cells[3].get_text()
+        
+        # Map energy types to programming-oriented field names
+        type_mapping = {
+            'Electrical Energy': 'electrical_energy',
+            'Electrical Demand': 'electrical_demand',
+            'Electric Energy': 'electrical_energy',
+            'Electric Demand': 'electrical_demand',
+            'Electricity': 'electrical_energy',
+            'Demand Charge': 'demand_charge',
+            'Demand': 'electrical_demand',
+            'Natural Gas': 'natural_gas',
+            'Propane': 'propane_gas',
+            'Propane Gas': 'propane_gas',
+            'Steam': 'steam',
+            'Water': 'water',
+            'Compressed Air': 'compressed_air',
+            'Total Utility': 'total_utility',
+            'TotalUtility': 'total_utility',
+            'Total': 'total_utility',
+            'Fuel Oil': 'fuel_oil',
+            'Heating Oil': 'heating_oil',
+            'Diesel': 'diesel',
+            'Gasoline': 'gasoline',
+            'Coal': 'coal',
+            'Biomass': 'biomass',
+            'Solar': 'solar',
+            'Wind': 'wind',
+            'Geothermal': 'geothermal',
+            'Chilled Water': 'chilled_water',
+            'Hot Water': 'hot_water'
+        }
+        
+        # Get standardized type name or create one from raw name
+        energy_type = type_mapping.get(energy_type_raw, 
+                                     energy_type_raw.lower()
+                                     .replace(' ', '_')
+                                     .replace('-', '_')
+                                     .replace('&', 'and')
+                                     .replace('/', '_'))
         
         # Parse the data
         usage_data = parse_usage_cell(usage_text)
