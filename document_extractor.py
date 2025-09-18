@@ -360,6 +360,134 @@ def extract_general_info_fields(general_info_html: str) -> Dict[str, Union[str, 
     return extracted_fields
 
 
+def extract_energy_usage(annual_energy_html: str) -> Dict[str, Any]:
+    """
+    Extract energy usage data from the annual energy usages and costs HTML.
+    
+    Args:
+        annual_energy_html: HTML string containing the annual energy usages and costs table
+        
+    Returns:
+        Dictionary with period information and energy usage data
+    """
+    import re
+    from bs4 import BeautifulSoup
+    
+    def extract_period_from_text(text: str) -> Dict[str, str]:
+        """Extract start and end period from descriptive text."""
+        # Look for patterns like "between September 2023 and August 2024"
+        period_pattern = r'between\s+(\w+\s+\d{4})\s+and\s+(\w+\s+\d{4})'
+        match = re.search(period_pattern, text, re.IGNORECASE)
+        if match:
+            return {"start": match.group(1), "end": match.group(2)}
+        
+        # Alternative pattern: "from X to Y" or "X - Y"
+        alt_pattern = r'(?:from\s+)?(\w+\s+\d{4})(?:\s+(?:to|-)\s+)(\w+\s+\d{4})'
+        match = re.search(alt_pattern, text, re.IGNORECASE)
+        if match:
+            return {"start": match.group(1), "end": match.group(2)}
+            
+        return {"start": "", "end": ""}
+    
+    def parse_usage_cell(usage_text: str) -> Dict[str, float]:
+        """Parse usage cell that may contain multiple values with different units."""
+        usage_dict = {}
+        
+        # Find all patterns like "649,680 kWh/yr" or "(2,217 MMBTU/yr)"
+        patterns = re.findall(r'[\(]?([0-9,]+\.?[0-9]*)\s+([A-Za-z/]+)[\)]?', usage_text)
+        
+        for value_str, unit in patterns:
+            # Clean up the value string and convert to float
+            clean_value = re.sub(r'[,\s]', '', value_str)
+            try:
+                value = float(clean_value)
+                usage_dict[unit] = value
+            except ValueError:
+                continue
+                
+        return usage_dict
+    
+    def parse_cost_cell(cost_text: str) -> float:
+        """Parse cost cell and return numeric value."""
+        # Remove currency symbols, commas, and /yr
+        clean_cost = re.sub(r'[\$,/yr\s]', '', cost_text)
+        # Extract numeric value
+        numbers = re.findall(r'\d+\.?\d*', clean_cost)
+        if numbers:
+            return float(numbers[0])
+        return 0.0
+    
+    def parse_unit_cost_cell(unit_cost_text: str) -> Optional[Dict[str, Union[float, str]]]:
+        """Parse unit cost cell like '$0.102/kWh' or '$4.522/kW'."""
+        if unit_cost_text.strip() in ['-', '']:
+            return None
+            
+        # Pattern for $X.XX/unit
+        pattern = r'\$([0-9,]+\.?[0-9]*)/([A-Za-z]+)'
+        match = re.search(pattern, unit_cost_text)
+        if match:
+            amount = float(re.sub(r'[,]', '', match.group(1)))
+            unit = match.group(2)
+            return {"amount": amount, "unit": unit}
+        return None
+    
+    # Parse the HTML
+    soup = BeautifulSoup(annual_energy_html, 'html.parser')
+    
+    # Initialize result structure
+    result = {
+        "period": {"start": "", "end": ""},
+        "data": []
+    }
+    
+    # Extract period information from paragraph text
+    paragraphs = soup.find_all('p')
+    for p in paragraphs:
+        text = p.get_text()
+        period_info = extract_period_from_text(text)
+        if period_info["start"] and period_info["end"]:
+            result["period"] = period_info
+            break
+    
+    # Find the energy usage table
+    table = soup.find('table')
+    if not table:
+        return result
+    
+    # Process table rows (skip header)
+    rows = table.find_all('tr')
+    if len(rows) <= 1:  # No data rows
+        return result
+    
+    for row in rows[1:]:  # Skip header row
+        cells = row.find_all('td')
+        if len(cells) < 4:  # Should have Type, Usage, Cost, Unit Cost
+            continue
+            
+        # Extract data from each cell
+        energy_type = cells[0].get_text(strip=True).replace('**', '').strip()
+        usage_text = cells[1].get_text()
+        cost_text = cells[2].get_text()
+        unit_cost_text = cells[3].get_text()
+        
+        # Parse the data
+        usage_data = parse_usage_cell(usage_text)
+        cost_value = parse_cost_cell(cost_text)
+        unit_cost_data = parse_unit_cost_cell(unit_cost_text)
+        
+        # Create entry
+        entry = {
+            "type": energy_type,
+            "usage": usage_data,
+            "cost": cost_value,
+            "unit_cost": unit_cost_data
+        }
+        
+        result["data"].append(entry)
+    
+    return result
+
+
 if __name__ == "__main__":
     # HTML run
     html_out = extract_itac_report(DOCX_PATH, output="html", save_files=True)
@@ -376,3 +504,11 @@ if __name__ == "__main__":
     print("\nExtracted General Information Fields:")
     for key, value in general_info_fields.items():
         print(f"  {key}: {value}")
+    
+    # Extract energy usage data
+    energy_usage_data = extract_energy_usage(html_out["annual_energy_usages_and_costs"])
+    print(f"\nExtracted Energy Usage Data:")
+    print(f"  Period: {energy_usage_data['period']['start']} to {energy_usage_data['period']['end']}")
+    print(f"  Number of energy types: {len(energy_usage_data['data'])}")
+    for item in energy_usage_data['data']:
+        print(f"    - {item['type']}: {item['usage']} (Cost: ${item['cost']:.2f})")
