@@ -477,7 +477,7 @@ def extract_energy_usage(annual_energy_html: str) -> Dict[str, Any]:
             'Electric Energy': 'electrical_energy',
             'Electric Demand': 'electrical_demand',
             'Electricity': 'electrical_energy',
-            'Demand Charge': 'demand_charge',
+            'Demand Charge': 'electrical_demand', # TODO: Verify this is correct
             'Demand': 'electrical_demand',
             'Natural Gas': 'natural_gas',
             'Propane': 'propane_gas',

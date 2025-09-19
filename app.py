@@ -15,6 +15,11 @@ from typing import Dict, Any, Tuple, List
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from werkzeug.utils import secure_filename
 import logging
+from icecream import ic
+
+ic.configureOutput(includeContext=True, prefix='DEBUG: ')
+
+
 
 # Import our existing extractors
 from document_extractor import extract_itac_report, extract_general_info_fields, extract_energy_usage
@@ -112,10 +117,11 @@ def compare_values(doc_value: Any, excel_value: Any, tolerance: float = 0.01) ->
     
     return result
 
-def compare_general_info(doc_info: Dict[str, Any], excel_info: Dict[str, Any]) -> Dict[str, Any]:
+def compare_general_info(doc_info: Dict[str, Any], excel_info: Dict[str, Any], excel_energy_data: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     Compare general information from document against Excel validation data.
     Only compares fields that are present in the document extraction.
+    Handles special calculated fields like value_per_finished_product and total_utility_cost.
     """
     comparison = {
         'fields': {},
@@ -124,18 +130,45 @@ def compare_general_info(doc_info: Dict[str, Any], excel_info: Dict[str, Any]) -
             'matched_fields': 0,
             'mismatched_fields': 0,
             'missing_in_excel': 0,
-            'validated_fields': 0
+            'validated_fields': 0,
+            'skipped_fields': 0
         }
     }
     
+    # Fields to skip (not available in Excel for comparison)
+    skip_fields = {'total_energy_usage', 'total_utility_cost', 'no_of_assessment_recommendations'}
+    
     # Only process fields that exist in the document extraction
     for field, doc_val in doc_info.items():
-        excel_val = excel_info.get(field)
-        
-        comparison['fields'][field] = compare_values(doc_val, excel_val)
+        # Skip fields that shouldn't be compared
+        if field in skip_fields:
+            comparison['summary']['skipped_fields'] += 1
+            continue
+            
         comparison['summary']['total_fields'] += 1
+        excel_val = None
         
-        if excel_val is not None:
+        # Handle special calculated fields
+        if field == 'value_per_finished_product':
+            # Calculate: annual_sales / annual_production
+            annual_sales = excel_info.get('annual_sales', 0)
+            annual_production = excel_info.get('annual_production', 0)
+            if annual_sales and annual_production and annual_production != 0:
+                excel_val = annual_sales / annual_production
+                comparison['fields'][field] = compare_values(doc_val, excel_val)
+                comparison['fields'][field]['calculation_note'] = f'Calculated: {annual_sales:,.2f} / {annual_production:,.2f} = {excel_val:,.2f}'
+            else:
+                comparison['fields'][field] = compare_values(doc_val, None)
+                comparison['fields'][field]['validation_status'] = 'cannot_calculate'
+                comparison['fields'][field]['calculation_note'] = 'Cannot calculate: missing annual_sales or annual_production in Excel'
+                
+        else:
+            # Regular field comparison
+            excel_val = excel_info.get(field)
+            comparison['fields'][field] = compare_values(doc_val, excel_val)
+        
+        # Update summary counts
+        if excel_val is not None or comparison['fields'][field].get('calculation_note'):
             comparison['summary']['validated_fields'] += 1
             if comparison['fields'][field]['match']:
                 comparison['summary']['matched_fields'] += 1
@@ -144,7 +177,8 @@ def compare_general_info(doc_info: Dict[str, Any], excel_info: Dict[str, Any]) -
         else:
             comparison['summary']['missing_in_excel'] += 1
             # Mark as validation issue when Excel doesn't have the field
-            comparison['fields'][field]['validation_status'] = 'not_in_excel'
+            if 'validation_status' not in comparison['fields'][field]:
+                comparison['fields'][field]['validation_status'] = 'not_in_excel'
     
     return comparison
 
@@ -171,8 +205,16 @@ def compare_energy_data(doc_energy: Dict[str, Any], excel_energy: Dict[str, Any]
     doc_types = {item['type']: item for item in doc_energy.get('data', [])}
     excel_types = {item['type']: item for item in excel_energy.get('data', [])}
     
+    # Skip energy types that shouldn't be compared
+    skip_energy_types = {'total_utility'}
+    
     # Only process energy types that exist in the document extraction
     for energy_type, doc_item in doc_types.items():
+        # Skip total utility cost energy type
+        if energy_type in skip_energy_types:
+            comparison['summary']['total_types'] += 1
+            continue
+            
         excel_item = excel_types.get(energy_type, {})
         
         type_comparison = {
@@ -210,16 +252,25 @@ def compare_energy_data(doc_energy: Dict[str, Any], excel_energy: Dict[str, Any]
         else:
             comparison['summary']['missing_in_excel'] += 1
     
-    # Compare total costs (only from document perspective)
-    doc_total = sum(item.get('cost', 0) for item in doc_energy.get('data', []) if item.get('cost'))
-    excel_total = excel_energy.get('summary', {}).get('total_utility_cost', 0) or \
-                 excel_energy.get('summary', {}).get('total_energy_cost', 0)
+    # Compare total costs (calculate Excel total from individual energy costs, excluding skipped types)
+    doc_total = sum(
+        item.get('cost', 0) for item in doc_energy.get('data', []) 
+        if item.get('cost') and item.get('type') not in skip_energy_types
+    )
+    
+    # Calculate Excel total from individual energy costs (don't use summary field, exclude skipped types)
+    excel_total = sum(
+        item.get('cost', 0) for item in excel_energy.get('data', []) 
+        if item.get('cost') and isinstance(item.get('cost'), (int, float)) and item.get('cost') > 0
+        and item.get('type') not in skip_energy_types
+    )
     
     comparison['summary']['doc_total_cost'] = doc_total
     comparison['summary']['excel_total_cost'] = excel_total
     total_comparison = compare_values(doc_total, excel_total)
     comparison['summary']['total_cost_match'] = total_comparison['match']
     comparison['summary']['total_cost_comparison'] = total_comparison
+    comparison['summary']['excel_total_calculation_note'] = f'Calculated from {len([item for item in excel_energy.get("data", []) if item.get("cost", 0) > 0 and item.get("type") not in skip_energy_types])} energy cost entries (excluding total utility)'
     
     return comparison
 
@@ -266,13 +317,22 @@ def upload_files():
         doc_general_info = extract_general_info_fields(doc_data["general_information"])
         doc_energy_data = extract_energy_usage(doc_data["annual_energy_usages_and_costs"])
         
+        
+        
+        
         logging.info(f"Processing Excel file: {excel_path}")
         excel_data = extract_all_structured_info(str(excel_path))
         excel_general_info = excel_data.get("general_info", {})
         excel_energy_data = excel_data.get("energy_waste_info", {})
+        ic("Data comparison:")
+        ic(excel_general_info)
+        ic(doc_general_info)
+        
+        ic(excel_energy_data)
+        ic(doc_energy_data)
         
         # Perform comparisons
-        general_comparison = compare_general_info(doc_general_info, excel_general_info)
+        general_comparison = compare_general_info(doc_general_info, excel_general_info, excel_energy_data)
         energy_comparison = compare_energy_data(doc_energy_data, excel_energy_data)
         
         # Prepare data for template
@@ -325,7 +385,7 @@ def api_compare():
             os.unlink(temp_excel.name)
         
         # Perform comparisons
-        general_comparison = compare_general_info(doc_general_info, excel_data.get("general_info", {}))
+        general_comparison = compare_general_info(doc_general_info, excel_data.get("general_info", {}), excel_data.get("energy_waste_info", {}))
         energy_comparison = compare_energy_data(doc_energy_data, excel_data.get("energy_waste_info", {}))
         
         return jsonify({
