@@ -1,0 +1,410 @@
+{% extends "base.html" %}
+
+{% block title %}Comparison Results - ITAC Report Validator{% endblock %}
+
+{% block extra_css %}
+<style>
+.comparison-card {
+    transition: all 0.3s ease;
+}
+.comparison-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+.match-indicator {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.mismatch-highlight {
+    background: linear-gradient(90deg, #ffebee, #fff);
+    border-left: 4px solid #f44336;
+    animation: highlight-pulse 2s ease-in-out;
+}
+.match-highlight {
+    background: linear-gradient(90deg, #e8f5e8, #fff);
+    border-left: 4px solid #4caf50;
+}
+.missing-highlight {
+    background: linear-gradient(90deg, #fff3e0, #fff);
+    border-left: 4px solid #ff9800;
+}
+@keyframes highlight-pulse {
+    0%, 100% { background: linear-gradient(90deg, #ffebee, #fff); }
+    50% { background: linear-gradient(90deg, #ffcdd2, #ffebee); }
+}
+.value-comparison {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.95em;
+}
+.section-toggle {
+    cursor: pointer;
+    user-select: none;
+}
+.section-toggle:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-2">
+                        <i class="fas fa-shield-alt text-primary me-2"></i>
+                        Document Validation Results
+                    </h2>
+                    <p class="text-muted mb-0">
+                        Validating <i class="fas fa-file-word text-primary me-1"></i>{{ docx_filename }}
+                        <span class="mx-2">against</span>
+                        <i class="fas fa-file-excel text-success me-1"></i>{{ excel_filename }}
+                    </p>
+                    <small class="text-info">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Only document fields are shown. Excel data is used for validation reference.
+                    </small>
+                </div>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-plus me-2"></i>New Comparison
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="display-6 text-info mb-2">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h6 class="card-title">Document Fields</h6>
+                    <h4 class="text-info">{{ general_comparison.summary.total_fields }}</h4>
+                    <small class="text-muted">Extracted from DOCX</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="display-6 text-success mb-2">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h6 class="card-title">Validated & Matched</h6>
+                    <h4 class="text-success">{{ general_comparison.summary.matched_fields }}</h4>
+                    <small class="text-muted">Excel validation passed</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="display-6 text-danger mb-2">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h6 class="card-title">Validation Mismatches</h6>
+                    <h4 class="text-danger">{{ general_comparison.summary.mismatched_fields }}</h4>
+                    <small class="text-muted">Values don't match Excel</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="display-6 text-warning mb-2">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h6 class="card-title">Not in Excel</h6>
+                    <h4 class="text-warning">{{ general_comparison.summary.missing_in_excel }}</h4>
+                    <small class="text-muted">Can't validate</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Information Comparison -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#generalInfoSection">
+            <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-info-circle text-primary me-2"></i>
+                    Document Field Validation (General Information)
+                </span>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-info me-2">{{ general_comparison.summary.total_fields }} document fields</span>
+                    <span class="badge bg-success me-2">{{ general_comparison.summary.matched_fields }} validated ✓</span>
+                    <span class="badge bg-danger me-2">{{ general_comparison.summary.mismatched_fields }} mismatched</span>
+                    {% if general_comparison.summary.missing_in_excel > 0 %}
+                    <span class="badge bg-warning me-2">{{ general_comparison.summary.missing_in_excel }} not in Excel</span>
+                    {% endif %}
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+            </h5>
+        </div>
+        <div class="collapse show" id="generalInfoSection">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th style="width: 25%">Document Field</th>
+                                <th style="width: 30%">Document Value</th>
+                                <th style="width: 30%">Excel Validation Value</th>
+                                <th style="width: 15%">Validation Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for field, comparison in general_comparison.fields.items() %}
+                            <tr class="{% if comparison.get('validation_status') == 'not_in_excel' %}missing-highlight{% elif comparison.match %}match-highlight{% else %}mismatch-highlight{% endif %}">
+                                <td class="fw-bold">
+                                    {{ field.replace('_', ' ').title() }}
+                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                        <span class="badge bg-warning ms-2" title="Field not found in Excel for validation">No Excel Data</span>
+                                    {% endif %}
+                                </td>
+                                <td class="value-comparison">
+                                    <span class="{% if not comparison.match and comparison.doc_value is not none and comparison.excel_value is not none %}text-danger{% else %}text-info{% endif %}">
+                                        {{ comparison.formatted_doc }}
+                                    </span>
+                                </td>
+                                <td class="value-comparison">
+                                    {% if comparison.excel_value is not none %}
+                                        <span class="{% if not comparison.match and comparison.excel_value is not none %}text-danger{% else %}text-success{% endif %}">
+                                            {{ comparison.formatted_excel }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted fst-italic">Not available in Excel</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                        <span class="match-indicator text-warning" title="Cannot validate - field not in Excel">
+                                            <i class="fas fa-question-circle"></i>
+                                        </span>
+                                    {% elif comparison.match %}
+                                        <span class="match-indicator text-success" title="Validation passed">
+                                            <i class="fas fa-check-circle"></i>
+                                        </span>
+                                    {% else %}
+                                        <span class="match-indicator text-danger" 
+                                              title="Validation failed{% if comparison.difference %} - Difference: {{ comparison.difference }}{% endif %}">
+                                            <i class="fas fa-times-circle"></i>
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Energy Usage Comparison -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#energySection">
+            <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-bolt text-warning me-2"></i>
+                    Document Energy Data Validation
+                </span>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-info me-2">{{ energy_comparison.summary.total_types }} document energy types</span>
+                    <span class="badge bg-success me-2">{{ energy_comparison.summary.matched_types }} validated ✓</span>
+                    <span class="badge bg-danger me-2">{{ energy_comparison.summary.mismatched_types }} mismatched</span>
+                    {% if energy_comparison.summary.missing_in_excel > 0 %}
+                    <span class="badge bg-warning me-2">{{ energy_comparison.summary.missing_in_excel }} not in Excel</span>
+                    {% endif %}
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+            </h5>
+        </div>
+        <div class="collapse show" id="energySection">
+            <div class="card-body">
+                <!-- Total Cost Validation -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Document Total Cost</h6>
+                                <h4 class="text-info">${{ "{:,.2f}".format(energy_comparison.summary.doc_total_cost) }}</h4>
+                                <small class="text-muted">From DOCX extraction</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Excel Validation Total</h6>
+                                <h4 class="text-primary">${{ "{:,.2f}".format(energy_comparison.summary.excel_total_cost) }}</h4>
+                                <small class="text-muted">From Excel template</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 {% if energy_comparison.summary.total_cost_match %}bg-success{% else %}bg-danger{% endif %} text-white">
+                            <div class="card-body text-center">
+                                <h6 class="text-white-50">Validation Status</h6>
+                                <h4 class="text-white">
+                                    {% if energy_comparison.summary.total_cost_match %}
+                                        <i class="fas fa-check-circle me-2"></i>VALID
+                                    {% else %}
+                                        <i class="fas fa-times-circle me-2"></i>MISMATCH
+                                    {% endif %}
+                                </h4>
+                                {% if energy_comparison.summary.total_cost_comparison.difference %}
+                                <small class="text-white-50">Diff: {{ energy_comparison.summary.total_cost_comparison.difference }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Individual Energy Types -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Document Energy Type</th>
+                                <th>Document Cost</th>
+                                <th>Excel Validation Cost</th>
+                                <th>Usage Comparison</th>
+                                <th>Validation Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for energy_type, comparison in energy_comparison.energy_types.items() %}
+                            <tr class="{% if comparison.get('validation_status') == 'not_in_excel' %}missing-highlight{% elif comparison.cost_comparison.match %}match-highlight{% else %}mismatch-highlight{% endif %}">
+                                <td class="fw-bold">
+                                    {{ energy_type.replace('_', ' ').title() }}
+                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                        <span class="badge bg-warning ms-2" title="Energy type not found in Excel for validation">No Excel Data</span>
+                                    {% endif %}
+                                </td>
+                                <td class="value-comparison">
+                                    <span class="text-info">
+                                        ${{ "{:,.2f}".format(comparison.doc_data.get('cost', 0)) if comparison.doc_data.get('cost') else 'N/A' }}
+                                    </span>
+                                </td>
+                                <td class="value-comparison">
+                                    {% if comparison.excel_data.get('cost') is not none %}
+                                        <span class="{% if comparison.cost_comparison.match %}text-success{% else %}text-danger{% endif %}">
+                                            ${{ "{:,.2f}".format(comparison.excel_data.get('cost', 0)) }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted fst-italic">Not available in Excel</span>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comparison.usage_comparison %}
+                                        {% for unit, usage_comp in comparison.usage_comparison.items() %}
+                                            <div class="d-flex justify-content-between">
+                                                <span>{{ unit }}:</span>
+                                                <span class="{% if not usage_comp.match %}text-danger{% else %}text-success{% endif %}">
+                                                    {{ usage_comp.formatted_doc }} vs {{ usage_comp.formatted_excel }}
+                                                </span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span class="text-muted">No usage comparison available</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                        <span class="match-indicator text-warning" title="Cannot validate - energy type not in Excel">
+                                            <i class="fas fa-question-circle"></i>
+                                        </span>
+                                    {% elif comparison.cost_comparison.match %}
+                                        <span class="match-indicator text-success" title="Validation passed">
+                                            <i class="fas fa-check-circle"></i>
+                                        </span>
+                                    {% else %}
+                                        <span class="match-indicator text-danger" 
+                                              title="Validation failed{% if comparison.cost_comparison.difference %} - Difference: {{ comparison.cost_comparison.difference }}{% endif %}">
+                                            <i class="fas fa-times-circle"></i>
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Sections (Optional Viewing) -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#documentSections">
+            <h5 class="mb-0">
+                <i class="fas fa-file-alt text-info me-2"></i>
+                Document Sections
+                <i class="fas fa-chevron-down text-muted float-end"></i>
+            </h5>
+        </div>
+        <div class="collapse" id="documentSections">
+            <div class="card-body">
+                <div class="row">
+                    <!-- General Information HTML -->
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-primary">
+                            <i class="fas fa-info-circle me-1"></i>
+                            General Information (DOCX)
+                        </h6>
+                        <div class="border rounded p-3 bg-light" style="max-height: 400px; overflow-y: auto;">
+                            {{ doc_data.general_information | safe }}
+                        </div>
+                    </div>
+                    
+                    <!-- Energy Usage HTML -->
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-success">
+                            <i class="fas fa-bolt me-1"></i>
+                            Energy Usage (DOCX)
+                        </h6>
+                        <div class="border rounded p-3 bg-light" style="max-height: 400px; overflow-y: auto;">
+                            {{ doc_data.annual_energy_usages_and_costs | safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    
+    // Section toggle functionality
+    document.querySelectorAll('.section-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+            const chevron = this.querySelector('.fa-chevron-down, .fa-chevron-up');
+            if (chevron) {
+                chevron.classList.toggle('fa-chevron-down');
+                chevron.classList.toggle('fa-chevron-up');
+            }
+        });
+    });
+    
+    // Highlight animations
+    setTimeout(function() {
+        document.querySelectorAll('.mismatch-highlight').forEach(function(el) {
+            el.style.animation = 'none';
+        });
+    }, 3000);
+});
+</script>
+{% endblock %}

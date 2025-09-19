@@ -1,0 +1,54 @@
+{
+  "excel_data": {
+    "sic_no": 3491,
+    "naics_code": 332911,
+    "annual_sales": 35000000,
+    "no_of_employees": 120,
+    "total_facility_area": 211185,
+    "principal_product": "Industrial Valves",
+    "annual_production": 6200,
+    "production_units": 1,
+    "operating_hours": 5616,
+    "motor_horsepower_capacity": 952,
+    "largest_motor_horsepower": 93,
+    "steam_capacity_lbm_hr": null,
+    "max_steam_pressure_psig": null,
+    "air_compressor_hp": 50,
+    "max_compressed_air_press_psig": 120
+  },
+  "document_data": {
+    "sic_no": 3491.0,
+    "annual_production": 6200.0,
+    "naics_code": 332911.0,
+    "annual_sales": 35000000.0,
+    "principal_product": "Industrial Valves",
+    "value_per_finished_product": 5645.0,
+    "no_of_employees": 120.0,
+    "total_energy_usage": 11962.0,
+    "total_facility_area": 211185.0,
+    "total_utility_cost": 340614.0,
+    "operating_hours": 5616.0,
+    "no_of_assessment_recommendations": 5.0
+  },
+  "comparison_summary": {
+    "total_compared": 8,
+    "matches": 8,
+    "differences": 0,
+    "match_rate_percent": 100.0,
+    "excel_only_fields": [
+      "motor_horsepower_capacity",
+      "production_units",
+      "air_compressor_hp",
+      "max_compressed_air_press_psig",
+      "steam_capacity_lbm_hr",
+      "largest_motor_horsepower",
+      "max_steam_pressure_psig"
+    ],
+    "document_only_fields": [
+      "total_utility_cost",
+      "no_of_assessment_recommendations",
+      "value_per_finished_product",
+      "total_energy_usage"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+col_1,col_2,col_3,col_4,Primary,col_6,col_7,col_8,Secondary,col_10,col_11,col_12,Tertiary,col_14,col_15,col_16,Quaternary,col_18,col_19,col_20,col_21,col_22,col_23,col_24,col_25,col_26,col_27,col_28,col_29,col_30,Recource Stream Codes,col_32,col_33,BP Tool,col_35
+,ARC Code,APP Code,Additional Description,Resource Steam,Unit Savings,Unit,$ Savings,Resource Steam,Unit Savings,Unit,$ Savings,Resource Steam,Unit Savings,Unit,$ Savings,Resource Steam,Unit Savings,Unit,$ Savings,BP Tool Used,Tool Name,Imp Cost Capital $,Imp Cost Other $,Incr.,Rebates,,,,Electricity Usage,EC,kWh (site),,none,None
+1.0,2.7211,,HVAC Tune-Up To Increase Energy Efficiency,Electricity Usage,72020,kWh (site),8066,,,,,,,,,,,,,none,None,0,0,N,Y,,,,Electricity Demand,ED,kW Months / yr,,AM+,AirMaster+
+2.0,2.4231,,Reduce the Discharge Pressure of the compressed Air System,Electricity Usage,24928,kWh (site),2792,,,,,,,,,,,,,none,None,0,100,N,N,,,,Electricity Fees,EF,no units,,CWSAT,Chilled Water System Analysis Tool
+3.0,2.7135,,Install Occupancy Sensors,Electricity Usage,56313,kWh (site),6307,,,,,,,,,,,,,none,None,0,300,N,Y,,,,Natural Gas,E2,MMBtu,,FSAT,Fan System Assessment Tool (FSAT)
+4.0,2.4236,,Eliminate Leaks in Compressed Air Lines,Electricity Usage,8083,kWh (site),905,,,,,,,,,,,,,none,None,20,25,N,N,,,,LPG,E3,MMBtu,,MM+,MotorMaster+ 4.0
+5.0,2.7142,,Utilize Higher Efficiency Lamps and/or Ballasts,Electricity Usage,82050,kWh (site),9190,Electricity Demand,175,kW Months / yr,593,,,,,,,,,none,None,5225,1750,N,Y,,,,Fuel Oil #1,E4,MMBtu,,NxEAT,Nox and Energy Assessment Tool
+6.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Fuel Oil #2,E5,MMBtu,,PHAST,Process Heating Assessment Tool (PHAST)
+7.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Fuel Oil #4,E6,MMBtu,,PSAT,Pump System Assessment Tool (PSAT)
+8.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Fuel Oil #6,E7,MMBtu,,SSTS,Steam System Tool Suite (SSST/SSAT/3E+)
+9.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Coal,E8,MMBtu,,ASD,ASDMaster: Adjustable Speed Drive Evaluation Tool
+10.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Wood,E9,MMBtu,,,
+11.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Paper,E10,MMBtu,,,
+12.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Other Gas,E11,MMBtu,,N,
+13.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Other Energy,E12,MMBtu,,Y,
+14.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Water Usage,W0,Tgal,,,
+15.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Water Disposal,W1,Gallons,,,
+16.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Other Liquid (non-haz),W2,Gallons,,,
+17.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Other Liquid (haz),W3,Gallons,,,
+18.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Solid Waste (non-haz),W4,Pounds,,,
+19.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Solid Waste (haz),W5,Pounds,,,
+20.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Gaseous Waste,W6,Pounds,,,
+21.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Personnel Changes,R1,no units,,,
+22.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Administrative Changes,R2,no units,,,
+23.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Primary Raw Material,R3,no units,,,
+24.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Ancillary Material Cost,R4,no units,,,
+25.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Water Consumption,R5,no units,,,
+26.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,One-time Revenue or Avoided Cost,R6,no units,,,
+27.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Primary Product,P1,no units,,,
+28.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,By-product Production,P2,no units,,,
+29.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Increase in Production,P3,%,,,
+30.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+31.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+32.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+33.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+34.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+35.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+36.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+37.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+38.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+39.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+40.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

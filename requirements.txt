@@ -1,2 +1,5 @@
 python-docx
 beautifulsoup4
+flask
+openpyxl
+pandas

@@ -1,0 +1,94 @@
+{
+  "general_info": {
+    "sic_no": 3491,
+    "naics_code": 332911,
+    "annual_sales": 35000000,
+    "no_of_employees": 120,
+    "total_facility_area": 211185,
+    "principal_product": "Industrial Valves",
+    "annual_production": 6200,
+    "production_units": 1,
+    "operating_hours": 5616,
+    "motor_horsepower_capacity": 952,
+    "largest_motor_horsepower": 93,
+    "steam_capacity_lbm_hr": null,
+    "max_steam_pressure_psig": null,
+    "air_compressor_hp": 50,
+    "max_compressed_air_press_psig": 120
+  },
+  "energy_waste_info": {
+    "data": [
+      {
+        "type": "electrical_energy",
+        "original_name": "Electrical Consumption",
+        "usage": {
+          "2763509": 2763509
+        },
+        "cost": 308828,
+        "unit_cost": {
+          "amount": 0.11175212383965459,
+          "unit": "2763509"
+        }
+      },
+      {
+        "type": "electrical_demand",
+        "original_name": "Electrical Demand",
+        "usage": {
+          "2483": 2483
+        },
+        "cost": 8408,
+        "unit_cost": {
+          "amount": 3.3862263391059204,
+          "unit": "2483"
+        }
+      },
+      {
+        "type": "natural_gas",
+        "original_name": "Natural Gas",
+        "usage": {
+          "2325": 2325
+        },
+        "cost": 12911,
+        "unit_cost": {
+          "amount": 5.553118279569892,
+          "unit": "2325"
+        }
+      },
+      {
+        "type": "propane_gas",
+        "original_name": "L.P.G.",
+        "usage": {
+          "208": 208
+        },
+        "cost": 10467,
+        "unit_cost": {
+          "amount": 50.32211538461539,
+          "unit": "208"
+        }
+      }
+    ],
+    "period": {
+      "start": "",
+      "end": ""
+    },
+    "summary": {
+      "total_energy_cost": 340614,
+      "total_electrical_cost": 317236,
+      "total_utility_cost": 340614,
+      "num_energy_sources": 4,
+      "total_data_entries": 4
+    }
+  },
+  "recommendation_info": {
+    "recommendations": [],
+    "summary": {
+      "total_recommendations": 0,
+      "total_annual_savings": 0,
+      "total_implementation_cost": 0,
+      "simple_payback_years": 0
+    },
+    "totals": {}
+  },
+  "extraction_timestamp": "2025-09-18T23:48:27.338127",
+  "source_file": "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/IACAssessmentTemplate.v2.1.xlsx"
+}

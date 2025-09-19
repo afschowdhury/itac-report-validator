@@ -1,0 +1,361 @@
+{
+  "excel_energy_data": {
+    "data": [
+      {
+        "type": "electrical_energy",
+        "original_name": "Electrical Consumption",
+        "usage": {
+          "kWh/yr": 2763509
+        },
+        "cost": 308828,
+        "unit_cost": {
+          "amount": 0.11175212383965459,
+          "unit": "kWh"
+        }
+      },
+      {
+        "type": "electrical_demand",
+        "original_name": "Electrical Demand",
+        "usage": {
+          "kW months/yr": 2483
+        },
+        "cost": 8408,
+        "unit_cost": {
+          "amount": 3.3862263391059204,
+          "unit": "kW months/yr"
+        }
+      },
+      {
+        "type": "electrical_fees",
+        "original_name": "Other Electrical Fees",
+        "usage": {},
+        "cost": 317236,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "unknown"
+        }
+      },
+      {
+        "type": "natural_gas",
+        "original_name": "Natural Gas",
+        "usage": {
+          "MMBtu/yr": 2325
+        },
+        "cost": 12911,
+        "unit_cost": {
+          "amount": 5.553118279569892,
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "propane_gas",
+        "original_name": "L.P.G.",
+        "usage": {
+          "MMBtu/yr": 208
+        },
+        "cost": 10467,
+        "unit_cost": {
+          "amount": 50.32211538461539,
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#1 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#2 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 340614,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#4 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#6 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "coal",
+        "original_name": "Coal",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "biomass",
+        "original_name": "Wood",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "biomass",
+        "original_name": "Paper",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "other_gas",
+        "original_name": "Other Gas",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "other_energy",
+        "original_name": "Other Energy",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "water",
+        "original_name": "Water Usage",
+        "usage": {
+          "T Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "T Gallons"
+        }
+      },
+      {
+        "type": "water_disposal",
+        "original_name": "Water Disposal",
+        "usage": {
+          "T Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "T Gallons"
+        }
+      },
+      {
+        "type": "other_liquid_non_haz",
+        "original_name": "Other Liquid (non-haz)",
+        "usage": {
+          "Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Gallons"
+        }
+      },
+      {
+        "type": "other_liquid_haz",
+        "original_name": "Other Liquid (haz)",
+        "usage": {
+          "Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Gallons"
+        }
+      },
+      {
+        "type": "solid_waste_non_haz",
+        "original_name": "Solid Waste (non-haz)",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      },
+      {
+        "type": "solid_waste_haz",
+        "original_name": "Solid Waste (haz)",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      },
+      {
+        "type": "gaseous_waste",
+        "original_name": "Gaseous Waste",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      }
+    ],
+    "period": {
+      "start": "",
+      "end": ""
+    },
+    "summary": {
+      "total_energy_cost": 998464,
+      "total_electrical_cost": 634472,
+      "total_utility_cost": 998464,
+      "num_energy_sources": 6,
+      "total_data_entries": 21
+    }
+  },
+  "document_energy_data": {
+    "period": {
+      "start": "June 2023",
+      "end": "July 2024"
+    },
+    "data": [
+      {
+        "type": "electrical_energy",
+        "usage": {
+          "kWh/yr": 2763509.0,
+          "MMBTU/yr": 9429.0
+        },
+        "cost": 308828.0,
+        "unit_cost": {
+          "amount": 0.112,
+          "unit": "kWh"
+        }
+      },
+      {
+        "type": "demand_charge",
+        "usage": {
+          "kW/yr": 2483.0
+        },
+        "cost": 8408.0,
+        "unit_cost": {
+          "amount": 3.387,
+          "unit": "kW"
+        }
+      },
+      {
+        "type": "natural_gas",
+        "usage": {
+          "MMBTU/yr": 2325.0
+        },
+        "cost": 12911.0,
+        "unit_cost": {
+          "amount": 5.554,
+          "unit": "MMBTU"
+        }
+      },
+      {
+        "type": "propane_gas",
+        "usage": {
+          "MMBTU/yr": 208.0
+        },
+        "cost": 10467.0,
+        "unit_cost": {
+          "amount": 50.322,
+          "unit": "MMBTU"
+        }
+      },
+      {
+        "type": "total_utility",
+        "usage": {
+          "MMBTU/yr": 11962.0
+        },
+        "cost": 340614.0,
+        "unit_cost": null
+      }
+    ]
+  },
+  "comparison_summary": {
+    "common_energy_types": [
+      "propane_gas",
+      "electrical_energy",
+      "natural_gas"
+    ],
+    "excel_only_types": [
+      "other_liquid_non_haz",
+      "biomass",
+      "other_liquid_haz",
+      "fuel_oil",
+      "water_disposal",
+      "other_energy",
+      "other_gas",
+      "water",
+      "solid_waste_haz",
+      "solid_waste_non_haz",
+      "gaseous_waste",
+      "electrical_demand",
+      "coal",
+      "electrical_fees"
+    ],
+    "document_only_types": [
+      "total_utility",
+      "demand_charge"
+    ],
+    "cost_matches": 3,
+    "cost_differences": 0,
+    "cost_match_rate_percent": 100.0,
+    "usage_matches": 3,
+    "usage_differences": 0,
+    "usage_match_rate_percent": 100.0
+  }
+}

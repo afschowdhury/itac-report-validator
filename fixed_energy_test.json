@@ -1,0 +1,296 @@
+{
+  "general_info": {
+    "sic_no": 3491,
+    "naics_code": 332911,
+    "annual_sales": 35000000,
+    "no_of_employees": 120,
+    "total_facility_area": 211185,
+    "principal_product": "Industrial Valves",
+    "annual_production": 6200,
+    "production_units": 1,
+    "operating_hours": 5616,
+    "motor_horsepower_capacity": 952,
+    "largest_motor_horsepower": 93,
+    "steam_capacity_lbm_hr": null,
+    "max_steam_pressure_psig": null,
+    "air_compressor_hp": 50,
+    "max_compressed_air_press_psig": 120
+  },
+  "energy_waste_info": {
+    "data": [
+      {
+        "type": "electrical_energy",
+        "original_name": "Electrical Consumption",
+        "usage": {
+          "kWh/yr": 2763509
+        },
+        "cost": 308828,
+        "unit_cost": {
+          "amount": 0.11175212383965459,
+          "unit": "kWh"
+        }
+      },
+      {
+        "type": "electrical_demand",
+        "original_name": "Electrical Demand",
+        "usage": {
+          "kW months/yr": 2483
+        },
+        "cost": 8408,
+        "unit_cost": {
+          "amount": 3.3862263391059204,
+          "unit": "kW months/yr"
+        }
+      },
+      {
+        "type": "electrical_fees",
+        "original_name": "Other Electrical Fees",
+        "usage": {},
+        "cost": 317236,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "unknown"
+        }
+      },
+      {
+        "type": "natural_gas",
+        "original_name": "Natural Gas",
+        "usage": {
+          "MMBtu/yr": 2325
+        },
+        "cost": 12911,
+        "unit_cost": {
+          "amount": 5.553118279569892,
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "propane_gas",
+        "original_name": "L.P.G.",
+        "usage": {
+          "MMBtu/yr": 208
+        },
+        "cost": 10467,
+        "unit_cost": {
+          "amount": 50.32211538461539,
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#1 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#2 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 340614,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#4 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "fuel_oil",
+        "original_name": "#6 Fuel Oil",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "coal",
+        "original_name": "Coal",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "biomass",
+        "original_name": "Wood",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "biomass",
+        "original_name": "Paper",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "other_gas",
+        "original_name": "Other Gas",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "other_energy",
+        "original_name": "Other Energy",
+        "usage": {
+          "MMBtu/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "MMBtu"
+        }
+      },
+      {
+        "type": "water",
+        "original_name": "Water Usage",
+        "usage": {
+          "T Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "T Gallons"
+        }
+      },
+      {
+        "type": "water_disposal",
+        "original_name": "Water Disposal",
+        "usage": {
+          "T Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "T Gallons"
+        }
+      },
+      {
+        "type": "other_liquid_non_haz",
+        "original_name": "Other Liquid (non-haz)",
+        "usage": {
+          "Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Gallons"
+        }
+      },
+      {
+        "type": "other_liquid_haz",
+        "original_name": "Other Liquid (haz)",
+        "usage": {
+          "Gallons/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Gallons"
+        }
+      },
+      {
+        "type": "solid_waste_non_haz",
+        "original_name": "Solid Waste (non-haz)",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      },
+      {
+        "type": "solid_waste_haz",
+        "original_name": "Solid Waste (haz)",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      },
+      {
+        "type": "gaseous_waste",
+        "original_name": "Gaseous Waste",
+        "usage": {
+          "Pounds/yr": 0
+        },
+        "cost": 0,
+        "unit_cost": {
+          "amount": "n/a",
+          "unit": "Pounds"
+        }
+      }
+    ],
+    "period": {
+      "start": "",
+      "end": ""
+    },
+    "summary": {
+      "total_energy_cost": 998464,
+      "total_electrical_cost": 634472,
+      "total_utility_cost": 998464,
+      "num_energy_sources": 6,
+      "total_data_entries": 21
+    }
+  },
+  "recommendation_info": {
+    "recommendations": [],
+    "summary": {
+      "total_recommendations": 0,
+      "total_annual_savings": 0,
+      "total_implementation_cost": 0,
+      "simple_payback_years": 0
+    },
+    "totals": {}
+  },
+  "extraction_timestamp": "2025-09-18T23:59:38.061794",
+  "source_file": "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/IACAssessmentTemplate.v2.1.xlsx"
+}

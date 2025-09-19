@@ -1,0 +1,16 @@
+GENERAL INFO,Do not format this column,col_3,Requirement,col_5,col_6,col_7
+SIC Code: (4 Digits),3491,3491,4 Characters Long,,Production Units,
+NAICS Code: (6 Digits),332911,332911,6 Characters Long,,0,Not Available
+Annual Sales ($),35000000,35000000,Whole Number,,1,Pieces
+# of Employees,120,120,Whole Number,,2,Pounds
+Plant Area (sqft.),211185,211185,Whole Number,,3,Tons
+Principle Product,Industrial Valves,Industrial Valves,none,,4,BBL
+Annual Production,6200,6200,Whole Number,,5,Thousand Gallons
+Production Units,1,Pieces,From 0 to 7. See Table ->,,6,Thousand Feed or Thousand Square Feet
+Production Hrs. Annual,5616,5616,"Between 1,500 and 8,760",,7,Bushels
+Motor Horsepower Capacity,952,952,Number,,,
+Largest Motor Horsepower,93,93,Number,,,
+Steam Capacity(LBM/Hr),,0,Number,,,
+Max Steam Pressure(PSIG),,0,Number,,,
+Air Compressor HP,50,50,Number,,,
+Max Compressed Air Press(PSIG),120,120,Number,,,

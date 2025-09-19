@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Files - ITAC Report Validator{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center mb-5">
+            <h1 class="display-4 fw-bold text-primary mb-3">
+                <i class="fas fa-balance-scale me-3"></i>
+                ITAC Report Validator
+            </h1>
+            <p class="lead text-muted">
+                Upload your DOCX report and Excel template to validate document data accuracy. 
+                The Excel template serves as the validation reference for document fields.
+            </p>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-upload me-2"></i>
+                        Upload Your Reports
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form id="uploadForm" action="{{ url_for('upload_files') }}" method="post" enctype="multipart/form-data">
+                        <div class="row g-4">
+                            <!-- DOCX File Upload -->
+                            <div class="col-md-6">
+                                <div class="upload-area" id="docxUploadArea">
+                                    <label for="docx_file" class="form-label fw-bold">
+                                        <i class="fas fa-file-word text-primary me-2"></i>
+                                        DOCX Report
+                                    </label>
+                                    <div class="file-drop-zone" data-target="docx_file">
+                                        <div class="text-center p-4">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h6 class="text-muted">Drop DOCX file here or</h6>
+                                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                                Browse Files
+                                            </button>
+                                            <input type="file" class="d-none" id="docx_file" name="docx_file" accept=".docx" required>
+                                        </div>
+                                        <div class="file-info d-none">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-file-word text-primary me-2"></i>
+                                                    <span class="file-name"></span>
+                                                </div>
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-file">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Excel File Upload -->
+                            <div class="col-md-6">
+                                <div class="upload-area" id="excelUploadArea">
+                                    <label for="excel_file" class="form-label fw-bold">
+                                        <i class="fas fa-file-excel text-success me-2"></i>
+                                        Excel Report
+                                    </label>
+                                    <div class="file-drop-zone" data-target="excel_file">
+                                        <div class="text-center p-4">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h6 class="text-muted">Drop Excel file here or</h6>
+                                            <button type="button" class="btn btn-outline-success btn-sm">
+                                                Browse Files
+                                            </button>
+                                            <input type="file" class="d-none" id="excel_file" name="excel_file" accept=".xlsx" required>
+                                        </div>
+                                        <div class="file-info d-none">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-file-excel text-success me-2"></i>
+                                                    <span class="file-name"></span>
+                                                </div>
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-file">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn" disabled>
+                                <i class="fas fa-sync-alt me-2"></i>
+                                <span class="btn-text">Compare Reports</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row mt-5 g-4">
+        <div class="col-md-4">
+            <div class="text-center">
+                <div class="feature-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h5 class="fw-bold">Smart Extraction</h5>
+                <p class="text-muted">
+                    Intelligently extracts data from both DOCX and Excel formats using specialized parsers.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center">
+                <div class="feature-icon bg-success text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h5 class="fw-bold">Document Validation</h5>
+                <p class="text-muted">
+                    Validates document fields against Excel template data with configurable tolerance levels.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center">
+                <div class="feature-icon bg-warning text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-highlighter"></i>
+                </div>
+                <h5 class="fw-bold">Visual Highlighting</h5>
+                <p class="text-muted">
+                    Clear visual indicators for matches, mismatches, and missing values.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Processing Modal -->
+<div class="modal fade" id="processingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-5">
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h5 class="mb-2">Processing Your Reports</h5>
+                <p class="text-muted mb-0">
+                    Extracting and comparing data from your files...
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('uploadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const processingModal = new bootstrap.Modal(document.getElementById('processingModal'));
+    
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        processingModal.show();
+    });
+    
+    // Check if both files are selected
+    function checkFilesSelected() {
+        const docxFile = document.getElementById('docx_file').files.length > 0;
+        const excelFile = document.getElementById('excel_file').files.length > 0;
+        submitBtn.disabled = !(docxFile && excelFile);
+    }
+    
+    // File change listeners
+    document.getElementById('docx_file').addEventListener('change', checkFilesSelected);
+    document.getElementById('excel_file').addEventListener('change', checkFilesSelected);
+});
+</script>
+{% endblock %}

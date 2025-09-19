@@ -1,0 +1,22 @@
+Energy/Waste Info,Consumption,Cost,Consumption_1,col_5,Cost_1,Unit Cost,col_8,col_9,col_10,col_11,col_12
+Electrical Consumption ,2763509.0,308828.0,2763509.0,kWh,308828,0.11175212383965459,per kWh,,,,
+Electrical Demand ,2483.0,8408.0,2483.0,kW months/yr,8408,3.3862263391059204,per kW months/yr,,,,
+Other Electrical Fees ,,,,,0,n/a,per ,,,,317236.0
+Natural Gas ,2325.0,12911.0,2325.0,MMBtu,12911,5.553118279569892,per MMBtu,,,,
+L.P.G. ,208.0,10467.0,208.0,MMBtu,10467,50.32211538461539,per MMBtu,,,,
+#1 Fuel Oil ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+#2 Fuel Oil ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,340614.0
+#4 Fuel Oil ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+#6 Fuel Oil ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Coal ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Wood ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Paper ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Other Gas ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Other Energy ,,,0.0,MMBtu,0,n/a,per MMBtu,,,,
+Water Usage,,,0.0,T Gallons,0,n/a,per T Gallons,,,,
+Water Disposal ,,,0.0,T Gallons,0,n/a,per T Gallons,,,,
+Other Liquid (non-haz) ,,,0.0,Gallons,0,n/a,per Gallons,,,,
+Other Liquid (haz) ,,,0.0,Gallons,0,n/a,per Gallons,,,,
+Solid Waste (non-haz) ,,,0.0,Pounds,0,n/a,per Pounds,,,,
+Solid Waste (haz) ,,,0.0,Pounds,0,n/a,per Pounds,,,,
+Gaseous Waste ,,,0.0,Pounds,0,n/a,per Pounds,,,,

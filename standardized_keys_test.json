@@ -1,0 +1,147 @@
+{
+  "general_info": {
+    "sic_no": 3491,
+    "naics_code": 332911,
+    "annual_sales": 35000000,
+    "no_of_employees": 120,
+    "total_facility_area": 211185,
+    "principal_product": "Industrial Valves",
+    "annual_production": 6200,
+    "production_units": 1,
+    "operating_hours": 5616,
+    "motor_horsepower_capacity": 952,
+    "largest_motor_horsepower": 93,
+    "steam_capacity_lbm_hr": null,
+    "max_steam_pressure_psig": null,
+    "air_compressor_hp": 50,
+    "max_compressed_air_press_psig": 120
+  },
+  "energy_waste_info": {
+    "energy_sources": [
+      {
+        "name": "Electrical Consumption",
+        "consumption": 2763509,
+        "cost": 0.11175212383965459
+      },
+      {
+        "name": "Electrical Demand",
+        "consumption": 2483,
+        "cost": 3.3862263391059204
+      },
+      {
+        "name": "Other Electrical Fees",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Natural Gas",
+        "consumption": 2325,
+        "cost": 5.553118279569892
+      },
+      {
+        "name": "L.P.G.",
+        "consumption": 208,
+        "cost": 50.32211538461539
+      },
+      {
+        "name": "#1 Fuel Oil",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "#2 Fuel Oil",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "#4 Fuel Oil",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "#6 Fuel Oil",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Coal",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Wood",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Paper",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Other Gas",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Other Energy",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Water Usage",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Water Disposal",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Other Liquid (non-haz)",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Other Liquid (haz)",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Solid Waste (non-haz)",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Solid Waste (haz)",
+        "consumption": null,
+        "cost": "n/a"
+      },
+      {
+        "name": "Gaseous Waste",
+        "consumption": null,
+        "cost": "n/a"
+      }
+    ],
+    "total_consumption": {},
+    "total_cost": {},
+    "summary": {
+      "total_energy_cost": 59.373212127130856,
+      "total_electrical_cost": 3.497978462945575,
+      "num_energy_sources": 21
+    }
+  },
+  "recommendation_info": {
+    "recommendations": [],
+    "summary": {
+      "total_recommendations": 0,
+      "total_annual_savings": 0,
+      "total_implementation_cost": 0,
+      "simple_payback_years": 0
+    },
+    "totals": {}
+  },
+  "extraction_timestamp": "2025-09-18T23:42:19.107296",
+  "source_file": "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/IACAssessmentTemplate.v2.1.xlsx"
+}

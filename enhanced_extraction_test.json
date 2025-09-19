@@ -1,0 +1,346 @@
+{
+  "workbook": "IACAssessmentTemplate.v2.1.xlsx",
+  "file_path": "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/IACAssessmentTemplate.v2.1.xlsx",
+  "sheets": {
+    "General Info": {
+      "key_values": [
+        {
+          "row": 1,
+          "key": "GENERAL INFO",
+          "value": "Do not format this column",
+          "raw_key": "GENERAL INFO",
+          "raw_value": "Do not format this column"
+        },
+        {
+          "row": 13,
+          "key": "Steam Capacity(LBM/Hr)",
+          "value": 0,
+          "raw_key": "Steam Capacity(LBM/Hr)",
+          "raw_value": 0
+        },
+        {
+          "row": 14,
+          "key": "Max Steam Pressure(PSIG)",
+          "value": 0,
+          "raw_key": "Max Steam Pressure(PSIG)",
+          "raw_value": 0
+        }
+      ],
+      "table_count": 1,
+      "table_csv_files": [
+        "tables_out/General_Info_table1.csv"
+      ],
+      "dimensions": {
+        "max_row": 16,
+        "max_column": 7
+      },
+      "key_value_count": 3
+    },
+    "Energy-Waste Info": {
+      "key_values": [],
+      "table_count": 1,
+      "table_csv_files": [
+        "tables_out/Energy-Waste_Info_table1.csv"
+      ],
+      "dimensions": {
+        "max_row": 23,
+        "max_column": 12
+      },
+      "key_value_count": 0
+    },
+    "Recommendation Info": {
+      "key_values": [],
+      "table_count": 1,
+      "table_csv_files": [
+        "tables_out/Recommendation_Info_table1.csv"
+      ],
+      "dimensions": {
+        "max_row": 43,
+        "max_column": 35
+      },
+      "key_value_count": 0
+    },
+    "Data": {
+      "key_values": [
+        {
+          "row": 3,
+          "key": "GENERAL INFO",
+          "value": "Do not format this column",
+          "raw_key": "GENERAL INFO",
+          "raw_value": "Do not format this column"
+        },
+        {
+          "row": 4,
+          "key": "SIC Code (4 Digits)",
+          "value": 3491,
+          "raw_key": "SIC Code: (4 Digits)",
+          "raw_value": 3491
+        },
+        {
+          "row": 5,
+          "key": "NAICS Code (6 Digits)",
+          "value": 332911,
+          "raw_key": "NAICS Code: (6 Digits)",
+          "raw_value": 332911
+        },
+        {
+          "row": 6,
+          "key": "Annual Sales ($)",
+          "value": 35000000,
+          "raw_key": "Annual Sales ($)",
+          "raw_value": 35000000
+        },
+        {
+          "row": 7,
+          "key": "# of Employees",
+          "value": 120,
+          "raw_key": "# of Employees",
+          "raw_value": 120
+        },
+        {
+          "row": 8,
+          "key": "Plant Area (sqft.)",
+          "value": 211185,
+          "raw_key": "Plant Area (sqft.)",
+          "raw_value": 211185
+        },
+        {
+          "row": 9,
+          "key": "Principle Product",
+          "value": "Industrial Valves",
+          "raw_key": "Principle Product",
+          "raw_value": "Industrial Valves"
+        },
+        {
+          "row": 10,
+          "key": "Annual Production",
+          "value": 6200,
+          "raw_key": "Annual Production",
+          "raw_value": 6200
+        },
+        {
+          "row": 11,
+          "key": "Production Units",
+          "value": 1,
+          "raw_key": "Production Units",
+          "raw_value": 1
+        },
+        {
+          "row": 12,
+          "key": "Production Hrs. Annual",
+          "value": 5616,
+          "raw_key": "Production Hrs. Annual",
+          "raw_value": 5616
+        },
+        {
+          "row": 13,
+          "key": "Motor Horsepower Capacity",
+          "value": 952,
+          "raw_key": "Motor Horsepower Capacity",
+          "raw_value": 952
+        },
+        {
+          "row": 14,
+          "key": "Largest Motor Horsepower",
+          "value": 93,
+          "raw_key": "Largest Motor Horsepower",
+          "raw_value": 93
+        },
+        {
+          "row": 15,
+          "key": "Steam Capacity(LBM/Hr)",
+          "value": 0,
+          "raw_key": "Steam Capacity(LBM/Hr)",
+          "raw_value": 0
+        },
+        {
+          "row": 16,
+          "key": "Max Steam Pressure(PSIG)",
+          "value": 0,
+          "raw_key": "Max Steam Pressure(PSIG)",
+          "raw_value": 0
+        },
+        {
+          "row": 17,
+          "key": "Air Compressor HP",
+          "value": 50,
+          "raw_key": "Air Compressor HP",
+          "raw_value": 50
+        },
+        {
+          "row": 18,
+          "key": "Max Compressed Air Press(PSIG)",
+          "value": 120,
+          "raw_key": "Max Compressed Air Press(PSIG)",
+          "raw_value": 120
+        }
+      ],
+      "table_count": 1,
+      "table_csv_files": [
+        "tables_out/Data_table1.csv"
+      ],
+      "dimensions": {
+        "max_row": 84,
+        "max_column": 26
+      },
+      "key_value_count": 16
+    }
+  },
+  "extraction_metadata": {
+    "total_sheets": 4,
+    "sheet_names": [
+      "General Info",
+      "Energy-Waste Info",
+      "Recommendation Info",
+      "Data"
+    ]
+  },
+  "structured_extracts": {
+    "general_info": {
+      "GENERAL INFO": "Do not format this column",
+      "SIC Code (4 Digits)": 3491,
+      "NAICS Code (6 Digits)": 332911,
+      "Annual Sales ($)": 35000000,
+      "# of Employees": 120,
+      "Plant Area (sqft.)": 211185,
+      "Principle Product": "Industrial Valves",
+      "Annual Production": 6200,
+      "Production Units": 1,
+      "Production Hrs. Annual": 5616,
+      "Motor Horsepower Capacity": 952,
+      "Largest Motor Horsepower": 93,
+      "Steam Capacity(LBM/Hr)": null,
+      "Max Steam Pressure(PSIG)": null,
+      "Air Compressor HP": 50,
+      "Max Compressed Air Press(PSIG)": 120
+    },
+    "energy_waste_info": {
+      "energy_sources": [
+        {
+          "name": "Electrical Consumption",
+          "consumption": 2763509,
+          "cost": 0.11175212383965459
+        },
+        {
+          "name": "Electrical Demand",
+          "consumption": 2483,
+          "cost": 3.3862263391059204
+        },
+        {
+          "name": "Other Electrical Fees",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Natural Gas",
+          "consumption": 2325,
+          "cost": 5.553118279569892
+        },
+        {
+          "name": "L.P.G.",
+          "consumption": 208,
+          "cost": 50.32211538461539
+        },
+        {
+          "name": "#1 Fuel Oil",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "#2 Fuel Oil",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "#4 Fuel Oil",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "#6 Fuel Oil",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Coal",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Wood",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Paper",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Other Gas",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Other Energy",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Water Usage",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Water Disposal",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Other Liquid (non-haz)",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Other Liquid (haz)",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Solid Waste (non-haz)",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Solid Waste (haz)",
+          "consumption": null,
+          "cost": "n/a"
+        },
+        {
+          "name": "Gaseous Waste",
+          "consumption": null,
+          "cost": "n/a"
+        }
+      ],
+      "total_consumption": {},
+      "total_cost": {},
+      "summary": {
+        "total_energy_cost": 59.373212127130856,
+        "total_electrical_cost": 3.497978462945575,
+        "num_energy_sources": 21
+      }
+    },
+    "recommendation_info": {
+      "recommendations": [],
+      "summary": {
+        "total_recommendations": 0,
+        "total_annual_savings": 0,
+        "total_implementation_cost": 0,
+        "simple_payback_years": 0
+      },
+      "totals": {}
+    },
+    "extraction_timestamp": "2025-09-18T23:28:51.709768",
+    "source_file": "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/IACAssessmentTemplate.v2.1.xlsx"
+  }
+}
