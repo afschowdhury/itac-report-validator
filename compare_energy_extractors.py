@@ -153,3 +153,7 @@ def compare_energy_data():
 
 if __name__ == "__main__":
     compare_energy_data()
+
+
+
+
