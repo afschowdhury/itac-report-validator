@@ -1715,5213 +1715,1545 @@
       "runs": []
     }
   ],
-  "recommendation_summary_table": null,
+  "recommendation_summary_table": {
+    "type": "table",
+    "rows": [
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "AR No.",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Category",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Description",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Electricity Savings (kWh/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Energy Cost Savings ($/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Demand",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": " Savings",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "(",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": "kW",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": "/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Demand",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": " Cost Savings",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "($/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Total Cost Savings ($/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "CO",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": "2",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": " Reduction (Tons/yr)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Impl",
+                  "bold": true,
+                  "italic": false
+                },
+                {
+                  "text": ".",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Cost ($)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Payback Period",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "(yrs)",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "1",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Building and Grounds",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "HVAC Tune-Up to Increase Energy Efficiency",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "72,020",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "8,066",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "8,066",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "27",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "2",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Motor Systems",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Reduce the Discharge Pressure of the Compressed Air System",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "24,928",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "2,792",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "2,792",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "10",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "100",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0.0",
+                  "bold": false,
+                  "italic": false
+                },
+                {
+                  "text": "4",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "3",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Motor Systems",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Install Occupancy Sensors",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "56,313",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "6,307",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "6,307",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "21",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "300",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0.05",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "4",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Combustion Systems",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Eliminate Leaks in Compressed Air Lines",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "8,083",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "905",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "905",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "3",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "45",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0.05",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "5",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Motor Systems",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "Utilize Higher Efficiency Lamps and/or Ballasts",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "82,050",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "9,190",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "175",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "593",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "9,783",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "31",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "6,965",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0.71",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": []
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": []
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "TOTALS",
+                  "bold": true,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "243,394",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "27,260",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "175",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "593",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "27,853",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "92",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "7,410",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "paragraphs": [
+            {
+              "type": "paragraph",
+              "alignment": "center",
+              "runs": [
+                {
+                  "text": "0.27",
+                  "bold": false,
+                  "italic": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "ar_summary": [
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "AR No.",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " 1",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " – ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "HVAC Tune-Up to Increase Energy Efficiency ",
+          "bold": false,
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "Performing a tune-up of the HVAC system will optimize its performance and increase energy efficiency. This recommendation includes adjusting and calibrating system controls, cleaning components, and ensuring proper operation. The annual savings from this recommendation are estimated to be $",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "8,066",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " with no implementation cost",
+          "bold": false,
+          "italic": false
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "AR No. ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "2",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " – ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "Reduce the Discharge Pressure of the Compressed Air System",
+          "bold": false,
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "Reducing the discharge pressure of the compressed air system will decrease the energy consumption of the air compressor while still maintaining adequate pressure for equipment operation. The annual savings from this recommendation are estimated to be $2,",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "7",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "92",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " and an implementation cost of $100",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": ".",
+          "bold": false,
+          "italic": false
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "AR No. ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "3",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " – ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "Install Occupancy Sensors",
+          "bold": false,
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "Installing occupancy sensors in appropriate areas will automatically control lighting based on space occupancy, eliminating unnecessary lighting usage when spaces are vacant. The annual savings from this recommendation are estimated to be $6,",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "307",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " with an implementation cost of $300",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": ".",
+          "bold": false,
+          "italic": false
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "AR No. ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "4",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " – ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "Eliminate Leaks in Compressed Air Lines",
+          "bold": false,
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "Eliminating leaks in the compressed air lines will reduce unnecessary waste of compressed air and reduce energy consumption. The savings from this recommendation ",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "are",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " estimated to save $",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "905",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " annually and $45 in implementation cost.",
+          "bold": false,
+          "italic": false
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "AR No.",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " ",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "5",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": " –",
+          "bold": false,
+          "italic": true
+        },
+        {
+          "text": "Utilize Higher Efficiency Lamps and/or Ballasts",
+          "bold": false,
+          "italic": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "alignment": "left",
+      "runs": [
+        {
+          "text": "Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. The annual savings from this ",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "recommendation are estimated to be $9,",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "783",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " with an implementation cost ",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "of $6,",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "965",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": " ",
+          "bold": false,
+          "italic": false
+        },
+        {
+          "text": "Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. ",
+          "bold": false,
+          "italic": false
+        }
+      ]
+    }
+  ],
   "assessment_recommendations": [
-    [
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "AR No.",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " 1",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " – ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "HVAC Tune-Up to Increase Energy Efficiency ",
-            "bold": false,
-            "italic": true
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Performing a tune-up of the HVAC system will optimize its performance and increase energy efficiency. This recommendation includes adjusting and calibrating system controls, cleaning components, and ensuring proper operation. The annual savings from this recommendation are estimated to be $",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "8,066",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " with no implementation cost",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      }
-    ],
-    [
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "AR No. ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " – ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "Reduce the Discharge Pressure of the Compressed Air System",
-            "bold": false,
-            "italic": true
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Reducing the discharge pressure of the compressed air system will decrease the energy consumption of the air compressor while still maintaining adequate pressure for equipment operation. The annual savings from this recommendation are estimated to be $2,",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "7",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "92",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and an implementation cost of $100",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      }
-    ],
-    [
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "AR No. ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " – ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "Install Occupancy Sensors",
-            "bold": false,
-            "italic": true
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Installing occupancy sensors in appropriate areas will automatically control lighting based on space occupancy, eliminating unnecessary lighting usage when spaces are vacant. The annual savings from this recommendation are estimated to be $6,",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "307",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " with an implementation cost of $300",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      }
-    ],
-    [
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "AR No. ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " – ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "Eliminate Leaks in Compressed Air Lines",
-            "bold": false,
-            "italic": true
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Eliminating leaks in the compressed air lines will reduce unnecessary waste of compressed air and reduce energy consumption. The savings from this recommendation ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "are",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " estimated to save $",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "905",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " annually and $45 in implementation cost.",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      }
-    ],
-    [
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "AR No.",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "5",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": " –",
-            "bold": false,
-            "italic": true
-          },
-          {
-            "text": "Utilize Higher Efficiency Lamps and/or Ballasts",
-            "bold": false,
-            "italic": true
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. The annual savings from this ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "recommendation are estimated to be $9,",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "783",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " with an implementation cost ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "of $6,",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "965",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Table ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". The Assessment Recommendation Summary Table",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "AR No.",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Category",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Description",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Electricity Savings (kWh/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Energy Cost Savings ($/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Demand",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " Savings",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                },
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "(",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": "kW",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": "/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Demand",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " Cost Savings",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                },
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "($/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Total Cost Savings ($/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "CO",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " Reduction (Tons/yr)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Impl",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": ".",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                },
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Cost ($)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Payback Period",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                },
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "(yrs)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "1",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Building and Grounds",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "HVAC Tune-Up to Increase Energy Efficiency",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "72,020",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "8,066",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "8,066",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "27",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "2",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Motor Systems",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Reduce the Discharge Pressure of the Compressed Air System",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "24,928",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "2,792",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "2,792",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "10",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "100",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0.0",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "4",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "3",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Motor Systems",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Install Occupancy Sensors",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "56,313",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "6,307",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "6,307",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "21",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "300",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0.05",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "4",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Combustion Systems",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Eliminate Leaks in Compressed Air Lines",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "8,083",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "905",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "905",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "3",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "45",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0.05",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "5",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Motor Systems",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Utilize Higher Efficiency Lamps and/or Ballasts",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "82,050",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "9,190",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "175",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "593",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "9,783",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "31",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "6,965",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0.71",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "TOTALS",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "243,394",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "27,260",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "175",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "593",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "27,853",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "92",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "7,410",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "0.27",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "GENERAL ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "FACIL",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "I",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "TY",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " BACKGROUND",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Facility Description",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "A satellite view of the",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "211,185",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "square fee",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "t facility is shown in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " facility has",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "a ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "total ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "of ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "five ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "buildings",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and they are used for Welding, Painting",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ", ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "and ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Inventory",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "facility ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "operates",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "two",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " major shifts ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "with an ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "average",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "of ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "24",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "hours",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "/",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "day",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ", ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4.5 ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "days/",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "week and 52 weeks/yr",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " which total",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " to 5,616 ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "hrs",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "/yr",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". T",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "he",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " total number of e",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "mployees is ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "20",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " The facility",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "'",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "s operating hours and shifts ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "are summarized",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Table ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "1",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "The ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "Satellite V",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "iew",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": " of the Facility",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Table ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Operating",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " Hours and Shift Schedule",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Shift Start – Shift End",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Days/Week",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Number of Employees",
-                      "bold": true,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "6:00 AM – 6:00",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "PM",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "5",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "1",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "left",
-                  "runs": [
-                    {
-                      "text": "         6:00 PM – 6:00 AM",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "4",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "1",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "0",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Process Description",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The production process at ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "the f",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "acility begins with the engineering and design of flow control products, including chokes, valves, and API flow line components. Raw materials, such as high-grade metals and alloys, are carefully selected and inspected for quality. These materials undergo precision machining using advanced CNC equipment to create individual components according to detailed specifications. The machined parts are then subjected to surface treatments and coatings to enhance corrosion resistance and durability. Next, the components are assembled into complete products using specialized tools and equipment. This assembly process is carried out by skilled technicians who follow strict quality control procedures. The assembled products then undergo rigorous testing to ensure they meet or exceed API Specification 6A requirements. This ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "test",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " includes pressure tests, functional checks, and material verification.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Following successful testing, the products are cleaned, inspected, and prepared for finishing. This may involve additional surface treatments, painting, or the application of protective coatings. Quality control inspections are performed at each stage of the process to maintain high standards. The finished products are then packaged in protective containers, labeled, and stored in the facility's inventory management ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "system. Throughout",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " the entire process, ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "the facility’s",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ERP system tracks and monitors production in real-time, ensuring full traceability of materials and components. The facility operates 24/7 to maintain efficiency and meet customer demands promptly. Finally, the completed flow control products are prepared for shipment to customers or transferred to other facilities for further integration into larger systems or valve manifold ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "packages.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " The",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " process",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " flow",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "is shown",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ".",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": " ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "The ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "Production Process Flowchart",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Historical Energy Usage",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The client provided monthly electricity costs and electricity usage of the facility for one year from ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Aug",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " 2023 to July 2024, as shown in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "and",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ", respectively. The electricity rate is estimated at 1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " cents per kWh. The following findings can be observed from the figures on electricity usage and information from the site visit:",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The electricity cost shows notable fluctuations throughout the year, with peaks occurring in August 2023",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "A significant dip in costs is observed during October-November 2023",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "There is a gradual increase in electricity costs from February 2024 through July 2024",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". Monthly Electricity Usage",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "left",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "4",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "Monthly Electricity Usage",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "‎",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "shows the following observations:",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The peak consumption occurred during August-September 2023, reaching approximately 350,000 kWh, which likely indicates peak production periods at the facility",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The lowest consumption was recorded during ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "January",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " 202",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Februar",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "y",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " 2024",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ", ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "suggesting reduced facility operations or seasonal production variations.",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The facility’s monthly demand costs ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "are plotted",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "5",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "6",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "d",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "emonstrate",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "s",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " the ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "monthly demand usage in kW. Based on our analysis, the demand charge is estimated to be $",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "387",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " per kW. ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "high",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "est",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "demand",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " cost",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and the peak energy usage occurred ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "from ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "August",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " to ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "September",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " 2023",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "5",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". Monthly Demand Charge",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "6",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". Monthly Demand Usage",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "\n",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The facility’s ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "natural gas cost and usage",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "are plotted",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "7",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "8",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ", resp",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "ectively",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Based on the previous 12 months natural gas bills, the facility procures ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "natural gas an average rate of $",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "5.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "554",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "/MMBTU. ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The peak usage is in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "spring,",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and this corresponds with the natural gas cost.",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "7",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "Monthly Natural Gas Cost",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Figure ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "-",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "8",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": ". Monthly ",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "Natural Gas Usage",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Major Energy Consuming Equipment",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and Devices",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "A list of major equipment and devices is provided in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " Potential",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "major consumer omitted from the list are the chillers as specification details were not available.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Table ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " and",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "9",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " shows how much power is used by each ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "piece of ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "equipment",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in the facility. ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "This",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "indicate",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "s",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " that",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "the ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Expander",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "is the ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "primary",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "power",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "consumer",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " in",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " the facility, accounting fo",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "r ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "29",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "% of the total power.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Potential ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "major consumer omitted from the list are the chillers as specification details were not available.",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Table ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Major Power Consuming Equipment",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "table",
-        "rows": [
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Energy Application",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Power (hp)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Quantity",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Total Power (hp)",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Percentage",
-                      "bold": true,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Welding Machine",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "s",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "93",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "5",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "577",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "61%",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Welding Machine",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "s",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "56",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "2",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "577",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "61%",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Chillers",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "25",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "7",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "175",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "18%",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Air Compressor",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "50",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "4",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "200",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "21%",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          [
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "Total",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": []
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "1",
-                      "bold": false,
-                      "italic": false
-                    },
-                    {
-                      "text": "8",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "952",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paragraphs": [
-                {
-                  "type": "paragraph",
-                  "alignment": "center",
-                  "runs": [
-                    {
-                      "text": "100%",
-                      "bold": false,
-                      "italic": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "9",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "The ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Major Power Consumers",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "CURRENT BEST PRACTICES",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "During ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "the",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " visit and discussion with the facility managers, the LSU-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "ITAC",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " team found that the facility management",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " team",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " currently employs ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "a few",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " good practices, ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "which are ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "briefly described below.",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Partial ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Implementation of LED Retrofits in Facility",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The LSU-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "ITAC",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " team observed that in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "some areas of ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "the facility, LED lighting fixtures had been installed in place of the previous traditional lighting fixtures",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " (see ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ")",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " This is one of the best practices, as LED consumes less energy to produce the same level of lumen output.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Also, LED lighting sources emit less heat when operating compared to traditional lighting fixtures. This will help improve the overall building energy efficiency",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "   ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "1",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "LED Retrofits ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "in the Facility",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "External Lights are Placed on Photocells",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The facility placed their external lights on photocells so that the lights only turn on when ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "there",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " is no adequate daylight. This practice helps to utilize artificial lighting ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "only",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " when necessary, which allows savings in cost and electrical consumption. The external lights on photocells are shown in ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "External Light on Photocells",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "Implementation of ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Cross Team",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " collaboration",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The facility cross trains their employees to ensure workers have knowledge of different ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "aspects",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " of the process. (see",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ")",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". This enhances employee flexibility and adaptability, enabling team members to perform various tasks and cover for each other during absences, which improves operational efficiency.",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Benefits of Cross Training",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "2",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Partial Implementation of Electric Forklifts",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "The LSU-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "ITAC",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " team observed that in some areas of the facility, electric forklifts had been deployed to replace traditional propane-powered units. ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "(See",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ")",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "This is one of the best practices, as electric forklifts consume less energy and have lower operating costs compared to fossil fuel alternatives. Also, electric forklifts produce zero direct emissions and generate less noise ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "during operation compared to conventional fuel-powered units. This will help improve both the facility's environmental impact and workplace conditions",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": ".",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "Figure ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "3",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "-",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "4",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": ". ",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "Benefits of Electrical Forklift",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "   ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "   ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "center",
-        "runs": [
-          {
-            "text": "   ",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "ASSESSMENT",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": " RECOMMENDATIONS (ARS)",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": [
-          {
-            "text": "This section provides detailed calculations and analys",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "e",
-            "bold": false,
-            "italic": false
-          },
-          {
-            "text": "s for the assessment recommendations (ARs).",
-            "bold": false,
-            "italic": false
-          }
-        ]
-      },
-      {
-        "type": "paragraph",
-        "alignment": "left",
-        "runs": []
-      }
-    ],
     [
       {
         "type": "paragraph",
