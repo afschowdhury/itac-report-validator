@@ -127,7 +127,13 @@ def get_recommended_summary_table_json(
                 continue
 
             # Parse the value
-            if field_name in ["ar_number", "category", "description"]:
+            if field_name == "ar_number":
+                # Convert AR number to integer
+                try:
+                    value = int(cell_text)
+                except (ValueError, TypeError):
+                    value = cell_text
+            elif field_name in ["category", "description"]:
                 # Keep as string for these fields
                 value = cell_text
             else:
@@ -174,7 +180,7 @@ def get_single_ar_summary_table(ar_html: str) -> Dict[str, Any]:
         text = p.get_text().strip()
         ar_match = re.match(r"^AR\s+No\.\s+(\d+)", text, re.IGNORECASE)
         if ar_match:
-            ar_number = ar_match.group(1)
+            ar_number = int(ar_match.group(1))
             break
     
     # Find the Savings Summary table
@@ -446,8 +452,43 @@ def validate_recommendation_totals(
     }
     
     
-def compare_ar_with_summary(ar_data, summary_rec):
-    """Compare data from individual AR with the corresponding row in summary table."""
+def compare_ar_with_summary(ar_data: Dict[str, Any], summary_recommendations: list) -> Dict[str, Any]:
+    """
+    Compare data from individual AR with the corresponding row in summary table.
+    
+    Args:
+        ar_data: Output from get_single_ar_summary_table function
+        summary_recommendations: List of recommendations from get_recommended_summary_table_json
+        
+    Returns:
+        Dictionary containing comparison results with matches and differences
+    """
+    ar_number = ar_data.get('ar_number')
+    
+    if ar_number is None:
+        return {
+            'error': 'No AR number found in ar_data',
+            'matches': [],
+            'differences': [],
+            'total_matches': 0,
+            'total_differences': 0
+        }
+    
+    # Find the matching recommendation in the summary by ar_number
+    summary_rec = next(
+        (rec for rec in summary_recommendations if rec.get('ar_number') == ar_number),
+        None
+    )
+    
+    if summary_rec is None:
+        return {
+            'error': f'No matching AR number {ar_number} found in summary recommendations',
+            'ar_number': ar_number,
+            'matches': [],
+            'differences': [],
+            'total_matches': 0,
+            'total_differences': 0
+        }
     
     differences = []
     matches = []
@@ -493,6 +534,7 @@ def compare_ar_with_summary(ar_data, summary_rec):
                 })
     
     return {
+        'ar_number': ar_number,
         'matches': matches,
         'differences': differences,
         'total_matches': len(matches),
