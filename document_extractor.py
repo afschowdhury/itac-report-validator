@@ -147,7 +147,6 @@ def find_section_index(
             return i
     return None
 
-
 def find_next_section_start(
     doc_blocks: List[Union[Paragraph, Table]], from_idx: int, stop_regex: str
 ) -> Optional[int]:
