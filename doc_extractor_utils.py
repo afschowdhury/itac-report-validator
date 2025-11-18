@@ -541,3 +541,59 @@ def compare_ar_with_summary(ar_data: Dict[str, Any], summary_recommendations: li
         'total_differences': len(differences)
     }
     
+    
+    
+def parse_ar_summaries(ar_summary_html):
+    """
+    Parse AR summary HTML and return a list of dictionaries with AR number and summary.
+    
+    Args:
+        ar_summary_html (str): HTML string containing AR summaries
+        
+    Returns:
+        List[Dict]: List of dictionaries with 'ar_no' (int) and 'ar_summary' (str) keys
+    """
+    import re
+    from bs4 import BeautifulSoup
+    
+    # Parse the HTML
+    soup = BeautifulSoup(ar_summary_html, 'html.parser')
+    
+    # Find all paragraphs
+    paragraphs = soup.find_all('p')
+    
+    ar_summaries = []
+    current_ar = None
+    current_summary_parts = []
+    
+    for p in paragraphs:
+        text = p.get_text()
+        
+        # Check if this paragraph starts with "AR No. X"
+        ar_match = re.match(r'AR No\.\s*(\d+)', text, re.IGNORECASE)
+        
+        if ar_match:
+            # If we have a previous AR, save it
+            if current_ar is not None and current_summary_parts:
+                ar_summaries.append({
+                    'ar_no': current_ar,
+                    'ar_summary': ' '.join(current_summary_parts).strip()
+                })
+            
+            # Start new AR
+            current_ar = int(ar_match.group(1))
+            current_summary_parts = [text]
+        else:
+            # This is a continuation of the current AR summary
+            if current_ar is not None:
+                current_summary_parts.append(text)
+    
+    # Don't forget the last AR
+    if current_ar is not None and current_summary_parts:
+        ar_summaries.append({
+            'ar_no': current_ar,
+            'ar_summary': ' '.join(current_summary_parts).strip()
+        })
+    
+    return ar_summaries
+    

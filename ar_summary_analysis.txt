@@ -1,0 +1,50 @@
+## AR Summary Validation Report
+
+This report analyzes the provided AR validation results, identifies data inconsistencies, discusses common patterns, assesses severity, and provides recommendations for corrections.
+
+**1. ARs with Data Inconsistencies:**
+
+*   **AR 1:** `demand_savings_kw_per_year` is present in Numerical Data Matches but is missing in Summary Text.
+*   **AR 2:** `electricity_savings_kwh_per_year` and `demand_savings_kw_per_year` are missing in Numerical Data Matches.
+*   **AR 5:** `total_cost_savings_per_year` and `co2_reduction_tons_per_year` are missing in Numerical Data Matches.
+*   **AR 8:** `electricity_savings_kwh_per_year` and `demand_savings_kw_per_year` are missing in Numerical Data Matches.
+*   **AR 4:** `energy_cost_savings_per_year` is present in Numerical Data Matches, it should be matched against `total_cost_savings_per_year`.
+*   **AR 6:** `energy_cost_savings_per_year` is present in Numerical Data Matches, it should be matched against `total_cost_savings_per_year`.
+*   **AR 7:** `energy_cost_savings_per_year` is present in Numerical Data Matches, it should be matched against `total_cost_savings_per_year`.
+
+**2. Common Patterns in Discrepancies:**
+
+*   **Missing Data in Numerical Matches:** The most common pattern is the absence of certain numerical data points (e.g., `electricity_savings_kwh_per_year`, `demand_savings_kw_per_year`, `total_cost_savings_per_year`, `co2_reduction_tons_per_year`) in the `Numerical Data Matches` section when they *should* be present based on the `Summary Text`. This suggests a systematic issue in the extraction or validation process.
+*   **Missing in Summary Text:** Numerical Data is present in the Numerical Data Matches but is missing in the Summary Text.
+*   **Duplication of Similar Data:** energy_cost_savings_per_year is present and is a duplicate of total_cost_savings_per_year.
+
+**3. Severity of Issues (Critical vs. Minor):**
+
+*   **Critical:**
+    *   Missing critical data points like `electricity_savings_kwh_per_year`, `total_cost_savings_per_year`, and `co2_reduction_tons_per_year` are considered **critical**. These figures are essential for evaluating the project's impact and ROI. Incorrect omissions could lead to flawed decision-making.
+    *   Large discrepancies between reported data and actual values would be critical, but we don't have the actual values to verify this.
+*   **Minor:**
+    *   Omitting `demand_savings_kw_per_year` or similar supplementary data is considered **minor**, as it provides additional context but isn't always essential for initial assessment.
+    *   Formatting inconsistencies or minor wording variations are also considered minor.
+    *   `energy_cost_savings_per_year` can be considered a duplicate of `total_cost_savings_per_year`, which is minor.
+
+**4. Recommendations for Corrections:**
+
+1.  **Review and Improve Extraction Logic:** The core issue appears to be inaccurate or incomplete data extraction from the `Summary Text`.  The logic used to identify and extract numerical data needs a thorough review. This includes:
+    *   **Comprehensive Keyword Coverage:** Ensure that the extraction algorithm covers all relevant keywords and phrases associated with each numerical data point (e.g., "annual energy savings," "total cost savings").
+    *   **Robust Regular Expressions (Regex):** Refine regular expressions to correctly identify and extract numerical values even with variations in formatting, units, and surrounding text.
+    *   **Handling of Different Units:**  Implement logic to handle different units for the same metric (e.g., MMBtu vs. kWh, dollars vs. thousands of dollars).
+2.  **Implement Data Validation Rules:** Enforce stricter validation rules *after* extraction to identify and flag inconsistencies. This includes:
+    *   **Completeness Checks:**  Verify that all required data points are present for each AR based on its type (e.g., energy efficiency, management improvement).
+    *   **Range Checks:**  Validate that extracted values fall within reasonable ranges (e.g., payback period is not negative).
+    *   **Consistency Checks:**  Ensure that related data points are internally consistent (e.g., total cost savings should be greater than or equal to individual cost savings components).
+3.  **Manual Review of Flagged ARs:**  Establish a process for manual review of ARs that are flagged by the validation rules. This involves:
+    *   **Human-in-the-Loop:** A human reviewer should compare the extracted data to the original `Summary Text` to identify the source of the error (extraction logic, data entry, etc.).
+    *   **Data Correction:**  Correct the extracted data or the source `Summary Text` as needed.
+4.  **Standardize Summary Text Templates (If Possible):**  If possible, work towards standardizing the format of the `Summary Text`. Consistent formatting will significantly improve the accuracy and reliability of automated data extraction.
+5.  **Clarify `energy_cost_savings_per_year` Field:**  Review the purpose and definition of the `energy_cost_savings_per_year` field.  If it is intended to be a component of `total_cost_savings_per_year`, the extraction and validation logic should reflect that. If it's redundant, consider removing it to avoid confusion.
+6.  **Add `demand_savings_kw_per_year` when relevant:** Make sure the `demand_savings_kw_per_year` field is present in the summary text if it is relevant to the project.
+
+**Conclusion:**
+
+The validation results indicate significant data inconsistencies in the AR summaries. Addressing these issues requires a multi-faceted approach involving improved extraction logic, stricter validation rules, manual review, and potentially standardization of the summary text format. Prioritizing the correction of critical data points (e.g., energy savings, cost savings, CO2 reduction) will have the greatest impact on the reliability and usefulness of the AR data.

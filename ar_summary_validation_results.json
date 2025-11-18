@@ -1,0 +1,388 @@
+[
+  {
+    "ar_number": 1,
+    "summary": "AR No. 1 \u2013\u00a0Utilize Higher Efficiency Lamps and/or Ballasts Utilizing higher-efficiency lamps and/or ballasts will enhance lighting system performance while reducing energy consumption. This energy efficiency measure will yield $771 in total cost savings and incur an implementation cost of $675. The project has a payback period of 0.88 years and will reduce CO\u2082 emissions by 3 tons annually, with annual energy savings of 6,806 kWh.",
+    "validation": {
+      "ar_number": 1,
+      "context": "\n    AR Number: 1\n    \n    Summary Text:\n    AR No. 1 \u2013\u00a0Utilize Higher Efficiency Lamps and/or Ballasts Utilizing higher-efficiency lamps and/or ballasts will enhance lighting system performance while reducing energy consumption. This energy efficiency measure will yield $771 in total cost savings and incur an implementation cost of $675. The project has a payback period of 0.88 years and will reduce CO\u2082 emissions by 3 tons annually, with annual energy savings of 6,806 kWh.\n    \n    Numerical Data Matches (5):\n    \n  - electricity_savings_kwh_per_year: 6806\n  - demand_savings_kw_per_year: 17\n  - total_cost_savings_per_year: 771\n  - implementation_cost: 675\n  - payback_period_years: 0.88",
+      "has_differences": false,
+      "total_matches": 5,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 1,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 6806,
+          "summary_value": 6806,
+          "match": true
+        },
+        {
+          "field": "demand_savings_kw_per_year",
+          "ar_value": 17,
+          "summary_value": 17,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 771,
+          "summary_value": 771,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 675,
+          "summary_value": 675,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.88,
+          "summary_value": 0.88,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 5,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 2,
+    "summary": "AR No. 2 \u2013\u00a0Install Sub-metering Equipment Installing sub-metering equipment will enable better monitoring and management of electrical energy consumption. This energy efficiency measure will yield $3,313 in total cost savings and incur an implementation cost of $3,000. The project has a payback period of 0.91 years and will reduce CO\u2082 emissions by 12 tons annually, with annual energy savings of 32,484 kWh.",
+    "validation": {
+      "ar_number": 2,
+      "context": "\n    AR Number: 2\n    \n    Summary Text:\n    AR No. 2 \u2013\u00a0Install Sub-metering Equipment Installing sub-metering equipment will enable better monitoring and management of electrical energy consumption. This energy efficiency measure will yield $3,313 in total cost savings and incur an implementation cost of $3,000. The project has a payback period of 0.91 years and will reduce CO\u2082 emissions by 12 tons annually, with annual energy savings of 32,484 kWh.\n    \n    Numerical Data Matches (4):\n    \n  - total_cost_savings_per_year: 3313\n  - co2_reduction_tons_per_year: 12\n  - implementation_cost: 3000\n  - payback_period_years: 0.91",
+      "has_differences": false,
+      "total_matches": 4,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 2,
+      "matches": [
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 3313,
+          "summary_value": 3313,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 12,
+          "summary_value": 12,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 3000,
+          "summary_value": 3000,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.91,
+          "summary_value": 0.91,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 4,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 3,
+    "summary": "AR No. 3 \u2013 Modify Inventory Control Modifying inventory control systems will streamline administrative processes and improve operational efficiency. This management improvement measure will yield $9,000 in total administrative cost savings and incur an implementation cost of $25,000. The project has a payback period of 2.78 years.",
+    "validation": {
+      "ar_number": 3,
+      "context": "\n    AR Number: 3\n    \n    Summary Text:\n    AR No. 3 \u2013 Modify Inventory Control Modifying inventory control systems will streamline administrative processes and improve operational efficiency. This management improvement measure will yield $9,000 in total administrative cost savings and incur an implementation cost of $25,000. The project has a payback period of 2.78 years.\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 0\n  - energy_cost_savings_per_year: 0\n  - total_cost_savings_per_year: 9000\n  - co2_reduction_tons_per_year: 0\n  - implementation_cost: 25000\n  - payback_period_years: 2.78",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 3,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 0,
+          "summary_value": 0,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 0,
+          "summary_value": 0,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 9000,
+          "summary_value": 9000,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 0,
+          "summary_value": 0,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 25000,
+          "summary_value": 25000,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 2.78,
+          "summary_value": 2.78,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 4,
+    "summary": "AR No. 4 \u2013 Replace Existing HVAC with Higher Efficiency Model Replacing the existing HVAC system with a higher efficiency model will optimize energy consumption and improve overall system performance. This energy efficiency measure will yield $1,488 in total cost savings and incur an implementation cost of $5,190. The project has a payback period of 3.49 years and will reduce CO\u2082 emissions by 6 tons annually, with annual energy savings of 14,586 kWh.",
+    "validation": {
+      "ar_number": 4,
+      "context": "\n    AR Number: 4\n    \n    Summary Text:\n    AR No. 4 \u2013 Replace Existing HVAC with Higher Efficiency Model Replacing the existing HVAC system with a higher efficiency model will optimize energy consumption and improve overall system performance. This energy efficiency measure will yield $1,488 in total cost savings and incur an implementation cost of $5,190. The project has a payback period of 3.49 years and will reduce CO\u2082 emissions by 6 tons annually, with annual energy savings of 14,586 kWh.\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 14586\n  - energy_cost_savings_per_year: 1488\n  - total_cost_savings_per_year: 1488\n  - co2_reduction_tons_per_year: 6\n  - implementation_cost: 5190\n  - payback_period_years: 3.49",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 4,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 14586,
+          "summary_value": 14586,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 1488,
+          "summary_value": 1488,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 1488,
+          "summary_value": 1488,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 6,
+          "summary_value": 6,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 5190,
+          "summary_value": 5190,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 3.49,
+          "summary_value": 3.49,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 5,
+    "summary": "AR No. 5 \u2013 Use Solar Heat to Generate Electricity Installing a solar heat system for electricity generation will significantly reduce grid electricity consumption through renewable energy adoption. This renewable energy measure will yield $39,572 in total cost savings and incur an implementation cost of $160,992. The project has a payback period of 4.07 years and will reduce CO\u2082 emissions by 148 tons annually while achieving substantial annual energy savings of 387,960 kWh.",
+    "validation": {
+      "ar_number": 5,
+      "context": "\n    AR Number: 5\n    \n    Summary Text:\n    AR No. 5 \u2013 Use Solar Heat to Generate Electricity Installing a solar heat system for electricity generation will significantly reduce grid electricity consumption through renewable energy adoption. This renewable energy measure will yield $39,572 in total cost savings and incur an implementation cost of $160,992. The project has a payback period of 4.07 years and will reduce CO\u2082 emissions by 148 tons annually while achieving substantial annual energy savings of 387,960 kWh.\n    \n    Numerical Data Matches (2):\n    \n  - electricity_savings_kwh_per_year: 387960\n  - payback_period_years: 4.07",
+      "has_differences": false,
+      "total_matches": 2,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 5,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 387960,
+          "summary_value": 387960,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 4.07,
+          "summary_value": 4.07,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 2,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 6,
+    "summary": "AR No. 6 \u2013 Consider Replacement of Old Motors with Energy-Efficient Ones Replacing old motors with energy-efficient alternatives will optimize energy consumption and improve operational performance. This energy efficiency measure will yield $2,510 in total cost savings and incur an implementation cost of $10,600. The project has a payback period of 4.22 years and will reduce CO\u2082 emissions by 9 tons annually, with annual energy savings of 24,612 kWh.",
+    "validation": {
+      "ar_number": 6,
+      "context": "\n    AR Number: 6\n    \n    Summary Text:\n    AR No. 6 \u2013 Consider Replacement of Old Motors with Energy-Efficient Ones Replacing old motors with energy-efficient alternatives will optimize energy consumption and improve operational performance. This energy efficiency measure will yield $2,510 in total cost savings and incur an implementation cost of $10,600. The project has a payback period of 4.22 years and will reduce CO\u2082 emissions by 9 tons annually, with annual energy savings of 24,612 kWh.\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 24612\n  - energy_cost_savings_per_year: 2510\n  - total_cost_savings_per_year: 2510\n  - co2_reduction_tons_per_year: 9\n  - implementation_cost: 10600\n  - payback_period_years: 4.22",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 6,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 24612,
+          "summary_value": 24612,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 2510,
+          "summary_value": 2510,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 2510,
+          "summary_value": 2510,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 9,
+          "summary_value": 9,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 10600,
+          "summary_value": 10600,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 4.22,
+          "summary_value": 4.22,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 7,
+    "summary": "AR No.7  \u2013 Purchase Optimum Sized Air Compressor with More Suitable Substitutes Purchasing an optimally sized air compressor with more suitable substitutes will enhance energy efficiency in compressed air systems. This equipment upgrade will yield $3,709 in total cost savings and incur an implementation cost of $16,949. The project has a payback period of 4.57 years and will reduce CO\u2082 emissions by 14 tons annually, with annual energy savings of 36,365 kWh.",
+    "validation": {
+      "ar_number": 7,
+      "context": "\n    AR Number: 7\n    \n    Summary Text:\n    AR No.7  \u2013 Purchase Optimum Sized Air Compressor with More Suitable Substitutes Purchasing an optimally sized air compressor with more suitable substitutes will enhance energy efficiency in compressed air systems. This equipment upgrade will yield $3,709 in total cost savings and incur an implementation cost of $16,949. The project has a payback period of 4.57 years and will reduce CO\u2082 emissions by 14 tons annually, with annual energy savings of 36,365 kWh.\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 36365\n  - energy_cost_savings_per_year: 3709\n  - total_cost_savings_per_year: 3709\n  - co2_reduction_tons_per_year: 14\n  - implementation_cost: 16949\n  - payback_period_years: 4.57",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 7,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 36365,
+          "summary_value": 36365,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 3709,
+          "summary_value": 3709,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 3709,
+          "summary_value": 3709,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 14,
+          "summary_value": 14,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 16949,
+          "summary_value": 16949,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 4.57,
+          "summary_value": 4.57,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 8,
+    "summary": "AR No. 8 \u2013 Replace Fossil Fuel Equipment with Electrical Equipment Replacing fossil fuel equipment with electrical alternatives will modernize operations while transitioning from propane to electrical energy sources. This equipment upgrade will yield $8,663 in total cost savings and incur an implementation cost of $48,183. The project has a payback period of 5.56 years and will reduce CO\u2082 emissions by 1 ton annually, with an electrical energy consumption increase of 3,744 kWh/yr offset by propane savings of 38 MMBtu/yr.",
+    "validation": {
+      "ar_number": 8,
+      "context": "\n    AR Number: 8\n    \n    Summary Text:\n    AR No. 8 \u2013 Replace Fossil Fuel Equipment with Electrical Equipment Replacing fossil fuel equipment with electrical alternatives will modernize operations while transitioning from propane to electrical energy sources. This equipment upgrade will yield $8,663 in total cost savings and incur an implementation cost of $48,183. The project has a payback period of 5.56 years and will reduce CO\u2082 emissions by 1 ton annually, with an electrical energy consumption increase of 3,744 kWh/yr offset by propane savings of 38 MMBtu/yr.\n    \n    Numerical Data Matches (4):\n    \n  - total_cost_savings_per_year: 8663\n  - co2_reduction_tons_per_year: 1\n  - implementation_cost: 48183\n  - payback_period_years: 5.56",
+      "has_differences": false,
+      "total_matches": 4,
+      "total_differences": 0
+    },
+    "comparison": {
+      "ar_number": 8,
+      "matches": [
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 8663,
+          "summary_value": 8663,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 1,
+          "summary_value": 1,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 48183,
+          "summary_value": 48183,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 5.56,
+          "summary_value": 5.56,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 4,
+      "total_differences": 0
+    }
+  }
+]

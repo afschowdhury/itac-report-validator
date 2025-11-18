@@ -24,6 +24,11 @@ ic.configureOutput(includeContext=True, prefix='DEBUG: ')
 # Import our existing extractors
 from document_extractor import extract_itac_report, extract_general_info_fields, extract_energy_usage
 from excel_keyinfo_extractor import extract_all_structured_info
+from doc_extractor_utils import (
+    get_single_ar_summary_table,
+    get_recommended_summary_table_json,
+    compare_ar_with_summary
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -274,6 +279,106 @@ def compare_energy_data(doc_energy: Dict[str, Any], excel_energy: Dict[str, Any]
     
     return comparison
 
+def compare_ar_sanity_check(assessment_recommendations: List[str], recommendation_summary_table: str) -> Dict[str, Any]:
+    """
+    Compare individual AR summary tables against the overall recommendation summary table.
+    
+    Args:
+        assessment_recommendations: List of HTML strings, each containing one AR
+        recommendation_summary_table: HTML string containing the summary table
+        
+    Returns:
+        Dictionary containing comparison results with summary stats and detailed comparisons
+    """
+    result = {
+        'summary': {
+            'total_ars': 0,
+            'matched_ars': 0,
+            'mismatched_ars': 0,
+            'total_field_matches': 0,
+            'total_field_differences': 0,
+            'has_data': False
+        },
+        'ar_comparisons': [],
+        'error': None
+    }
+    
+    # Handle edge cases
+    if not assessment_recommendations:
+        result['error'] = 'No assessment recommendations found in document'
+        return result
+    
+    if not recommendation_summary_table or not recommendation_summary_table.strip():
+        result['error'] = 'No recommendation summary table found in document'
+        return result
+    
+    try:
+        # Extract the recommendation summary table
+        rec_summary = get_recommended_summary_table_json(recommendation_summary_table)
+        
+        if not rec_summary.get('recommendations'):
+            result['error'] = 'Could not extract recommendations from summary table'
+            return result
+        
+        result['summary']['has_data'] = True
+        result['summary']['total_ars'] = len(assessment_recommendations)
+        
+        # Process each AR
+        for i, ar_html in enumerate(assessment_recommendations):
+            try:
+                # Extract AR data
+                ar_data = get_single_ar_summary_table(ar_html)
+                
+                if not ar_data.get('ar_number'):
+                    # Skip ARs without numbers
+                    continue
+                
+                # Compare AR with summary
+                comparison = compare_ar_with_summary(ar_data, rec_summary['recommendations'])
+                
+                # Track summary statistics
+                if comparison.get('error'):
+                    # AR not found in summary or other error
+                    result['ar_comparisons'].append({
+                        'ar_number': ar_data.get('ar_number'),
+                        'status': 'error',
+                        'error': comparison['error'],
+                        'matches': [],
+                        'differences': [],
+                        'total_matches': 0,
+                        'total_differences': 0
+                    })
+                else:
+                    # Successfully compared
+                    result['summary']['total_field_matches'] += comparison['total_matches']
+                    result['summary']['total_field_differences'] += comparison['total_differences']
+                    
+                    if comparison['total_differences'] == 0:
+                        result['summary']['matched_ars'] += 1
+                        status = 'match'
+                    else:
+                        result['summary']['mismatched_ars'] += 1
+                        status = 'mismatch'
+                    
+                    result['ar_comparisons'].append({
+                        'ar_number': comparison['ar_number'],
+                        'status': status,
+                        'matches': comparison['matches'],
+                        'differences': comparison['differences'],
+                        'total_matches': comparison['total_matches'],
+                        'total_differences': comparison['total_differences']
+                    })
+                    
+            except Exception as e:
+                logging.error(f"Error processing AR {i+1}: {e}")
+                continue
+        
+    except Exception as e:
+        logging.error(f"Error in AR sanity check: {e}")
+        result['error'] = f'Error performing AR sanity check: {str(e)}'
+    
+    return result
+
 @app.route('/')
 def index():
     """Main upload page."""
@@ -335,6 +440,12 @@ def upload_files():
         general_comparison = compare_general_info(doc_general_info, excel_general_info, excel_energy_data)
         energy_comparison = compare_energy_data(doc_energy_data, excel_energy_data)
         
+        # Perform AR sanity check
+        ar_sanity_check = compare_ar_sanity_check(
+            doc_data.get('assessment_recommendations', []),
+            doc_data.get('recommendation_summary_table', '')
+        )
+        
         # Prepare data for template
         template_data = {
             'docx_filename': docx_filename,
@@ -343,6 +454,7 @@ def upload_files():
             'excel_data': excel_data,
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
+            'ar_sanity_check': ar_sanity_check,
             'doc_general_info': doc_general_info,
             'excel_general_info': excel_general_info,
             'doc_energy_data': doc_energy_data,
@@ -388,9 +500,16 @@ def api_compare():
         general_comparison = compare_general_info(doc_general_info, excel_data.get("general_info", {}), excel_data.get("energy_waste_info", {}))
         energy_comparison = compare_energy_data(doc_energy_data, excel_data.get("energy_waste_info", {}))
         
+        # Perform AR sanity check
+        ar_sanity_check = compare_ar_sanity_check(
+            doc_data.get('assessment_recommendations', []),
+            doc_data.get('recommendation_summary_table', '')
+        )
+        
         return jsonify({
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
+            'ar_sanity_check': ar_sanity_check,
             'success': True
         })
         

@@ -345,6 +345,220 @@
         </div>
     </div>
 
+    <!-- AR Sanity Check -->
+    {% if ar_sanity_check %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#arSanityCheckSection">
+            <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-check-double text-primary me-2"></i>
+                    AR Sanity Check (Individual vs Summary Table)
+                </span>
+                <div class="d-flex align-items-center">
+                    {% if ar_sanity_check.error %}
+                        <span class="badge bg-warning me-2"><i class="fas fa-exclamation-triangle"></i> Check Unavailable</span>
+                    {% elif ar_sanity_check.summary.has_data %}
+                        <span class="badge bg-info me-2">{{ ar_sanity_check.summary.total_ars }} ARs</span>
+                        <span class="badge bg-success me-2">{{ ar_sanity_check.summary.matched_ars }} matched</span>
+                        {% if ar_sanity_check.summary.mismatched_ars > 0 %}
+                        <span class="badge bg-danger me-2">{{ ar_sanity_check.summary.mismatched_ars }} mismatched</span>
+                        {% endif %}
+                    {% endif %}
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+            </h5>
+        </div>
+        <div class="collapse" id="arSanityCheckSection">
+            <div class="card-body">
+                {% if ar_sanity_check.error %}
+                    <div class="alert alert-warning mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>AR Sanity Check Not Available:</strong> {{ ar_sanity_check.error }}
+                    </div>
+                {% elif ar_sanity_check.summary.has_data %}
+                    <!-- Summary Statistics -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Total ARs</h6>
+                                    <h3 class="text-info mb-0">{{ ar_sanity_check.summary.total_ars }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Perfect Matches</h6>
+                                    <h3 class="text-success mb-0">{{ ar_sanity_check.summary.matched_ars }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">With Differences</h6>
+                                    <h3 class="text-danger mb-0">{{ ar_sanity_check.summary.mismatched_ars }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Field Differences</h6>
+                                    <h3 class="text-warning mb-0">{{ ar_sanity_check.summary.total_field_differences }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed AR Comparisons -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th style="width: 10%">AR No.</th>
+                                    <th style="width: 15%">Status</th>
+                                    <th style="width: 25%">Matches</th>
+                                    <th style="width: 25%">Differences</th>
+                                    <th style="width: 25%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ar in ar_sanity_check.ar_comparisons %}
+                                <tr class="{% if ar.status == 'match' %}match-highlight{% elif ar.status == 'mismatch' %}mismatch-highlight{% else %}missing-highlight{% endif %}">
+                                    <td class="fw-bold text-center">
+                                        <span class="badge bg-primary">AR {{ ar.ar_number }}</span>
+                                    </td>
+                                    <td>
+                                        {% if ar.status == 'match' %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check-circle me-1"></i>Perfect Match
+                                            </span>
+                                        {% elif ar.status == 'mismatch' %}
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-exclamation-circle me-1"></i>Has Differences
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-question-circle me-1"></i>Error
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success" style="font-size: 0.9em;">
+                                            {{ ar.total_matches }} fields
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        {% if ar.total_differences > 0 %}
+                                            <span class="badge bg-danger" style="font-size: 0.9em;">
+                                                {{ ar.total_differences }} fields
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted">—</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if ar.status == 'error' %}
+                                            <small class="text-warning">{{ ar.error }}</small>
+                                        {% elif ar.total_differences > 0 or ar.total_matches > 0 %}
+                                            <button class="btn btn-sm btn-outline-primary" type="button" 
+                                                    data-bs-toggle="collapse" 
+                                                    data-bs-target="#arDetail{{ ar.ar_number }}" 
+                                                    aria-expanded="false">
+                                                <i class="fas fa-eye me-1"></i>View Details
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% if ar.status != 'error' and (ar.total_differences > 0 or ar.total_matches > 0) %}
+                                <tr>
+                                    <td colspan="5" class="p-0">
+                                        <div class="collapse" id="arDetail{{ ar.ar_number }}">
+                                            <div class="card card-body bg-light m-2">
+                                                <h6 class="mb-3">
+                                                    <i class="fas fa-info-circle text-primary me-2"></i>
+                                                    Detailed Comparison for AR {{ ar.ar_number }}
+                                                </h6>
+                                                
+                                                {% if ar.differences %}
+                                                <div class="mb-3">
+                                                    <h6 class="text-danger">
+                                                        <i class="fas fa-times-circle me-1"></i>
+                                                        Differences ({{ ar.total_differences }})
+                                                    </h6>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-sm table-bordered">
+                                                            <thead class="table-light">
+                                                                <tr>
+                                                                    <th>Field</th>
+                                                                    <th>AR Value</th>
+                                                                    <th>Summary Value</th>
+                                                                    <th>Difference</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for diff in ar.differences %}
+                                                                <tr class="mismatch-highlight">
+                                                                    <td class="fw-bold">{{ diff.field.replace('_', ' ').title() }}</td>
+                                                                    <td>
+                                                                        <span class="value-pill">
+                                                                            <span class="chip chip-doc">AR</span>
+                                                                            <span class="text-danger">{{ diff.ar_value }}</span>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="value-pill">
+                                                                            <span class="chip chip-excel">Summary</span>
+                                                                            <span class="text-danger">{{ diff.summary_value }}</span>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        {% if diff.difference is number %}
+                                                                            <span class="chip diff-chip">± {{ "%.2f"|format(diff.difference) }}</span>
+                                                                        {% else %}
+                                                                            <span class="text-muted">{{ diff.difference }}</span>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                
+                                                {% if ar.matches %}
+                                                <div>
+                                                    <h6 class="text-success">
+                                                        <i class="fas fa-check-circle me-1"></i>
+                                                        Matching Fields ({{ ar.total_matches }})
+                                                    </h6>
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        {% for match in ar.matches %}
+                                                        <span class="badge bg-success-subtle text-success border border-success" style="font-size: 0.85em;">
+                                                            {{ match.field.replace('_', ' ').title() }}: {{ match.ar_value }}
+                                                        </span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Document Sections (Optional Viewing) -->
     <div class="card shadow-sm">
         <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#documentSections">
