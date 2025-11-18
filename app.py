@@ -27,7 +27,8 @@ from excel_keyinfo_extractor import extract_all_structured_info
 from doc_extractor_utils import (
     get_single_ar_summary_table,
     get_recommended_summary_table_json,
-    compare_ar_with_summary
+    compare_ar_with_summary,
+    validate_recommendation_totals
 )
 
 # Configure logging
@@ -446,6 +447,13 @@ def upload_files():
             doc_data.get('recommendation_summary_table', '')
         )
         
+        # Perform totals validation
+        totals_validation = None
+        if doc_data.get('recommendation_summary_table'):
+            rec_summary = get_recommended_summary_table_json(doc_data['recommendation_summary_table'])
+            if rec_summary.get('recommendations'):
+                totals_validation = validate_recommendation_totals(rec_summary)
+        
         # Prepare data for template
         template_data = {
             'docx_filename': docx_filename,
@@ -455,6 +463,7 @@ def upload_files():
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
             'ar_sanity_check': ar_sanity_check,
+            'totals_validation': totals_validation,
             'doc_general_info': doc_general_info,
             'excel_general_info': excel_general_info,
             'doc_energy_data': doc_energy_data,
@@ -506,10 +515,18 @@ def api_compare():
             doc_data.get('recommendation_summary_table', '')
         )
         
+        # Perform totals validation
+        totals_validation = None
+        if doc_data.get('recommendation_summary_table'):
+            rec_summary = get_recommended_summary_table_json(doc_data['recommendation_summary_table'])
+            if rec_summary.get('recommendations'):
+                totals_validation = validate_recommendation_totals(rec_summary)
+        
         return jsonify({
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
             'ar_sanity_check': ar_sanity_check,
+            'totals_validation': totals_validation,
             'success': True
         })
         
