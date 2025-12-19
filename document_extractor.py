@@ -178,18 +178,103 @@ def extract_section_by_title(
 def find_table_by_caption(
     doc_blocks: List[Union[Paragraph, Table]], caption_patterns: List[str]
 ) -> Optional[Table]:
+    """
+    Find a table by searching for a caption paragraph followed by a table.
+    More flexible pattern matching with broader search context.
+    """
     pats = [re.compile(p, flags=re.IGNORECASE) for p in caption_patterns]
     matches = []
     for i, b in enumerate(doc_blocks):
         if isinstance(b, Paragraph):
             text = normalize(b.text)
-            if any(pat.match(text) for pat in pats):
-                for j in range(i + 1, len(doc_blocks)):
+            # Check if any pattern matches (using search for flexibility)
+            if any(pat.search(text) for pat in pats):
+                # Look for table within next 5 blocks (handles spacing/page breaks)
+                for j in range(i + 1, min(i + 6, len(doc_blocks))):
                     if isinstance(doc_blocks[j], Table):
                         matches.append(doc_blocks[j])
                         break
     # Return the last match (likely the actual table, not from table of contents)
     return matches[-1] if matches else None
+
+
+def find_recommendation_summary_table_by_structure(
+    doc_blocks: List[Union[Paragraph, Table]]
+) -> Optional[Table]:
+    """
+    Fallback method: Find recommendation summary table by analyzing table structure.
+    Looks for a table with:
+    - First column containing AR numbers (1, 2, 3...)
+    - Headers with keywords like "Savings", "Cost", "Payback"
+    - Multiple data rows
+    - Located preferably in Chapter 1 section
+    """
+    # First, try to find Chapter 1 section to narrow search
+    chapter1_start = find_section_index(doc_blocks, r"^\s*1(\.|$|\s)|^\s*EXECUTIVE\s+SUMMARY")
+    chapter2_start = find_section_index(doc_blocks, r"^\s*2(\.|$|\s)|^\s*COMPANY\s+BACKGROUND")
+    
+    # Search within Chapter 1 if found, otherwise search entire document
+    if chapter1_start is not None and chapter2_start is not None:
+        search_blocks = doc_blocks[chapter1_start:chapter2_start]
+    elif chapter1_start is not None:
+        search_blocks = doc_blocks[chapter1_start:]
+    else:
+        search_blocks = doc_blocks
+    
+    candidate_tables = []
+    
+    for block in search_blocks:
+        if isinstance(block, Table):
+            # Check if this table looks like a recommendation summary table
+            try:
+                rows = block.rows
+                if len(rows) < 3:  # Need header + at least 2 data rows
+                    continue
+                
+                # Get header row text
+                header_row = rows[0]
+                header_text = " ".join(cell.text.lower() for cell in header_row.cells)
+                
+                # Check for key header terms
+                has_ar_column = "ar" in header_text or "no." in header_text
+                has_savings = "savings" in header_text
+                has_cost = "cost" in header_text
+                has_payback = "payback" in header_text
+                
+                if not (has_ar_column and (has_savings or has_cost)):
+                    continue
+                
+                # Check first column for AR numbers
+                ar_numbers_found = 0
+                for i, row in enumerate(rows[1:], start=1):  # Skip header
+                    if i > 10:  # Don't check too many rows
+                        break
+                    first_cell_text = row.cells[0].text.strip()
+                    # Look for numeric AR numbers (1, 2, 3, etc.)
+                    if first_cell_text.isdigit() or re.match(r'^\d+$', first_cell_text):
+                        ar_numbers_found += 1
+                
+                # If we found sequential AR numbers, this is likely the summary table
+                if ar_numbers_found >= 2:
+                    score = ar_numbers_found
+                    # Boost score if more keywords present
+                    if has_payback:
+                        score += 2
+                    if "implementation" in header_text or "impl" in header_text:
+                        score += 1
+                    if "co2" in header_text or "carbon" in header_text:
+                        score += 1
+                    
+                    candidate_tables.append((score, block))
+            except Exception:
+                continue
+    
+    # Return table with highest score
+    if candidate_tables:
+        candidate_tables.sort(key=lambda x: x[0], reverse=True)
+        return candidate_tables[0][1]
+    
+    return None
 
 
 def extract_ars(
@@ -420,14 +505,23 @@ def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[st
         [r"^\s*Summary\s+of\s+Best\s+Practices", r"^\s*COMPANY\s+BACKGROUND"],
     )
 
-    # Table 1.3/1-3 caption (allow minor caption text variation)
+    # Table 1.3/1-3 caption (with flexible patterns and structural fallback)
+    # Try caption-based search first with more flexible patterns
+    # Patterns ordered from most specific to most general
     rec_tbl = find_table_by_caption(
         blocks,
         [
-            r"^\s*Table\s*1[.-]3\b.*Recommendation Summary Table",
-            r"^\s*Table\s*1[.-]3\b.*Assessment Recommendation Summary Table",
+            r"Table\s*1[.-]3.*Assessment.*Recommendation.*Summary",  # Most specific
+            r"Table\s*1[.-]3.*Recommendation.*Summary",  # Table 1.3 Recommendation Summary
+            r"Table\s*1[.-]3.*Summary\s+Table",  # Table 1.3 Summary Table
+            r"^Assessment\s+Recommendation\s+Summary\s+Table",  # Without table number
+            r"^Recommendation\s+Summary\s+Table",  # Standalone recommendation summary
         ],
     )
+    
+    # If caption-based search failed, try structural identification
+    if rec_tbl is None:
+        rec_tbl = find_recommendation_summary_table_by_structure(blocks)
 
     # ARs
     ar_blocks_list = extract_ars(blocks)

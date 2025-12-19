@@ -310,7 +310,17 @@ def compare_ar_sanity_check(assessment_recommendations: List[str], recommendatio
         return result
     
     if not recommendation_summary_table or not recommendation_summary_table.strip():
-        result['error'] = 'No recommendation summary table found in document'
+        result['error'] = (
+            'No recommendation summary table found in document. '
+            'The table detection looks for captions like "Table 1.3 Summary Table" or "Recommendation Summary Table". '
+            'If your document uses different wording, the table may not be detected. '
+            'Please verify that your document contains a recommendation summary table in Chapter 1.'
+        )
+        result['debug_info'] = {
+            'total_ars_found': len(assessment_recommendations),
+            'table_found': False,
+            'suggestion': 'Check if the table caption matches patterns like "Summary Table" or is located in Chapter 1'
+        }
         return result
     
     try:
