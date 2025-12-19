@@ -634,13 +634,12 @@ def extract_general_info_fields(general_info_html: str) -> Dict[str, Union[str, 
         base_number = float(numbers[0])
 
         # Check for scale multipliers
-        if "billion" in value_lower or ("b" in value_lower and not "mb" in value_lower):
+        # Use more specific patterns to avoid false matches (e.g., 'k' in 'tanks', 'm' in 'employees')
+        if "billion" in value_lower or re.search(r'\d+\.?\d*\s*b\b', value_lower):
             return base_number * 1_000_000_000
-        elif "million" in value_lower or (
-            "m" in value_lower and not "mb" in value_lower
-        ):
+        elif "million" in value_lower or re.search(r'\d+\.?\d*\s*m\b', value_lower):
             return base_number * 1_000_000
-        elif "thousand" in value_lower or "k" in value_lower:
+        elif "thousand" in value_lower or re.search(r'\d+\.?\d*\s*k\b', value_lower):
             return base_number * 1_000
         else:
             return base_number
