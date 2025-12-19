@@ -57,7 +57,18 @@ def categorize_link_status(validation_result: Dict[str, Any]) -> str:
     if 300 <= http_code < 400:
         return 'warning'
     
-    # Broken: 4xx, 5xx, or any other code
+    # Warning: Authentication/permission issues (likely accessible to real users)
+    # 401 Unauthorized - requires authentication
+    # 403 Forbidden - often bot detection, CAPTCHA, or cookie requirements
+    # Other 4xx except 404 - client-side issues but resource may exist
+    if 400 <= http_code < 500 and http_code != 404:
+        return 'warning'
+    
+    # Broken: 404 Not Found and 5xx server errors
+    if http_code == 404 or http_code >= 500:
+        return 'broken'
+    
+    # Default: treat unknown codes as broken
     return 'broken'
 
 
@@ -84,13 +95,21 @@ def get_error_suggestion(error_type: str, http_code: Optional[int] = None) -> st
     # HTTP status code specific suggestions
     if http_code:
         if http_code == 404:
-            return 'Page not found (404). The URL may be broken or the page has been moved.'
+            return 'Page not found (404). The URL is broken or the page has been moved/deleted.'
         elif http_code == 403:
-            return 'Access forbidden (403). You may not have permission to access this resource.'
+            return 'Access forbidden (403). This is often due to bot detection or cookie requirements. The page may be accessible in a regular web browser with popups/CAPTCHA enabled.'
         elif http_code == 401:
-            return 'Authentication required (401). This page requires login credentials.'
+            return 'Authentication required (401). This page requires login credentials, but the resource exists.'
+        elif http_code == 400:
+            return 'Bad request (400). The URL syntax may be malformed or missing required parameters.'
+        elif http_code == 405:
+            return 'Method not allowed (405). The page exists but doesn\'t accept GET requests.'
+        elif http_code == 429:
+            return 'Too many requests (429). Rate limiting in effect. Try again later.'
+        elif 400 <= http_code < 500:
+            return f'Client error ({http_code}). There may be an issue with how the request is formatted, but the resource likely exists.'
         elif 500 <= http_code < 600:
-            return f'Server error ({http_code}). The website is experiencing technical issues.'
+            return f'Server error ({http_code}). The website server is down or experiencing technical issues.'
     
     return suggestions.get(error_type, 'An unknown error occurred. Please verify the URL.')
 
