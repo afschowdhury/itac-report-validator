@@ -14,6 +14,9 @@ DOCX_PATH = "/Users/afschowdhury/Code Local/itac-report-validator/docs/report1/L
 from icecream import ic
 ic.configureOutput(includeContext=True, prefix='DEBUG: ')
 
+# Import link extractor
+from link_extractor import extract_links_from_all_ars, get_link_statistics
+
 def iter_block_items(doc: Document) -> Iterable[Union[Paragraph, Table]]:
     for child in doc.element.body.iterchildren():
         if isinstance(child, CT_P):
@@ -531,6 +534,23 @@ def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[st
     # AR Summaries from Chapter 1.4
     ar_summary_blocks = extract_ar_summaries(blocks)
 
+    # Extract links from ARs
+    ar_links = {}
+    try:
+        import logging
+        logging.info(f"Attempting to extract links from {len(ar_blocks_list)} AR(s)")
+        ar_links = extract_links_from_all_ars("", ar_blocks_list)  # docx_path not needed as we pass blocks directly
+        link_stats = get_link_statistics(ar_links)
+        logging.info(f"Link extraction complete: {link_stats}")
+        ic(f"Extracted links from ARs: {link_stats}")
+    except Exception as e:
+        import logging
+        import traceback
+        logging.error(f"Error extracting links from ARs: {e}")
+        logging.error(traceback.format_exc())
+        ic(f"Error extracting links from ARs: {e}")
+        ar_links = {}
+
     if output == "json":
         return {
             "general_information": blocks_to_json(sec_11),
@@ -541,6 +561,7 @@ def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[st
             ),
             "ar_summary": blocks_to_json(ar_summary_blocks),
             "assessment_recommendations": [blocks_to_json(b) for b in ar_blocks_list],
+            "ar_links": ar_links,
         }
     # default: HTML
     return {
@@ -550,6 +571,7 @@ def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[st
         "recommendation_summary_table": (table_to_html(rec_tbl) if rec_tbl else ""),
         "ar_summary": blocks_to_html(ar_summary_blocks),
         "assessment_recommendations": [blocks_to_html(b) for b in ar_blocks_list],
+        "ar_links": ar_links,
     }
 
 

@@ -269,6 +269,160 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Link Validation Styles */
+.link-url-container {
+    line-height: 1.4;
+}
+
+.link-url {
+    color: var(--primary-color);
+    text-decoration: none;
+    word-break: break-word;
+    transition: color 0.2s ease;
+}
+
+.link-url:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+.link-row {
+    transition: background-color 0.2s ease;
+}
+
+.link-row:hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+.link-ar-card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    transition: all 0.3s ease;
+}
+
+.link-ar-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.copy-link-btn {
+    transition: all 0.2s ease;
+}
+
+.copy-link-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.copy-link-btn:active {
+    transform: scale(0.95);
+}
+
+.copy-link-btn.copied {
+    background-color: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
+}
+
+/* Link status badges */
+.badge.bg-success-subtle {
+    background-color: rgba(25, 135, 84, 0.1);
+    border: 1px solid rgba(25, 135, 84, 0.3);
+}
+
+.badge.bg-warning-subtle {
+    background-color: rgba(253, 126, 20, 0.1);
+    border: 1px solid rgba(253, 126, 20, 0.3);
+}
+
+.badge.bg-danger-subtle {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.badge.bg-info {
+    background-color: var(--info-color);
+    color: #000;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Filter controls */
+.btn-check:checked + .btn-outline-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-check:checked + .btn-outline-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-check:checked + .btn-outline-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-check:checked + .btn-outline-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Link detail tables */
+.link-detail-table th {
+    font-weight: 600;
+    color: #495057;
+    width: 30%;
+}
+
+/* Redirect chain visualization */
+.redirect-chain {
+    padding-left: 1.5rem;
+}
+
+.redirect-chain li {
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+}
+
+/* Responsive adjustments for link validation */
+@media (max-width: 768px) {
+    .link-url-container {
+        font-size: 0.85rem;
+    }
+    
+    .copy-link-btn,
+    .btn-sm {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.3em 0.5em;
+    }
+    
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+}
+
+/* Animation for broken links */
+@keyframes broken-link-pulse {
+    0%, 100% {
+        border-left-color: var(--danger-color);
+    }
+    50% {
+        border-left-color: #b02a37;
+    }
+}
+
+.link-row.mismatch-highlight {
+    animation: broken-link-pulse 2s ease-in-out infinite;
+}
+
 /* Print Styles */
 @media print {
     .navbar,
@@ -287,5 +441,13 @@ html {
     .missing-highlight {
         background: none !important;
         border-left: 2px solid #000 !important;
+    }
+    
+    .link-url {
+        color: #000 !important;
+    }
+    
+    .copy-link-btn {
+        display: none !important;
     }
 }

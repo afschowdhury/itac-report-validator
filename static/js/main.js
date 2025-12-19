@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFileUpload();
     initializeTooltips();
     initializeAnimations();
+    initializeLinkValidation();
 });
 
 /**
@@ -328,7 +329,207 @@ function printResults() {
     window.print();
 }
 
+/**
+ * Initialize link validation functionality
+ */
+function initializeLinkValidation() {
+    // Initialize copy link buttons
+    const copyButtons = document.querySelectorAll('.copy-link-btn');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const url = this.getAttribute('data-url');
+            copyLinkToClipboard(url, this);
+        });
+    });
+    
+    // Initialize link filter functionality
+    const filterButtons = document.querySelectorAll('input[name="linkFilter"]');
+    filterButtons.forEach(button => {
+        button.addEventListener('change', function() {
+            filterLinks(this.value);
+        });
+    });
+    
+    // Add click handlers for expandable link details
+    const linkDetailButtons = document.querySelectorAll('[data-bs-toggle="collapse"]');
+    linkDetailButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+}
+
+/**
+ * Copy link URL to clipboard with visual feedback
+ */
+function copyLinkToClipboard(url, button) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+            showCopySuccess(button);
+        }).catch(() => {
+            fallbackCopyToClipboard(url);
+            showCopySuccess(button);
+        });
+    } else {
+        fallbackCopyToClipboard(url);
+        showCopySuccess(button);
+    }
+}
+
+/**
+ * Show visual feedback for successful copy
+ */
+function showCopySuccess(button) {
+    const originalHTML = button.innerHTML;
+    const originalTitle = button.getAttribute('title');
+    
+    // Update button appearance
+    button.classList.add('copied');
+    button.innerHTML = '<i class="fas fa-check"></i>';
+    button.setAttribute('title', 'Copied!');
+    
+    // Show success message
+    showAlert('URL copied to clipboard!', 'success');
+    
+    // Reset button after 2 seconds
+    setTimeout(() => {
+        button.classList.remove('copied');
+        button.innerHTML = originalHTML;
+        button.setAttribute('title', originalTitle);
+    }, 2000);
+}
+
+/**
+ * Filter links by status
+ */
+function filterLinks(status) {
+    const linkRows = document.querySelectorAll('.link-row');
+    const arCards = document.querySelectorAll('.link-ar-card');
+    
+    linkRows.forEach(row => {
+        const linkStatus = row.getAttribute('data-status');
+        const detailRow = row.nextElementSibling; // Get the expandable detail row
+        
+        if (status === 'all' || linkStatus === status) {
+            row.style.display = '';
+            if (detailRow) {
+                detailRow.style.display = '';
+            }
+        } else {
+            row.style.display = 'none';
+            if (detailRow) {
+                detailRow.style.display = 'none';
+            }
+        }
+    });
+    
+    // Show/hide AR cards based on whether they have visible links
+    arCards.forEach(card => {
+        const visibleLinks = card.querySelectorAll('.link-row:not([style*="display: none"])');
+        if (visibleLinks.length === 0 && status !== 'all') {
+            card.style.display = 'none';
+        } else {
+            card.style.display = '';
+        }
+    });
+    
+    // Update filter feedback
+    updateFilterFeedback(status);
+}
+
+/**
+ * Update filter feedback message
+ */
+function updateFilterFeedback(status) {
+    const linkRows = document.querySelectorAll('.link-row:not([style*="display: none"])');
+    const totalVisible = linkRows.length;
+    
+    // Find or create feedback element
+    let feedback = document.getElementById('linkFilterFeedback');
+    if (!feedback) {
+        feedback = document.createElement('div');
+        feedback.id = 'linkFilterFeedback';
+        feedback.className = 'alert alert-info mt-2';
+        
+        const filterControls = document.querySelector('.btn-group[role="group"]');
+        if (filterControls && filterControls.parentNode) {
+            filterControls.parentNode.insertBefore(feedback, filterControls.nextSibling);
+        }
+    }
+    
+    if (status === 'all') {
+        feedback.style.display = 'none';
+    } else {
+        const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+        feedback.innerHTML = `
+            <i class="fas fa-filter me-2"></i>
+            Showing ${totalVisible} ${statusLabel} link(s)
+        `;
+        feedback.style.display = 'block';
+    }
+}
+
+/**
+ * Sort links by various criteria (for future enhancement)
+ */
+function sortLinks(criteria) {
+    // Placeholder for future sorting functionality
+    console.log(`Sorting links by: ${criteria}`);
+}
+
+/**
+ * Export link validation results
+ */
+function exportLinkResults() {
+    const linkValidation = window.linkValidationResults || {};
+    
+    const data = {
+        timestamp: new Date().toISOString(),
+        link_validation: linkValidation
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `link-validation-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showAlert('Link validation results exported!', 'success');
+}
+
+/**
+ * Highlight broken links for quick identification
+ */
+function highlightBrokenLinks() {
+    const brokenLinks = document.querySelectorAll('.link-row[data-status="broken"]');
+    
+    brokenLinks.forEach(link => {
+        link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        link.style.animation = 'broken-link-pulse 1s ease-in-out 3';
+        
+        setTimeout(() => {
+            link.style.animation = '';
+        }, 3000);
+    });
+    
+    if (brokenLinks.length === 0) {
+        showAlert('No broken links found!', 'success');
+    } else {
+        showAlert(`Found ${brokenLinks.length} broken link(s)`, 'warning');
+    }
+}
+
 // Global functions for template access
 window.copyToClipboard = copyToClipboard;
 window.exportResults = exportResults;
 window.printResults = printResults;
+window.copyLinkToClipboard = copyLinkToClipboard;
+window.filterLinks = filterLinks;
+window.sortLinks = sortLinks;
+window.exportLinkResults = exportLinkResults;
+window.highlightBrokenLinks = highlightBrokenLinks;

@@ -781,6 +781,314 @@
     </div>
     {% endif %}
 
+    <!-- Web Link Validation Section -->
+    {% if link_validation %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#linkValidationSection">
+            <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-link text-primary me-2"></i>
+                    Web Link Validation (ARs)
+                </span>
+                <div class="d-flex align-items-center">
+                    {% if link_validation.summary.get('error') %}
+                        <span class="badge bg-warning me-2"><i class="fas fa-exclamation-triangle"></i> Validation Error</span>
+                    {% else %}
+                        <span class="badge bg-info me-2">{{ link_validation.summary.total_links }} total</span>
+                        {% if link_validation.summary.working > 0 %}
+                        <span class="badge bg-success me-2">{{ link_validation.summary.working }} working</span>
+                        {% endif %}
+                        {% if link_validation.summary.warning > 0 %}
+                        <span class="badge bg-warning me-2">{{ link_validation.summary.warning }} warnings</span>
+                        {% endif %}
+                        {% if link_validation.summary.broken > 0 %}
+                        <span class="badge bg-danger me-2">{{ link_validation.summary.broken }} broken</span>
+                        {% endif %}
+                    {% endif %}
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+            </h5>
+        </div>
+        <div class="collapse" id="linkValidationSection">
+            <div class="card-body">
+                {% if link_validation.summary.get('error') %}
+                    <div class="alert alert-warning mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Link Validation Error:</strong> {{ link_validation.summary.error }}
+                    </div>
+                {% elif link_validation.summary.total_links == 0 %}
+                    <div class="alert alert-info mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        No web links found in Assessment Recommendations.
+                    </div>
+                {% else %}
+                    <!-- Summary Statistics -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Total Links</h6>
+                                    <h3 class="text-info mb-0">{{ link_validation.summary.total_links }}</h3>
+                                    <small class="text-muted">{{ link_validation.summary.unique_urls }} unique</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Working</h6>
+                                    <h3 class="text-success mb-0">{{ link_validation.summary.working }}</h3>
+                                    <small class="text-muted">Verified ✓</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Warnings</h6>
+                                    <h3 class="text-warning mb-0">{{ link_validation.summary.warning }}</h3>
+                                    <small class="text-muted">Needs attention</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-0 bg-light">
+                                <div class="card-body py-3">
+                                    <h6 class="card-title text-muted mb-1">Broken</h6>
+                                    <h3 class="text-danger mb-0">{{ link_validation.summary.broken }}</h3>
+                                    <small class="text-muted">Fix required</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Controls -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="btn-group" role="group" aria-label="Link status filter">
+                            <input type="radio" class="btn-check" name="linkFilter" id="filterAll" value="all" checked>
+                            <label class="btn btn-outline-secondary btn-sm" for="filterAll">All</label>
+                            
+                            <input type="radio" class="btn-check" name="linkFilter" id="filterWorking" value="working">
+                            <label class="btn btn-outline-success btn-sm" for="filterWorking">Working</label>
+                            
+                            <input type="radio" class="btn-check" name="linkFilter" id="filterWarning" value="warning">
+                            <label class="btn btn-outline-warning btn-sm" for="filterWarning">Warnings</label>
+                            
+                            <input type="radio" class="btn-check" name="linkFilter" id="filterBroken" value="broken">
+                            <label class="btn btn-outline-danger btn-sm" for="filterBroken">Broken</label>
+                        </div>
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Click on a link to view details
+                        </small>
+                    </div>
+
+                    <!-- Links by AR -->
+                    {% for ar_num, links in link_validation.results.items() | sort %}
+                    <div class="card mb-3 link-ar-card">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <span class="badge bg-primary me-2">{{ ar_num }}</span>
+                                {{ links | length }} link(s)
+                                <span class="ms-2">
+                                    {% set ar_working = links | selectattr('status', 'equalto', 'working') | list | length %}
+                                    {% set ar_warning = links | selectattr('status', 'equalto', 'warning') | list | length %}
+                                    {% set ar_broken = links | selectattr('status', 'equalto', 'broken') | list | length %}
+                                    {% if ar_working > 0 %}<span class="badge bg-success-subtle text-success">{{ ar_working }} ✓</span>{% endif %}
+                                    {% if ar_warning > 0 %}<span class="badge bg-warning-subtle text-warning">{{ ar_warning }} ⚠</span>{% endif %}
+                                    {% if ar_broken > 0 %}<span class="badge bg-danger-subtle text-danger">{{ ar_broken }} ✗</span>{% endif %}
+                                </span>
+                            </h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 10%">Status</th>
+                                            <th style="width: 45%">Link</th>
+                                            <th style="width: 15%">Type</th>
+                                            <th style="width: 15%">Response</th>
+                                            <th style="width: 15%">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for link in links %}
+                                        <tr class="link-row" data-status="{{ link.status }}" 
+                                            class="{% if link.status == 'working' %}match-highlight{% elif link.status == 'warning' %}missing-highlight{% else %}mismatch-highlight{% endif %}">
+                                            <!-- Status Column -->
+                                            <td class="text-center">
+                                                {% if link.status == 'working' %}
+                                                    <span class="badge bg-success" title="Link is working">
+                                                        <i class="fas fa-check-circle"></i> OK
+                                                    </span>
+                                                {% elif link.status == 'warning' %}
+                                                    <span class="badge bg-warning" title="{{ link.suggestion }}">
+                                                        <i class="fas fa-exclamation-triangle"></i> Warning
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge bg-danger" title="{{ link.error_message }}">
+                                                        <i class="fas fa-times-circle"></i> Broken
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                            
+                                            <!-- Link Column -->
+                                            <td>
+                                                <div class="link-url-container">
+                                                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" 
+                                                       class="text-break link-url" 
+                                                       title="{{ link.url }}">
+                                                        {{ link.url | truncate(60) }}
+                                                        <i class="fas fa-external-link-alt ms-1" style="font-size: 0.7em;"></i>
+                                                    </a>
+                                                    {% if link.text and link.text != link.url %}
+                                                        <br><small class="text-muted">Text: "{{ link.text | truncate(50) }}"</small>
+                                                    {% endif %}
+                                                    <br><small class="text-muted fst-italic">{{ link.location | capitalize }}: {{ link.context | truncate(40) }}</small>
+                                                </div>
+                                            </td>
+                                            
+                                            <!-- Type Column -->
+                                            <td>
+                                                <span class="badge {% if link.type == 'hyperlink' %}bg-info{% else %}bg-secondary{% endif %}">
+                                                    {{ link.type.replace('_', ' ') | title }}
+                                                </span>
+                                            </td>
+                                            
+                                            <!-- Response Column -->
+                                            <td>
+                                                {% if link.http_code %}
+                                                    <div class="text-center">
+                                                        <span class="badge {% if 200 <= link.http_code < 300 %}bg-success{% elif 300 <= link.http_code < 400 %}bg-warning{% else %}bg-danger{% endif %}">
+                                                            {{ link.http_code }}
+                                                        </span>
+                                                        {% if link.response_time_ms %}
+                                                            <br><small class="text-muted">{{ link.response_time_ms }}ms</small>
+                                                        {% endif %}
+                                                    </div>
+                                                {% else %}
+                                                    <span class="text-muted">—</span>
+                                                {% endif %}
+                                            </td>
+                                            
+                                            <!-- Actions Column -->
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-secondary copy-link-btn" 
+                                                        data-url="{{ link.url }}" 
+                                                        title="Copy URL">
+                                                    <i class="fas fa-copy"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-primary" type="button" 
+                                                        data-bs-toggle="collapse" 
+                                                        data-bs-target="#linkDetail{{ ar_num }}_{{ loop.index }}" 
+                                                        title="View details">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Expandable Details Row -->
+                                        <tr>
+                                            <td colspan="5" class="p-0">
+                                                <div class="collapse" id="linkDetail{{ ar_num }}_{{ loop.index }}">
+                                                    <div class="card card-body bg-light m-2">
+                                                        <h6 class="mb-3">
+                                                            <i class="fas fa-info-circle text-primary me-2"></i>
+                                                            Link Details
+                                                        </h6>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <table class="table table-sm">
+                                                                    <tr>
+                                                                        <th style="width: 40%">Original URL:</th>
+                                                                        <td class="text-break">{{ link.url }}</td>
+                                                                    </tr>
+                                                                    {% if link.final_url and link.final_url != link.url %}
+                                                                    <tr>
+                                                                        <th>Final URL:</th>
+                                                                        <td class="text-break">{{ link.final_url }}</td>
+                                                                    </tr>
+                                                                    {% endif %}
+                                                                    {% if link.http_code %}
+                                                                    <tr>
+                                                                        <th>HTTP Status:</th>
+                                                                        <td>{{ link.http_code }}</td>
+                                                                    </tr>
+                                                                    {% endif %}
+                                                                    {% if link.response_time_ms %}
+                                                                    <tr>
+                                                                        <th>Response Time:</th>
+                                                                        <td>{{ link.response_time_ms }}ms</td>
+                                                                    </tr>
+                                                                    {% endif %}
+                                                                    {% if link.ssl_valid is not none %}
+                                                                    <tr>
+                                                                        <th>SSL Valid:</th>
+                                                                        <td>
+                                                                            {% if link.ssl_valid %}
+                                                                                <span class="text-success"><i class="fas fa-check"></i> Yes</span>
+                                                                            {% else %}
+                                                                                <span class="text-danger"><i class="fas fa-times"></i> No</span>
+                                                                            {% endif %}
+                                                                        </td>
+                                                                    </tr>
+                                                                    {% endif %}
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {% if link.redirect_chain and link.redirect_chain | length > 1 %}
+                                                                <h6 class="text-warning">
+                                                                    <i class="fas fa-route me-1"></i>
+                                                                    Redirect Chain ({{ link.redirect_chain | length }} steps)
+                                                                </h6>
+                                                                <ol class="small">
+                                                                    {% for redirect_url in link.redirect_chain %}
+                                                                    <li class="text-break">{{ redirect_url }}</li>
+                                                                    {% endfor %}
+                                                                </ol>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {% if link.error_message %}
+                                                        <div class="alert alert-danger mt-3 mb-0">
+                                                            <h6 class="alert-heading">
+                                                                <i class="fas fa-exclamation-circle me-1"></i>
+                                                                Error: {{ link.error_type | replace('_', ' ') | title }}
+                                                            </h6>
+                                                            <p class="mb-2">{{ link.error_message }}</p>
+                                                            {% if link.suggestion %}
+                                                            <hr>
+                                                            <p class="mb-0">
+                                                                <strong><i class="fas fa-lightbulb me-1"></i> Suggestion:</strong>
+                                                                {{ link.suggestion }}
+                                                            </p>
+                                                            {% endif %}
+                                                        </div>
+                                                        {% elif link.suggestion %}
+                                                        <div class="alert alert-warning mt-3 mb-0">
+                                                            <strong><i class="fas fa-lightbulb me-1"></i> Note:</strong>
+                                                            {{ link.suggestion }}
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Document Sections (Optional Viewing) -->
     <div class="card shadow-sm">
         <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#documentSections">

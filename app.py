@@ -30,6 +30,7 @@ from doc_extractor_utils import (
     compare_ar_with_summary,
     validate_recommendation_totals
 )
+from link_validator import validate_all_links
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -464,6 +465,43 @@ def upload_files():
             if rec_summary.get('recommendations'):
                 totals_validation = validate_recommendation_totals(rec_summary)
         
+        # Validate web links from ARs
+        ar_links = doc_data.get('ar_links', {})
+        logging.info(f"AR links extracted: {len(ar_links)} AR(s) with links")
+        
+        if ar_links:
+            logging.info("Validating web links from Assessment Recommendations...")
+            try:
+                link_validation = validate_all_links(ar_links)
+                logging.info(f"Link validation complete: {link_validation['summary']['total_links']} links checked")
+            except Exception as e:
+                logging.error(f"Error validating links: {e}")
+                link_validation = {
+                    'results': {},
+                    'summary': {
+                        'total_links': 0,
+                        'unique_urls': 0,
+                        'working': 0,
+                        'warning': 0,
+                        'broken': 0,
+                        'has_issues': False,
+                        'error': str(e)
+                    }
+                }
+        else:
+            logging.info("No links found in Assessment Recommendations")
+            link_validation = {
+                'results': {},
+                'summary': {
+                    'total_links': 0,
+                    'unique_urls': 0,
+                    'working': 0,
+                    'warning': 0,
+                    'broken': 0,
+                    'has_issues': False
+                }
+            }
+        
         # Prepare data for template
         template_data = {
             'docx_filename': docx_filename,
@@ -474,6 +512,7 @@ def upload_files():
             'energy_comparison': energy_comparison,
             'ar_sanity_check': ar_sanity_check,
             'totals_validation': totals_validation,
+            'link_validation': link_validation,
             'doc_general_info': doc_general_info,
             'excel_general_info': excel_general_info,
             'doc_energy_data': doc_energy_data,
@@ -532,11 +571,49 @@ def api_compare():
             if rec_summary.get('recommendations'):
                 totals_validation = validate_recommendation_totals(rec_summary)
         
+        # Validate web links from ARs
+        ar_links = doc_data.get('ar_links', {})
+        logging.info(f"AR links extracted: {len(ar_links)} AR(s) with links")
+        
+        if ar_links:
+            logging.info("Validating web links from Assessment Recommendations...")
+            try:
+                link_validation = validate_all_links(ar_links)
+                logging.info(f"Link validation complete: {link_validation['summary']['total_links']} links checked")
+            except Exception as e:
+                logging.error(f"Error validating links: {e}")
+                link_validation = {
+                    'results': {},
+                    'summary': {
+                        'total_links': 0,
+                        'unique_urls': 0,
+                        'working': 0,
+                        'warning': 0,
+                        'broken': 0,
+                        'has_issues': False,
+                        'error': str(e)
+                    }
+                }
+        else:
+            logging.info("No links found in Assessment Recommendations")
+            link_validation = {
+                'results': {},
+                'summary': {
+                    'total_links': 0,
+                    'unique_urls': 0,
+                    'working': 0,
+                    'warning': 0,
+                    'broken': 0,
+                    'has_issues': False
+                }
+            }
+        
         return jsonify({
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
             'ar_sanity_check': ar_sanity_check,
             'totals_validation': totals_validation,
+            'link_validation': link_validation,
             'success': True
         })
         
