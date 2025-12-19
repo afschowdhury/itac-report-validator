@@ -4,10 +4,11 @@ Link Extractor Module
 
 Extracts web links from DOCX Assessment Recommendations (ARs).
 Handles both embedded hyperlinks and URL patterns in text.
+Includes support for extracting links from footnotes.
 """
 
 import re
-from typing import Dict, List, Any, Union
+from typing import Dict, List, Any, Union, Optional, Tuple
 from docx import Document
 from docx.text.paragraph import Paragraph
 from docx.table import Table
@@ -212,12 +213,130 @@ def extract_links_from_ar_blocks(ar_blocks: List[Union[Paragraph, Table]], ar_nu
     return links
 
 
-def extract_links_from_all_ars(docx_path: str, ar_blocks_list: List[List[Union[Paragraph, Table]]]) -> Dict[str, List[Dict[str, Any]]]:
+def extract_footnotes_from_document(doc: Document) -> Tuple[Dict[str, Any], Any]:
     """
-    Extract links from all ARs in a document.
+    Extract all footnotes from a document.
     
     Args:
-        docx_path: Path to DOCX file (for loading document if needed)
+        doc: Document object
+        
+    Returns:
+        Tuple of (footnotes_dict, footnotes_part) where:
+        - footnotes_dict maps footnote IDs to their content and links
+        - footnotes_part is the footnotes part object for resolving hyperlinks
+    """
+    footnotes_dict = {}
+    footnotes_part = None
+    
+    try:
+        # Find the footnotes part via document relationships
+        for rel_id, rel in doc.part.rels.items():
+            if 'footnote' in rel.reltype.lower() and 'endnote' not in rel.reltype.lower():
+                footnotes_part = rel.target_part
+                logger.debug(f"Found footnotes part via relationship {rel_id}")
+                break
+        
+        if not footnotes_part:
+            logger.debug("No footnotes part found in document")
+            return {}, None
+        
+        # Parse the footnotes XML
+        footnotes_xml = footnotes_part.blob
+        footnotes_element = parse_xml(footnotes_xml)
+        
+        # Find all footnote elements
+        footnotes = footnotes_element.findall(f'.//{qn("w:footnote")}')
+        logger.info(f"Found {len(footnotes)} footnote elements in document")
+        
+        # Extract content and links from each footnote
+        for fn in footnotes:
+            fn_id = fn.get(qn('w:id'))
+            if not fn_id:
+                continue
+            
+            # Get text content
+            text_elements = fn.findall(f'.//{qn("w:t")}')
+            text = ''.join([t.text for t in text_elements if t.text])
+            
+            # Extract hyperlinks
+            hyperlinks = []
+            hyperlink_elements = fn.findall(f'.//{qn("w:hyperlink")}')
+            for hl in hyperlink_elements:
+                r_id = hl.get(qn('r:id'))
+                if r_id and r_id in footnotes_part.rels:
+                    try:
+                        url = footnotes_part.rels[r_id].target_ref
+                        # Get hyperlink text
+                        hl_text_elements = hl.findall(f'.//{qn("w:t")}')
+                        hl_text = ''.join([t.text for t in hl_text_elements if t.text])
+                        hyperlinks.append({'url': url, 'text': hl_text or url})
+                    except:
+                        pass
+            
+            # Extract plain text URLs
+            plain_urls = extract_url_patterns_from_text(text)
+            
+            footnotes_dict[fn_id] = {
+                'text': text,
+                'hyperlinks': hyperlinks,
+                'plain_urls': plain_urls
+            }
+        
+        logger.info(f"Extracted {len(footnotes_dict)} footnotes with content")
+        
+    except Exception as e:
+        logger.error(f"Error extracting footnotes: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+    
+    return footnotes_dict, footnotes_part
+
+
+def find_footnote_references_in_blocks(ar_blocks: List[Union[Paragraph, Table]]) -> List[str]:
+    """
+    Find all footnote reference IDs in AR blocks.
+    
+    Args:
+        ar_blocks: List of Paragraph and Table objects
+        
+    Returns:
+        List of footnote IDs referenced in the blocks
+    """
+    footnote_ids = []
+    
+    for block in ar_blocks:
+        if isinstance(block, Paragraph):
+            # Look for footnote references in paragraph
+            for child in block._element.iterchildren():
+                if child.tag == qn('w:r'):  # Run
+                    for subchild in child.iterchildren():
+                        if subchild.tag == qn('w:footnoteReference'):
+                            fn_id = subchild.get(qn('w:id'))
+                            if fn_id:
+                                footnote_ids.append(fn_id)
+        
+        elif isinstance(block, Table):
+            # Look for footnote references in table cells
+            for row in block.rows:
+                for cell in row.cells:
+                    for para in cell.paragraphs:
+                        for child in para._element.iterchildren():
+                            if child.tag == qn('w:r'):
+                                for subchild in child.iterchildren():
+                                    if subchild.tag == qn('w:footnoteReference'):
+                                        fn_id = subchild.get(qn('w:id'))
+                                        if fn_id:
+                                            footnote_ids.append(fn_id)
+    
+    return footnote_ids
+
+
+def extract_links_from_all_ars(doc: Document, ar_blocks_list: List[List[Union[Paragraph, Table]]]) -> Dict[str, List[Dict[str, Any]]]:
+    """
+    Extract links from all ARs in a document, including footnotes.
+    
+    Args:
+        doc: Document object (needed to access footnotes)
         ar_blocks_list: List of AR block lists from document_extractor.extract_ars()
         
     Returns:
@@ -230,20 +349,61 @@ def extract_links_from_all_ars(docx_path: str, ar_blocks_list: List[List[Union[P
     """
     all_links = {}
     
+    # Extract all footnotes from the document once
+    footnotes_dict, footnotes_part = extract_footnotes_from_document(doc)
+    
     for idx, ar_blocks in enumerate(ar_blocks_list):
         ar_number = f"AR_{idx + 1:02d}"  # Format as AR_01, AR_02, etc.
         
         try:
+            # Extract links from AR blocks (paragraphs and tables)
             links = extract_links_from_ar_blocks(ar_blocks, ar_number)
+            
+            # Find footnote references in this AR
+            footnote_refs = find_footnote_references_in_blocks(ar_blocks)
+            
+            if footnote_refs and footnotes_dict:
+                logger.debug(f"{ar_number}: Found {len(footnote_refs)} footnote reference(s)")
+                
+                # Extract links from referenced footnotes
+                for fn_id in footnote_refs:
+                    if fn_id in footnotes_dict:
+                        footnote = footnotes_dict[fn_id]
+                        
+                        # Add hyperlinks from footnote
+                        for hl in footnote['hyperlinks']:
+                            links.append({
+                                'url': hl['url'],
+                                'text': hl['text'],
+                                'type': 'hyperlink',
+                                'location': 'footnote',
+                                'context': f"Footnote {fn_id}: {footnote['text'][:80]}..."
+                            })
+                        
+                        # Add plain text URLs from footnote
+                        # Remove duplicates (URLs that are already captured as hyperlinks)
+                        existing_urls = {link['url'] for link in links}
+                        for url in footnote['plain_urls']:
+                            if url not in existing_urls:
+                                links.append({
+                                    'url': url,
+                                    'text': url,
+                                    'type': 'text_url',
+                                    'location': 'footnote',
+                                    'context': f"Footnote {fn_id}: {footnote['text'][:80]}..."
+                                })
+                                existing_urls.add(url)
             
             if links:  # Only add if there are links
                 all_links[ar_number] = links
-                logger.info(f"Found {len(links)} link(s) in {ar_number}")
+                logger.info(f"Found {len(links)} link(s) in {ar_number} (including footnotes)")
             else:
                 logger.debug(f"No links found in {ar_number}")
         
         except Exception as e:
             logger.error(f"Error extracting links from {ar_number}: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
             continue
     
     return all_links

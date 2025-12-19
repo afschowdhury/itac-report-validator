@@ -488,7 +488,7 @@ def extract_ar_summaries(
 # ---------- Main extraction with output switch ----------
 
 
-def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[str, Any]:
+def build_outputs(blocks: List[Union[Paragraph, Table]], output: str, doc: Document = None) -> Dict[str, Any]:
     # Sections - Updated patterns to match actual document structure
     sec_11 = extract_section_by_title(
         blocks,
@@ -534,15 +534,18 @@ def build_outputs(blocks: List[Union[Paragraph, Table]], output: str) -> Dict[st
     # AR Summaries from Chapter 1.4
     ar_summary_blocks = extract_ar_summaries(blocks)
 
-    # Extract links from ARs
+    # Extract links from ARs (including footnotes)
     ar_links = {}
     try:
         import logging
         logging.info(f"Attempting to extract links from {len(ar_blocks_list)} AR(s)")
-        ar_links = extract_links_from_all_ars("", ar_blocks_list)  # docx_path not needed as we pass blocks directly
-        link_stats = get_link_statistics(ar_links)
-        logging.info(f"Link extraction complete: {link_stats}")
-        ic(f"Extracted links from ARs: {link_stats}")
+        if doc:
+            ar_links = extract_links_from_all_ars(doc, ar_blocks_list)
+            link_stats = get_link_statistics(ar_links)
+            logging.info(f"Link extraction complete: {link_stats}")
+            ic(f"Extracted links from ARs: {link_stats}")
+        else:
+            logging.warning("Document object not provided, cannot extract links from footnotes")
     except Exception as e:
         import logging
         import traceback
@@ -621,7 +624,7 @@ def extract_itac_report(
     assert output in {"html", "json"}, "output must be 'html' or 'json'"
     doc = Document(docx_path)
     blocks = list(iter_block_items(doc))
-    data = build_outputs(blocks, output=output)
+    data = build_outputs(blocks, output=output, doc=doc)
     if save_files:
         write_artifacts(data, output=output)
     return data
