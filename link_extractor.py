@@ -222,7 +222,7 @@ def extract_footnotes_from_document(doc: Document) -> Tuple[Dict[str, Any], Any]
         
     Returns:
         Tuple of (footnotes_dict, footnotes_part) where:
-        - footnotes_dict maps footnote IDs to their content and links
+        - footnotes_dict maps footnote IDs to their content, links, and display number
         - footnotes_part is the footnotes part object for resolving hyperlinks
     """
     footnotes_dict = {}
@@ -248,11 +248,26 @@ def extract_footnotes_from_document(doc: Document) -> Tuple[Dict[str, Any], Any]
         footnotes = footnotes_element.findall(f'.//{qn("w:footnote")}')
         logger.info(f"Found {len(footnotes)} footnote elements in document")
         
+        # Filter out special footnotes (separator, continuationSeparator, etc.)
+        # and create a mapping from XML ID to display number
+        user_footnote_counter = 0
+        
         # Extract content and links from each footnote
         for fn in footnotes:
             fn_id = fn.get(qn('w:id'))
             if not fn_id:
                 continue
+            
+            # Check if this is a special footnote (separator, continuationSeparator, etc.)
+            fn_type = fn.get(qn('w:type'))
+            if fn_type:
+                # Skip special footnotes - they don't have user-visible numbers
+                logger.debug(f"Skipping special footnote ID {fn_id} of type {fn_type}")
+                continue
+            
+            # This is a user footnote - assign it a display number
+            user_footnote_counter += 1
+            display_number = user_footnote_counter
             
             # Get text content
             text_elements = fn.findall(f'.//{qn("w:t")}')
@@ -279,7 +294,8 @@ def extract_footnotes_from_document(doc: Document) -> Tuple[Dict[str, Any], Any]
             footnotes_dict[fn_id] = {
                 'text': text,
                 'hyperlinks': hyperlinks,
-                'plain_urls': plain_urls
+                'plain_urls': plain_urls,
+                'display_number': display_number  # The actual footnote number users see
             }
         
         logger.info(f"Extracted {len(footnotes_dict)} footnotes with content")
@@ -369,6 +385,7 @@ def extract_links_from_all_ars(doc: Document, ar_blocks_list: List[List[Union[Pa
                 for fn_id in footnote_refs:
                     if fn_id in footnotes_dict:
                         footnote = footnotes_dict[fn_id]
+                        display_num = footnote.get('display_number', fn_id)
                         
                         # Add hyperlinks from footnote
                         for hl in footnote['hyperlinks']:
@@ -377,7 +394,7 @@ def extract_links_from_all_ars(doc: Document, ar_blocks_list: List[List[Union[Pa
                                 'text': hl['text'],
                                 'type': 'hyperlink',
                                 'location': 'footnote',
-                                'context': f"Footnote {fn_id}: {footnote['text'][:80]}..."
+                                'context': f"Footnote {display_num}: {footnote['text'][:80]}..."
                             })
                         
                         # Add plain text URLs from footnote
@@ -390,7 +407,7 @@ def extract_links_from_all_ars(doc: Document, ar_blocks_list: List[List[Union[Pa
                                     'text': url,
                                     'type': 'text_url',
                                     'location': 'footnote',
-                                    'context': f"Footnote {fn_id}: {footnote['text'][:80]}..."
+                                    'context': f"Footnote {display_num}: {footnote['text'][:80]}..."
                                 })
                                 existing_urls.add(url)
             
