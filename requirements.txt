@@ -5,3 +5,4 @@ openpyxl
 pandas
 google-adk
 google-genai
+icecream

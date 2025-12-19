@@ -319,10 +319,12 @@ def extract_ars(
         # return results
 
     # Find Chapter 5 or other ending sections to limit our search
+    # Pattern includes ".*INDUSTRIAL\s+CONTROL.*CYBERSECURITY" to match titles like
+    # "THE INDUSTRIAL CONTROL SYSTEMS CYBERSECURITY ASSESSMENT" that don't start with "INDUSTRIAL"
     chapter4_end = find_next_section_start(
         doc_blocks,
         chapter4_start,
-        r"^\s*(5(\.|$)|Chapter\s+5|INDUSTRIAL\s+CONTROL|CONCLUSIONS?|REFERENCES?|APPENDIX)",
+        r"^\s*(5(\.|$|\s)|Chapter\s+5|.*INDUSTRIAL\s+CONTROL.*CYBERSECURITY|CONCLUSIONS?|REFERENCES?|APPENDIX)",
     )
 
     # Get Chapter 4 blocks
