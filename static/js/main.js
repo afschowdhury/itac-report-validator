@@ -109,10 +109,10 @@ function handleFileSelect(file, dropZone, fileInfo) {
         dropZone.classList.add('has-file');
     }
     
-    // Validate file size (16MB limit)
-    const maxSize = 16 * 1024 * 1024; // 16MB
+    // Validate file size (50MB limit)
+    const maxSize = 50 * 1024 * 1024; // 50MB
     if (file.size > maxSize) {
-        showAlert('File is too large. Maximum size is 16MB.', 'error');
+        showAlert('File is too large. Maximum size is 50MB.', 'error');
         removeFile(dropZone.querySelector('input'), dropZone, fileInfo);
         return;
     }

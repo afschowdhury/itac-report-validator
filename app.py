@@ -37,7 +37,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 app = Flask(__name__)
 app.secret_key = 'itac-validator-secret-key-2024'  # Change this in production
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
 
 # Configuration
 UPLOAD_FOLDER = Path('uploads')
@@ -624,7 +624,7 @@ def api_compare():
 @app.errorhandler(413)
 def too_large(e):
     """Handle file too large error."""
-    flash('File is too large. Maximum size is 16MB.', 'error')
+    flash('File is too large. Maximum size is 50MB.', 'error')
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
