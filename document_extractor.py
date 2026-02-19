@@ -845,33 +845,63 @@ def extract_energy_usage(annual_energy_html: str) -> Dict[str, Any]:
 
         # Map energy types to programming-oriented field names
         type_mapping = {
+            # Electrical
             "Electrical Energy": "electrical_energy",
-            "Electrical Demand": "electrical_demand",
             "Electric Energy": "electrical_energy",
-            "Electric Demand": "electrical_demand",
+            "Electrical Consumption": "electrical_energy",
+            "Electric Consumption": "electrical_energy",
             "Electricity": "electrical_energy",
-            "Demand Charge": "electrical_demand",  # TODO: Verify this is correct
+            "Electricity Usage": "electrical_energy",
+            "Electrical Demand": "electrical_demand",
+            "Electric Demand": "electrical_demand",
+            "Demand Charge": "electrical_demand",
             "Demand": "electrical_demand",
+            "Other Electrical Fees": "electrical_fees",
+            "Electrical Fees": "electrical_fees",
+            # Gas
             "Natural Gas": "natural_gas",
+            "Natural Gas Usage": "natural_gas",
+            "Gas": "natural_gas",
             "Propane": "propane_gas",
             "Propane Gas": "propane_gas",
-            "Steam": "steam",
-            "Water": "water",
-            "Compressed Air": "compressed_air",
-            "Total Utility": "total_utility",
-            "TotalUtility": "total_utility",
-            "Total": "total_utility",
+            "Propane Usage": "propane_gas",
+            "L.P.G.": "propane_gas",
+            "LPG": "propane_gas",
+            "Other Gas": "other_gas",
+            # Oil / Fuel
             "Fuel Oil": "fuel_oil",
+            "#1 Fuel Oil": "fuel_oil",
+            "#2 Fuel Oil": "fuel_oil",
+            "#4 Fuel Oil": "fuel_oil",
+            "#6 Fuel Oil": "fuel_oil",
+            "Fuel Oil #1": "fuel_oil",
+            "Fuel Oil #2": "fuel_oil",
+            "Fuel Oil #4": "fuel_oil",
+            "Fuel Oil #6": "fuel_oil",
             "Heating Oil": "heating_oil",
             "Diesel": "diesel",
             "Gasoline": "gasoline",
             "Coal": "coal",
+            # Renewables / Biomass
             "Biomass": "biomass",
+            "Wood": "biomass",
+            "Paper": "biomass",
             "Solar": "solar",
             "Wind": "wind",
             "Geothermal": "geothermal",
+            # Water / Steam / Other utilities
+            "Steam": "steam",
+            "Water": "water",
+            "Water Usage": "water",
+            "Water Disposal": "water_disposal",
+            "Compressed Air": "compressed_air",
             "Chilled Water": "chilled_water",
             "Hot Water": "hot_water",
+            "Other Energy": "other_energy",
+            # Totals
+            "Total Utility": "total_utility",
+            "TotalUtility": "total_utility",
+            "Total": "total_utility",
         }
 
         # Get standardized type name or create one from raw name

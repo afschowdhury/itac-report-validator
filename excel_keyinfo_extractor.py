@@ -364,7 +364,7 @@ def extract_energy_waste_info_dict(xlsx_path: str) -> Dict[str, Any]:
             'Electricity': 'electrical_energy',
             'Electrical Demand': 'electrical_demand',
             'Electric Demand': 'electrical_demand',
-            'Demand Charge': 'demand_charge',
+            'Demand Charge': 'electrical_demand',
             'Demand': 'electrical_demand',
             'Other Electrical Fees': 'electrical_fees',
             'Electrical Fees': 'electrical_fees',

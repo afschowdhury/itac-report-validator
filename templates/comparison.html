@@ -28,6 +28,14 @@
     background: linear-gradient(90deg, #fff3e0, #fff);
     border-left: 4px solid #ff9800;
 }
+.name-mismatch-highlight {
+    background: linear-gradient(90deg, #fff8e1, #fff);
+    border-left: 4px solid #ffc107;
+}
+.excel-only-highlight {
+    background: linear-gradient(90deg, #e8eaf6, #fff);
+    border-left: 4px solid #7986cb;
+}
 @keyframes highlight-pulse {
     0%, 100% { background: linear-gradient(90deg, #ffebee, #fff); }
     50% { background: linear-gradient(90deg, #ffcdd2, #ffebee); }
@@ -329,14 +337,22 @@
             <h5 class="mb-0 d-flex justify-content-between align-items-center">
                 <span>
                     <i class="fas fa-bolt text-warning me-2"></i>
-                    Document Energy Data Validation
+                    Energy Data Validation
                 </span>
                 <div class="d-flex align-items-center">
-                    <span class="badge bg-info me-2">{{ energy_comparison.summary.total_types }} document energy types</span>
-                    <span class="badge bg-success me-2">{{ energy_comparison.summary.matched_types }} validated ✓</span>
+                    <span class="badge bg-info me-2">{{ energy_comparison.summary.total_types }} energy types</span>
+                    <span class="badge bg-success me-2">{{ energy_comparison.summary.matched_types }} validated</span>
+                    {% if energy_comparison.summary.mismatched_types > 0 %}
                     <span class="badge bg-danger me-2">{{ energy_comparison.summary.mismatched_types }} mismatched</span>
+                    {% endif %}
+                    {% if energy_comparison.summary.name_mismatch_types > 0 %}
+                    <span class="badge bg-warning text-dark me-2" title="Matched by value but labelled differently in DOC vs Excel">{{ energy_comparison.summary.name_mismatch_types }} name mismatch</span>
+                    {% endif %}
                     {% if energy_comparison.summary.missing_in_excel > 0 %}
                     <span class="badge bg-warning me-2">{{ energy_comparison.summary.missing_in_excel }} not in Excel</span>
+                    {% endif %}
+                    {% if energy_comparison.summary.missing_in_doc > 0 %}
+                    <span class="badge bg-secondary me-2">{{ energy_comparison.summary.missing_in_doc }} not in Document</span>
                     {% endif %}
                     <i class="fas fa-chevron-down text-muted"></i>
                 </div>
@@ -349,7 +365,7 @@
                     <table class="table table-hover">
                         <thead class="bg-light">
                             <tr>
-                                <th>Document Energy Type</th>
+                                <th>Energy Type</th>
                                 <th>Costs (DOC vs Excel)</th>
                                 <th>Usage Comparison</th>
                                 <th>Validation Status</th>
@@ -357,20 +373,33 @@
                         </thead>
                         <tbody>
                             {% for energy_type, comparison in energy_comparison.energy_types.items() %}
-                            <tr class="{% if comparison.get('validation_status') == 'not_in_excel' %}missing-highlight{% elif comparison.cost_comparison.match %}match-highlight{% else %}mismatch-highlight{% endif %}">
+                            {% set vs = comparison.get('validation_status', '') %}
+                            <tr class="{% if vs == 'not_in_excel' %}missing-highlight{% elif vs == 'not_in_document' %}excel-only-highlight{% elif vs == 'name_mismatch' %}name-mismatch-highlight{% elif comparison.cost_comparison.match %}match-highlight{% else %}mismatch-highlight{% endif %}">
                                 <td class="fw-bold">
                                     {{ energy_type.replace('_', ' ').title() }}
-                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                    {% if vs == 'not_in_excel' %}
                                         <span class="badge bg-warning ms-2" title="Energy type not found in Excel for validation">No Excel Data</span>
+                                    {% elif vs == 'not_in_document' %}
+                                        <span class="badge bg-secondary ms-2" title="Energy type found in Excel but not in Document">Excel Only</span>
+                                    {% elif vs == 'name_mismatch' %}
+                                        <span class="badge bg-warning text-dark ms-2" title="{{ comparison.get('name_warning', '') }}">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>Name Mismatch
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">{{ comparison.get('name_warning', '') }}</small>
                                     {% endif %}
                                 </td>
                                 <td class="value-comparison">
-                                    <span class="value-pill me-2">
-                                        <span class="chip chip-doc">DOC</span>
-                                        <span class="text-info">
-                                            ${{ "{:,.2f}".format(comparison.doc_data.get('cost', 0)) if comparison.doc_data.get('cost') else 'N/A' }}
+                                    {% if vs == 'not_in_document' %}
+                                        <span class="text-muted fst-italic me-2">DOC: N/A</span>
+                                    {% else %}
+                                        <span class="value-pill me-2">
+                                            <span class="chip chip-doc">DOC</span>
+                                            <span class="text-info">
+                                                ${{ "{:,.2f}".format(comparison.doc_data.get('cost', 0)) if comparison.doc_data.get('cost') else 'N/A' }}
+                                            </span>
                                         </span>
-                                    </span>
+                                    {% endif %}
                                     {% if comparison.excel_data.get('cost') is not none %}
                                         <span class="value-pill me-2">
                                             <span class="chip chip-excel">Excel</span>
@@ -382,7 +411,7 @@
                                         <span class="text-muted fst-italic">Excel: N/A</span>
                                     {% endif %}
                                     {% if comparison.cost_comparison.get('difference') %}
-                                        <span class="chip diff-chip" title="Relative difference">Δ {{ comparison.cost_comparison.difference }}</span>
+                                        <span class="chip diff-chip" title="Relative difference">&Delta; {{ comparison.cost_comparison.difference }}</span>
                                     {% endif %}
                                 </td>
                                 <td class="small">
@@ -396,21 +425,43 @@
                                                 </span>
                                             </div>
                                         {% endfor %}
+                                    {% elif vs == 'not_in_document' and comparison.excel_data.get('usage') %}
+                                        {% for unit, value in comparison.excel_data.get('usage', {}).items() %}
+                                            <div>
+                                                <span>{{ unit }}:</span>
+                                                <span class="value-pill"><span class="chip chip-excel">Excel</span><span>{{ "{:,.2f}".format(value) if value else 'N/A' }}</span></span>
+                                            </div>
+                                        {% endfor %}
                                     {% else %}
                                         <span class="text-muted">No usage comparison available</span>
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
-                                    {% if comparison.get('validation_status') == 'not_in_excel' %}
+                                    {% if vs == 'not_in_excel' %}
                                         <span class="match-indicator text-warning" title="Cannot validate - energy type not in Excel">
                                             <i class="fas fa-question-circle"></i>
                                         </span>
+                                    {% elif vs == 'not_in_document' %}
+                                        <span class="match-indicator text-secondary" title="Excel-only - not present in Document">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                    {% elif vs == 'name_mismatch' %}
+                                        {% if comparison.cost_comparison.match %}
+                                            <span class="match-indicator text-success" title="Values match but names differ between Document and Excel">
+                                                <i class="fas fa-check-circle"></i>
+                                            </span>
+                                        {% else %}
+                                            <span class="match-indicator text-danger"
+                                                  title="Values and names mismatch{% if comparison.cost_comparison.difference %} - Difference: {{ comparison.cost_comparison.difference }}{% endif %}">
+                                                <i class="fas fa-times-circle"></i>
+                                            </span>
+                                        {% endif %}
                                     {% elif comparison.cost_comparison.match %}
                                         <span class="match-indicator text-success" title="Validation passed">
                                             <i class="fas fa-check-circle"></i>
                                         </span>
                                     {% else %}
-                                        <span class="match-indicator text-danger" 
+                                        <span class="match-indicator text-danger"
                                               title="Validation failed{% if comparison.cost_comparison.difference %} - Difference: {{ comparison.cost_comparison.difference }}{% endif %}">
                                             <i class="fas fa-times-circle"></i>
                                         </span>

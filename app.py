@@ -194,96 +194,209 @@ def compare_general_info(doc_info: Dict[str, Any], excel_info: Dict[str, Any], e
     
     return comparison
 
+def _has_nonzero_data(item: Dict[str, Any]) -> bool:
+    """Check if an energy item has any non-zero cost or usage values."""
+    cost = item.get('cost', 0)
+    if cost and isinstance(cost, (int, float)) and cost > 0:
+        return True
+    for v in item.get('usage', {}).values():
+        if v and isinstance(v, (int, float)) and v > 0:
+            return True
+    return False
+
+def _build_type_comparison(doc_item: Dict[str, Any], excel_item: Dict[str, Any], validation_status: str) -> Dict[str, Any]:
+    """Build a comparison dict for a single energy type pair."""
+    type_comparison = {
+        'doc_data': doc_item,
+        'excel_data': excel_item,
+        'cost_comparison': compare_values(
+            doc_item.get('cost'),
+            excel_item.get('cost')
+        ),
+        'usage_comparison': {},
+        'validation_status': validation_status
+    }
+
+    doc_usage = doc_item.get('usage', {})
+    excel_usage = excel_item.get('usage', {})
+
+    if doc_usage and excel_usage:
+        for unit, value in doc_usage.items():
+            if unit in excel_usage:
+                type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage[unit])
+            elif 'value' in excel_usage and len(doc_usage) == 1:
+                type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage['value'])
+
+    return type_comparison
+
 def compare_energy_data(doc_energy: Dict[str, Any], excel_energy: Dict[str, Any]) -> Dict[str, Any]:
     """
     Compare energy usage data from document against Excel validation data.
-    Only compares energy types that are present in the document extraction.
+
+    Uses a two-phase matching strategy:
+      Phase 1 - Exact standardized-name match
+      Phase 2 - Value-based match (cost within tolerance) for remaining types,
+                with a name-mismatch warning when labels differ
+    Remaining unmatched types from either side are flagged accordingly.
     """
-    comparison = {
+    comparison: Dict[str, Any] = {
         'energy_types': {},
         'summary': {
             'total_types': 0,
             'matched_types': 0,
             'mismatched_types': 0,
             'missing_in_excel': 0,
+            'missing_in_doc': 0,
+            'name_mismatch_types': 0,
             'validated_types': 0,
             'total_cost_match': False,
             'doc_total_cost': 0,
             'excel_total_cost': 0
         }
     }
-    
-    # Create mappings by energy type
-    doc_types = {item['type']: item for item in doc_energy.get('data', [])}
-    excel_types = {item['type']: item for item in excel_energy.get('data', [])}
-    
-    # Skip energy types that shouldn't be compared
+
     skip_energy_types = {'total_utility'}
-    
-    # Only process energy types that exist in the document extraction
-    for energy_type, doc_item in doc_types.items():
-        # Skip total utility cost energy type
-        if energy_type in skip_energy_types:
-            comparison['summary']['total_types'] += 1
+
+    # Build type dicts, preferring entries with the highest cost when
+    # multiple rows share the same standardized type (e.g. several Fuel Oil grades).
+    doc_types: Dict[str, Dict[str, Any]] = {}
+    for item in doc_energy.get('data', []):
+        dtype = item['type']
+        if dtype in skip_energy_types:
             continue
-            
-        excel_item = excel_types.get(energy_type, {})
-        
-        type_comparison = {
-            'doc_data': doc_item,
-            'excel_data': excel_item,
-            'cost_comparison': compare_values(
-                doc_item.get('cost'), 
-                excel_item.get('cost')
-            ),
-            'usage_comparison': {},
-            'validation_status': 'validated' if excel_item else 'not_in_excel'
-        }
-        
-        # Compare usage values if both sources have data
-        doc_usage = doc_item.get('usage', {})
-        excel_usage = excel_item.get('usage', {})
-        
-        if doc_usage and excel_usage:
-            # Look for matching units or values
-            for unit, value in doc_usage.items():
-                if unit in excel_usage:
-                    type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage[unit])
-                elif 'value' in excel_usage and len(doc_usage) == 1:
-                    type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage['value'])
-        
-        comparison['energy_types'][energy_type] = type_comparison
-        comparison['summary']['total_types'] += 1
-        
-        if excel_item:  # Only count as validated if Excel has this energy type
+        if dtype not in doc_types or (item.get('cost', 0) or 0) > (doc_types[dtype].get('cost', 0) or 0):
+            doc_types[dtype] = item
+
+    excel_types: Dict[str, Dict[str, Any]] = {}
+    for item in excel_energy.get('data', []):
+        etype = item['type']
+        if etype in skip_energy_types:
+            continue
+        if etype not in excel_types or (item.get('cost', 0) or 0) > (excel_types[etype].get('cost', 0) or 0):
+            excel_types[etype] = item
+
+    matched_doc: set = set()
+    matched_excel: set = set()
+
+    # ── Phase 1: Exact name match ──────────────────────────────────────
+    for energy_type, doc_item in doc_types.items():
+        if energy_type in excel_types:
+            excel_item = excel_types[energy_type]
+            tc = _build_type_comparison(doc_item, excel_item, 'validated')
+            comparison['energy_types'][energy_type] = tc
+            matched_doc.add(energy_type)
+            matched_excel.add(energy_type)
+
+            comparison['summary']['total_types'] += 1
             comparison['summary']['validated_types'] += 1
-            if type_comparison['cost_comparison']['match']:
+            if tc['cost_comparison']['match']:
                 comparison['summary']['matched_types'] += 1
             else:
                 comparison['summary']['mismatched_types'] += 1
-        else:
-            comparison['summary']['missing_in_excel'] += 1
-    
-    # Compare total costs (calculate Excel total from individual energy costs, excluding skipped types)
+
+    # ── Phase 2: Value-based match for remaining types ─────────────────
+    unmatched_doc = {k: v for k, v in doc_types.items() if k not in matched_doc}
+    unmatched_excel = {k: v for k, v in excel_types.items()
+                       if k not in matched_excel and _has_nonzero_data(v)}
+    value_matched_excel: set = set()
+
+    for doc_type, doc_item in list(unmatched_doc.items()):
+        doc_cost = doc_item.get('cost', 0)
+        if not doc_cost:
+            continue
+
+        candidates = [
+            (etype, eitem) for etype, eitem in unmatched_excel.items()
+            if etype not in value_matched_excel
+            and compare_values(doc_cost, eitem.get('cost', 0))['match']
+        ]
+
+        paired = None
+        if len(candidates) == 1:
+            paired = candidates[0]
+        elif len(candidates) > 1:
+            doc_usage_vals = list(doc_item.get('usage', {}).values())
+            doc_uv = doc_usage_vals[0] if doc_usage_vals else None
+            if doc_uv:
+                for etype, eitem in candidates:
+                    excel_uv_list = list(eitem.get('usage', {}).values())
+                    excel_uv = excel_uv_list[0] if excel_uv_list else None
+                    if excel_uv and compare_values(doc_uv, excel_uv)['match']:
+                        paired = (etype, eitem)
+                        break
+
+        if paired:
+            excel_type, excel_item = paired
+            doc_label = doc_type.replace('_', ' ').title()
+            excel_label = excel_item.get('original_name', excel_type.replace('_', ' ').title())
+
+            tc = _build_type_comparison(doc_item, excel_item, 'name_mismatch')
+            tc['name_warning'] = f"Document: '{doc_label}' / Excel: '{excel_label}'"
+            tc['doc_type_name'] = doc_type
+            tc['excel_type_name'] = excel_type
+
+            comparison['energy_types'][doc_type] = tc
+            matched_doc.add(doc_type)
+            value_matched_excel.add(excel_type)
+
+            comparison['summary']['total_types'] += 1
+            comparison['summary']['validated_types'] += 1
+            comparison['summary']['name_mismatch_types'] += 1
+            if tc['cost_comparison']['match']:
+                comparison['summary']['matched_types'] += 1
+            else:
+                comparison['summary']['mismatched_types'] += 1
+
+    # ── Remaining unmatched document types ──────────────────────────────
+    for doc_type, doc_item in doc_types.items():
+        if doc_type in matched_doc:
+            continue
+        tc = _build_type_comparison(doc_item, {}, 'not_in_excel')
+        comparison['energy_types'][doc_type] = tc
+        comparison['summary']['total_types'] += 1
+        comparison['summary']['missing_in_excel'] += 1
+
+    # ── Remaining unmatched Excel types (non-zero data only) ───────────
+    for excel_type, excel_item in excel_types.items():
+        if excel_type in matched_excel or excel_type in value_matched_excel:
+            continue
+        if not _has_nonzero_data(excel_item):
+            continue
+        tc = {
+            'doc_data': {},
+            'excel_data': excel_item,
+            'cost_comparison': compare_values(None, excel_item.get('cost')),
+            'usage_comparison': {},
+            'validation_status': 'not_in_document'
+        }
+        comparison['energy_types'][excel_type] = tc
+        comparison['summary']['total_types'] += 1
+        comparison['summary']['missing_in_doc'] += 1
+
+    # ── Total cost comparison ──────────────────────────────────────────
     doc_total = sum(
-        item.get('cost', 0) for item in doc_energy.get('data', []) 
+        item.get('cost', 0) for item in doc_energy.get('data', [])
         if item.get('cost') and item.get('type') not in skip_energy_types
     )
-    
-    # Calculate Excel total from individual energy costs (don't use summary field, exclude skipped types)
     excel_total = sum(
-        item.get('cost', 0) for item in excel_energy.get('data', []) 
+        item.get('cost', 0) for item in excel_energy.get('data', [])
         if item.get('cost') and isinstance(item.get('cost'), (int, float)) and item.get('cost') > 0
         and item.get('type') not in skip_energy_types
     )
-    
+
     comparison['summary']['doc_total_cost'] = doc_total
     comparison['summary']['excel_total_cost'] = excel_total
     total_comparison = compare_values(doc_total, excel_total)
     comparison['summary']['total_cost_match'] = total_comparison['match']
     comparison['summary']['total_cost_comparison'] = total_comparison
-    comparison['summary']['excel_total_calculation_note'] = f'Calculated from {len([item for item in excel_energy.get("data", []) if item.get("cost", 0) > 0 and item.get("type") not in skip_energy_types])} energy cost entries (excluding total utility)'
-    
+    non_skip_excel_count = len([
+        item for item in excel_energy.get('data', [])
+        if item.get('cost', 0) > 0 and item.get('type') not in skip_energy_types
+    ])
+    comparison['summary']['excel_total_calculation_note'] = (
+        f'Calculated from {non_skip_excel_count} energy cost entries (excluding total utility)'
+    )
+
     return comparison
 
 def compare_ar_sanity_check(assessment_recommendations: List[str], recommendation_summary_table: str) -> Dict[str, Any]:
