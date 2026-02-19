@@ -345,8 +345,14 @@ def validate_recommendation_totals(
     ]
 
     # Fields that should NOT be summed (calculated differently)
-    non_summable_fields = {
-        "payback_period_years"  # Usually weighted average or total_cost/total_savings
+    non_summable_fields = set()
+
+    calculated_fields = {
+        "payback_period_years": {
+            "numerator_field": "implementation_cost",
+            "denominator_field": "total_cost_savings_per_year",
+            "formula": "implementation_cost / total_cost_savings_per_year",
+        }
     }
 
     validation_results = []
@@ -364,6 +370,87 @@ def validate_recommendation_totals(
 
         # Get expected total from totals row
         expected_total = totals.get(field, 0)
+
+        # Special handling for calculated fields
+        if field in calculated_fields:
+            calc_config = calculated_fields[field]
+            numerator_field = calc_config["numerator_field"]
+            denominator_field = calc_config["denominator_field"]
+
+            numerator_sum = 0
+            denominator_sum = 0
+            numerator_values = []
+            denominator_values = []
+
+            for rec in recommendations:
+                numerator_value = rec.get(numerator_field, 0)
+                denominator_value = rec.get(denominator_field, 0)
+                if isinstance(numerator_value, (int, float)):
+                    numerator_sum += numerator_value
+                    numerator_values.append(numerator_value)
+                if isinstance(denominator_value, (int, float)):
+                    denominator_sum += denominator_value
+                    denominator_values.append(denominator_value)
+
+            expected_total = totals.get(field, 0)
+
+            if denominator_sum == 0:
+                validation_results.append(
+                    {
+                        "field_name": field,
+                        "calculated_value": None,
+                        "expected_total": expected_total,
+                        "difference": None,
+                        "is_valid": False,
+                        "numerator_sum": numerator_sum,
+                        "denominator_sum": denominator_sum,
+                        "numerator_values": numerator_values,
+                        "denominator_values": denominator_values,
+                        "error": "Denominator sum is zero",
+                        "formula": calc_config["formula"],
+                        "validation_type": "calculated_error",
+                    }
+                )
+                continue
+
+            calculated_value = numerator_sum / denominator_sum
+            if isinstance(expected_total, (int, float)):
+                difference = abs(calculated_value - expected_total)
+                is_valid = difference <= tolerance
+                validation_results.append(
+                    {
+                        "field_name": field,
+                        "calculated_value": calculated_value,
+                        "expected_total": expected_total,
+                        "difference": difference,
+                        "is_valid": is_valid,
+                        "numerator_sum": numerator_sum,
+                        "denominator_sum": denominator_sum,
+                        "numerator_values": numerator_values,
+                        "denominator_values": denominator_values,
+                        "tolerance_used": tolerance,
+                        "formula": calc_config["formula"],
+                        "validation_type": "calculated",
+                    }
+                )
+            else:
+                validation_results.append(
+                    {
+                        "field_name": field,
+                        "calculated_value": calculated_value,
+                        "expected_total": expected_total,
+                        "difference": None,
+                        "is_valid": False,
+                        "numerator_sum": numerator_sum,
+                        "denominator_sum": denominator_sum,
+                        "numerator_values": numerator_values,
+                        "denominator_values": denominator_values,
+                        "error": "Non-numeric expected total",
+                        "formula": calc_config["formula"],
+                        "validation_type": "calculated_error",
+                    }
+                )
+            continue
 
         # Special handling for non-summable fields
         if field in non_summable_fields:
@@ -418,16 +505,22 @@ def validate_recommendation_totals(
                 }
             )
 
-    # Overall validation summary (only consider summable fields)
+    # Overall validation summary (consider summable and calculated fields)
     summable_results = [
         result
         for result in validation_results
         if result.get("validation_type") == "summable"
     ]
-    all_valid = all(result.get("is_valid", False) for result in summable_results)
+    calculated_results = [
+        result
+        for result in validation_results
+        if result.get("validation_type") == "calculated"
+    ]
+    considered_results = summable_results + calculated_results
+    all_valid = all(result.get("is_valid", False) for result in considered_results)
     invalid_fields = [
         result["field_name"]
-        for result in summable_results
+        for result in considered_results
         if not result.get("is_valid", False)
     ]
     non_summable_count = len(
@@ -445,9 +538,20 @@ def validate_recommendation_totals(
         "summary": {
             "total_fields_checked": len(validation_results),
             "summable_fields_checked": len(summable_results),
+            "calculated_fields_checked": len(calculated_results),
             "non_summable_fields": non_summable_count,
-            "valid_summable_fields": len(summable_results) - len(invalid_fields),
-            "invalid_summable_fields": len(invalid_fields),
+            "valid_summable_fields": len(summable_results) - len(
+                [r for r in summable_results if not r.get("is_valid", False)]
+            ),
+            "invalid_summable_fields": len(
+                [r for r in summable_results if not r.get("is_valid", False)]
+            ),
+            "valid_calculated_fields": len(calculated_results) - len(
+                [r for r in calculated_results if not r.get("is_valid", False)]
+            ),
+            "invalid_calculated_fields": len(
+                [r for r in calculated_results if not r.get("is_valid", False)]
+            ),
         },
     }
     

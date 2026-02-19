@@ -657,10 +657,7 @@
                         {% else %}
                             <span class="badge bg-danger me-2"><i class="fas fa-times-circle"></i> {{ totals_validation.invalid_fields|length }} Invalid Field(s)</span>
                         {% endif %}
-                        <span class="badge bg-info me-2">{{ totals_validation.summary.summable_fields_checked }} fields checked</span>
-                        {% if totals_validation.summary.non_summable_fields > 0 %}
-                        <span class="badge bg-secondary me-2">{{ totals_validation.summary.non_summable_fields }} non-summable</span>
-                        {% endif %}
+                        <span class="badge bg-info me-2">{{ totals_validation.summary.total_fields_checked }} fields checked</span>
                     {% endif %}
                     <i class="fas fa-chevron-down text-muted"></i>
                 </div>
@@ -696,15 +693,15 @@
                             <div class="card text-center border-0 bg-light">
                                 <div class="card-body py-3">
                                     <h6 class="card-title text-muted mb-1">Invalid Fields</h6>
-                                    <h3 class="text-danger mb-0">{{ totals_validation.summary.invalid_summable_fields }}</h3>
+                                    <h3 class="text-danger mb-0">{{ totals_validation.invalid_fields|length }}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="card text-center border-0 bg-light">
                                 <div class="card-body py-3">
-                                    <h6 class="card-title text-muted mb-1">Non-Summable</h6>
-                                    <h3 class="text-secondary mb-0">{{ totals_validation.summary.non_summable_fields }}</h3>
+                                    <h6 class="card-title text-muted mb-1">Valid Calculated</h6>
+                                    <h3 class="text-success mb-0">{{ totals_validation.summary.valid_calculated_fields }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -714,7 +711,7 @@
                     {% if totals_validation.overall_valid %}
                         <div class="alert alert-success mb-4">
                             <i class="fas fa-check-circle me-2"></i>
-                            <strong>Success!</strong> All summable fields match the totals row within tolerance.
+                            <strong>Success!</strong> All fields match the totals row within tolerance.
                         </div>
                     {% else %}
                         <div class="alert alert-danger mb-4">
@@ -741,14 +738,14 @@
                             </thead>
                             <tbody>
                                 {% for validation in totals_validation.field_validations %}
-                                <tr class="{% if validation.validation_type == 'non_summable' %}bg-light{% elif validation.is_valid %}match-highlight{% else %}mismatch-highlight{% endif %}">
+                                <tr class="{% if validation.is_valid %}match-highlight{% else %}mismatch-highlight{% endif %}">
                                     <td class="fw-bold">
                                         {{ validation.field_name.replace('_', ' ').title() }}
-                                        {% if validation.validation_type == 'non_summable' %}
-                                            <span class="badge bg-secondary ms-2" 
-                                                  data-bs-toggle="tooltip" 
-                                                  title="{{ validation.note }}">
-                                                Non-Summable
+                                        {% if validation.validation_type == 'calculated' or validation.validation_type == 'calculated_error' %}
+                                            <span class="badge bg-info ms-2"
+                                                  data-bs-toggle="tooltip"
+                                                  title="{{ validation.formula }}">
+                                                Calculated
                                             </span>
                                         {% endif %}
                                     </td>
@@ -756,7 +753,11 @@
                                         <span class="value-pill">
                                             <span class="chip chip-doc">Calculated</span>
                                             <span class="{% if validation.is_valid == False %}text-danger{% else %}text-info{% endif %}">
-                                                {{ "{:,.2f}".format(validation.calculated_sum) if validation.calculated_sum is number else validation.calculated_sum }}
+                                                {% if validation.validation_type == 'calculated' or validation.validation_type == 'calculated_error' %}
+                                                    {{ "{:,.2f}".format(validation.calculated_value) if validation.calculated_value is number else validation.calculated_value }}
+                                                {% else %}
+                                                    {{ "{:,.2f}".format(validation.calculated_sum) if validation.calculated_sum is number else validation.calculated_sum }}
+                                                {% endif %}
                                             </span>
                                         </span>
                                     </td>
@@ -776,11 +777,7 @@
                                         {% endif %}
                                     </td>
                                     <td class="text-center">
-                                        {% if validation.validation_type == 'non_summable' %}
-                                            <span class="match-indicator text-secondary" title="{{ validation.note }}">
-                                                <i class="fas fa-info-circle"></i>
-                                            </span>
-                                        {% elif validation.is_valid == True %}
+                                        {% if validation.is_valid == True %}
                                             <span class="match-indicator text-success" title="Sum matches total within tolerance">
                                                 <i class="fas fa-check-circle"></i>
                                             </span>
@@ -795,7 +792,7 @@
                                         {% endif %}
                                     </td>
                                     <td class="text-center">
-                                        {% if validation.individual_values %}
+                                        {% if validation.individual_values or validation.validation_type == 'calculated' or validation.validation_type == 'calculated_error' %}
                                             <button class="btn btn-sm btn-outline-info" type="button" 
                                                     data-bs-toggle="collapse" 
                                                     data-bs-target="#fieldDetail{{ loop.index }}" 
@@ -807,7 +804,7 @@
                                         {% endif %}
                                     </td>
                                 </tr>
-                                {% if validation.individual_values %}
+                                {% if validation.individual_values or validation.validation_type == 'calculated' or validation.validation_type == 'calculated_error' %}
                                 <tr>
                                     <td colspan="6" class="p-0">
                                         <div class="collapse" id="fieldDetail{{ loop.index }}">
@@ -816,22 +813,54 @@
                                                     <i class="fas fa-list-ul text-primary me-2"></i>
                                                     Individual AR Values for {{ validation.field_name.replace('_', ' ').title() }}
                                                 </h6>
-                                                <div class="d-flex flex-wrap gap-2">
-                                                    {% for value in validation.individual_values %}
-                                                        <span class="badge bg-info-subtle text-info border border-info" style="font-size: 0.85em;">
-                                                            AR {{ loop.index }}: {{ "{:,.2f}".format(value) if value is number else value }}
-                                                        </span>
-                                                    {% endfor %}
-                                                </div>
-                                                <div class="mt-3">
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-calculator me-1"></i>
-                                                        Sum: {{ "{:,.2f}".format(validation.calculated_sum) if validation.calculated_sum is number else validation.calculated_sum }}
-                                                        {% if validation.tolerance_used %}
-                                                            | Tolerance: ±{{ validation.tolerance_used }}
-                                                        {% endif %}
-                                                    </small>
-                                                </div>
+                                                {% if validation.validation_type == 'calculated' or validation.validation_type == 'calculated_error' %}
+                                                    <div class="mb-2">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-calculator me-1"></i>
+                                                            Formula: {{ validation.formula }}
+                                                        </small>
+                                                    </div>
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        {% for value in validation.numerator_values %}
+                                                            <span class="badge bg-info-subtle text-info border border-info" style="font-size: 0.85em;">
+                                                                Cost {{ loop.index }}: {{ "{:,.2f}".format(value) if value is number else value }}
+                                                            </span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="d-flex flex-wrap gap-2 mt-2">
+                                                        {% for value in validation.denominator_values %}
+                                                            <span class="badge bg-success-subtle text-success border border-success" style="font-size: 0.85em;">
+                                                                Savings {{ loop.index }}: {{ "{:,.2f}".format(value) if value is number else value }}
+                                                            </span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-calculator me-1"></i>
+                                                            Calculated: {{ "{:,.2f}".format(validation.calculated_value) if validation.calculated_value is number else validation.calculated_value }}
+                                                            {% if validation.tolerance_used %}
+                                                                | Tolerance: ±{{ validation.tolerance_used }}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        {% for value in validation.individual_values %}
+                                                            <span class="badge bg-info-subtle text-info border border-info" style="font-size: 0.85em;">
+                                                                AR {{ loop.index }}: {{ "{:,.2f}".format(value) if value is number else value }}
+                                                            </span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-calculator me-1"></i>
+                                                            Sum: {{ "{:,.2f}".format(validation.calculated_sum) if validation.calculated_sum is number else validation.calculated_sum }}
+                                                            {% if validation.tolerance_used %}
+                                                                | Tolerance: ±{{ validation.tolerance_used }}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                {% endif %}
                                                 {% if validation.get('error') %}
                                                     <div class="alert alert-warning mt-2 mb-0">
                                                         <i class="fas fa-exclamation-triangle me-1"></i>
@@ -848,13 +877,6 @@
                         </table>
                     </div>
 
-                    <!-- Additional Information -->
-                    <div class="mt-3">
-                        <small class="text-muted">
-                            <i class="fas fa-info-circle me-1"></i>
-                            <strong>Note:</strong> Non-summable fields (like payback period) are calculated differently and are not expected to be simple sums.
-                        </small>
-                    </div>
                 {% endif %}
             </div>
         </div>
