@@ -532,63 +532,91 @@ def extract_recommendation_info_dict(xlsx_path: str) -> Dict[str, Any]:
             "summary": {},
             "totals": {}
         }
-        
-        # Find the main recommendations table
-        tables = detect_tables(ws, max_col=min(ws.max_column or 35, 35))
-        
-        if tables:
-            main_table = tables[0]  # Use the first/main table
-            
-            total_savings = 0
-            total_cost = 0
-            valid_recommendations = 0
-            
-            for row in main_table["rows"]:
-                rec_data = {}
-                
-                # Extract key fields with flexible mapping
-                for key, value in row.items():
-                    key_lower = str(key).lower()
-                    
-                    if value is not None and str(value).strip():
-                        if 'arc' in key_lower and 'code' in key_lower:
-                            rec_data['arc_code'] = safe_convert_numeric(value)
-                        elif 'app' in key_lower and 'code' in key_lower:
-                            rec_data['app_code'] = safe_convert_numeric(value)
-                        elif 'description' in key_lower:
-                            rec_data['description'] = str(value).strip()
-                        elif 'primary' in key_lower and 'resource' in key_lower:
-                            rec_data['primary_resource'] = str(value).strip()
-                        elif 'unit' in key_lower and 'savings' in key_lower:
-                            rec_data['unit_savings'] = safe_convert_numeric(value)
-                        elif 'savings' in key_lower and '$' in key_lower:
-                            rec_data['dollar_savings'] = safe_convert_numeric(value)
-                        elif 'cost' in key_lower and 'capital' in key_lower:
-                            rec_data['capital_cost'] = safe_convert_numeric(value)
-                        elif 'cost' in key_lower and 'other' in key_lower:
-                            rec_data['other_cost'] = safe_convert_numeric(value)
-                
-                # Only include if it has meaningful data
-                if any(v is not None for v in rec_data.values()) and len(rec_data) > 1:
-                    reco_info["recommendations"].append(rec_data)
-                    valid_recommendations += 1
-                    
-                    # Accumulate totals
-                    if 'dollar_savings' in rec_data and isinstance(rec_data['dollar_savings'], (int, float)):
-                        total_savings += rec_data['dollar_savings']
-                    
-                    if 'capital_cost' in rec_data and isinstance(rec_data['capital_cost'], (int, float)):
-                        total_cost += rec_data['capital_cost']
-                    if 'other_cost' in rec_data and isinstance(rec_data['other_cost'], (int, float)):
-                        total_cost += rec_data['other_cost']
-            
-            reco_info["summary"] = {
-                "total_recommendations": valid_recommendations,
-                "total_annual_savings": total_savings,
-                "total_implementation_cost": total_cost,
-                "simple_payback_years": total_savings / total_cost if total_cost > 0 else 0
+
+        # Fixed layout for IAC Assessment Template v2.1
+        # Row 1: title, Row 2: group headers, Row 3: column headers
+        start_row = 4
+        max_row = ws.max_row or start_row
+
+        total_savings = 0
+        total_cost = 0
+        valid_recommendations = 0
+
+        stream_columns = [
+            (5, 6, 7, 8),   # Primary
+            (9, 10, 11, 12),  # Secondary
+            (13, 14, 15, 16),  # Tertiary
+            (17, 18, 19, 20)  # Quaternary
+        ]
+
+        for row_idx in range(start_row, max_row + 1):
+            ar_value = ws.cell(row=row_idx, column=1).value
+            ar_number = safe_convert_numeric(ar_value)
+
+            if not isinstance(ar_number, (int, float)):
+                continue
+
+            rec_data = {
+                "ar_number": int(ar_number) if isinstance(ar_number, (int, float)) else ar_number,
+                "arc_code": safe_convert_numeric(ws.cell(row=row_idx, column=2).value),
+                "app_code": safe_convert_numeric(ws.cell(row=row_idx, column=3).value),
+                "description": str(ws.cell(row=row_idx, column=4).value).strip()
+                if ws.cell(row=row_idx, column=4).value is not None
+                else "",
+                "resource_streams": [],
+                "imp_cost_capital": safe_convert_numeric(ws.cell(row=row_idx, column=23).value),
+                "imp_cost_other": safe_convert_numeric(ws.cell(row=row_idx, column=24).value)
             }
-        
+
+            total_dollar_savings = 0
+
+            for type_col, unit_savings_col, unit_col, dollar_col in stream_columns:
+                stream_type = ws.cell(row=row_idx, column=type_col).value
+                unit_savings = safe_convert_numeric(ws.cell(row=row_idx, column=unit_savings_col).value)
+                unit_value = ws.cell(row=row_idx, column=unit_col).value
+                dollar_savings = safe_convert_numeric(ws.cell(row=row_idx, column=dollar_col).value)
+
+                stream = {
+                    "type": str(stream_type).strip() if stream_type is not None else "",
+                    "unit_savings": unit_savings,
+                    "unit": str(unit_value).strip() if unit_value is not None else "",
+                    "dollar_savings": dollar_savings
+                }
+
+                if any(
+                    value not in (None, "", 0)
+                    for value in [stream["type"], stream["unit_savings"], stream["unit"], stream["dollar_savings"]]
+                ):
+                    rec_data["resource_streams"].append(stream)
+
+                if isinstance(dollar_savings, (int, float)):
+                    total_dollar_savings += dollar_savings
+
+            rec_data["total_implementation_cost"] = 0
+            if isinstance(rec_data["imp_cost_capital"], (int, float)):
+                rec_data["total_implementation_cost"] += rec_data["imp_cost_capital"]
+            if isinstance(rec_data["imp_cost_other"], (int, float)):
+                rec_data["total_implementation_cost"] += rec_data["imp_cost_other"]
+
+            rec_data["total_dollar_savings"] = total_dollar_savings
+
+            if rec_data["resource_streams"] or rec_data["description"] or rec_data["arc_code"] is not None:
+                reco_info["recommendations"].append(rec_data)
+                valid_recommendations += 1
+
+                if isinstance(rec_data["total_dollar_savings"], (int, float)):
+                    total_savings += rec_data["total_dollar_savings"]
+
+                if isinstance(rec_data["total_implementation_cost"], (int, float)):
+                    total_cost += rec_data["total_implementation_cost"]
+
+        reco_info["summary"] = {
+            "total_recommendations": valid_recommendations,
+            "total_annual_savings": total_savings,
+            "total_implementation_cost": total_cost,
+            "simple_payback_years": total_savings / total_cost if total_cost > 0 else 0
+        }
+
         return reco_info
         
     except Exception as e:

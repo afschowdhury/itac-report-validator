@@ -519,6 +519,202 @@ def compare_ar_sanity_check(assessment_recommendations: List[str], recommendatio
     
     return result
 
+
+RESOURCE_STREAM_MAPPING = {
+    "electricity usage": {
+        "unit_savings_field": "electricity_savings_kwh_per_year",
+        "dollar_savings_field": "energy_cost_savings_per_year"
+    },
+    "electricity demand": {
+        "unit_savings_field": "demand_savings_kw_per_year",
+        "dollar_savings_field": "demand_cost_savings_per_year"
+    },
+    "natural gas": {
+        "unit_savings_field": "propane_savings_mmbtu_per_year",
+        "dollar_savings_field": "propane_cost_savings_per_year"
+    },
+    "lpg": {
+        "unit_savings_field": "propane_savings_mmbtu_per_year",
+        "dollar_savings_field": "propane_cost_savings_per_year"
+    },
+    "propane": {
+        "unit_savings_field": "propane_savings_mmbtu_per_year",
+        "dollar_savings_field": "propane_cost_savings_per_year"
+    },
+    "administrative changes": {
+        "unit_savings_field": None,
+        "dollar_savings_field": "admin_cost_savings_per_year"
+    },
+    "personnel changes": {
+        "unit_savings_field": None,
+        "dollar_savings_field": "admin_cost_savings_per_year"
+    }
+}
+
+
+def compare_recommendation_info_check(
+    excel_recommendation_info: Dict[str, Any],
+    recommendation_summary_table: str
+) -> Dict[str, Any]:
+    """
+    Compare Excel Recommendation Info sheet against the DOCX recommendation summary table.
+
+    Args:
+        excel_recommendation_info: Output of extract_recommendation_info_dict
+        recommendation_summary_table: HTML string containing the summary table
+
+    Returns:
+        Dictionary containing comparison results with summary stats and detailed comparisons
+    """
+    result = {
+        'summary': {
+            'total_ars': 0,
+            'matched_ars': 0,
+            'mismatched_ars': 0,
+            'total_field_matches': 0,
+            'total_field_differences': 0,
+            'has_data': False
+        },
+        'ar_comparisons': [],
+        'error': None
+    }
+
+    if not excel_recommendation_info or not excel_recommendation_info.get('recommendations'):
+        result['error'] = 'No recommendation info data found in Excel file'
+        return result
+
+    if not recommendation_summary_table or not recommendation_summary_table.strip():
+        result['error'] = (
+            'No recommendation summary table found in document. '
+            'The table detection looks for captions like "Table 1.3 Summary Table" or "Recommendation Summary Table". '
+            'If your document uses different wording, the table may not be detected.'
+        )
+        return result
+
+    try:
+        rec_summary = get_recommended_summary_table_json(recommendation_summary_table)
+        if not rec_summary.get('recommendations'):
+            result['error'] = 'Could not extract recommendations from summary table'
+            return result
+
+        result['summary']['has_data'] = True
+
+        for rec in excel_recommendation_info.get('recommendations', []):
+            ar_number = rec.get('ar_number')
+            if not ar_number:
+                continue
+
+            result['summary']['total_ars'] += 1
+
+            summary_rec = next(
+                (item for item in rec_summary['recommendations'] if item.get('ar_number') == ar_number),
+                None
+            )
+
+            if summary_rec is None:
+                result['ar_comparisons'].append({
+                    'ar_number': ar_number,
+                    'status': 'error',
+                    'error': f'No matching AR number {ar_number} found in summary table',
+                    'matches': [],
+                    'differences': [],
+                    'total_matches': 0,
+                    'total_differences': 0
+                })
+                continue
+
+            excel_fields: Dict[str, float] = {}
+
+            for stream in rec.get('resource_streams', []):
+                stream_type = stream.get('type', '')
+                normalized_type = " ".join(str(stream_type).strip().lower().split())
+                mapping = RESOURCE_STREAM_MAPPING.get(normalized_type)
+                if not mapping:
+                    continue
+
+                unit_field = mapping.get('unit_savings_field')
+                dollar_field = mapping.get('dollar_savings_field')
+
+                unit_savings = stream.get('unit_savings')
+                dollar_savings = stream.get('dollar_savings')
+
+                if unit_field and isinstance(unit_savings, (int, float)):
+                    excel_fields[unit_field] = excel_fields.get(unit_field, 0) + unit_savings
+
+                if dollar_field and isinstance(dollar_savings, (int, float)):
+                    excel_fields[dollar_field] = excel_fields.get(dollar_field, 0) + dollar_savings
+
+            if isinstance(rec.get('total_dollar_savings'), (int, float)):
+                excel_fields['total_cost_savings_per_year'] = rec['total_dollar_savings']
+
+            if isinstance(rec.get('total_implementation_cost'), (int, float)):
+                excel_fields['implementation_cost'] = rec['total_implementation_cost']
+
+            matches = []
+            differences = []
+
+            for field, excel_value in excel_fields.items():
+                doc_value = summary_rec.get(field)
+
+                if doc_value is None and excel_value is None:
+                    continue
+
+                if isinstance(excel_value, (int, float)) and isinstance(doc_value, (int, float)):
+                    diff = abs(excel_value - doc_value)
+                    if diff < 0.01:
+                        matches.append({
+                            'field': field,
+                            'excel_value': excel_value,
+                            'docx_value': doc_value,
+                            'match': True
+                        })
+                    else:
+                        differences.append({
+                            'field': field,
+                            'excel_value': excel_value,
+                            'docx_value': doc_value,
+                            'difference': diff
+                        })
+                elif excel_value == doc_value:
+                    matches.append({
+                        'field': field,
+                        'excel_value': excel_value,
+                        'docx_value': doc_value,
+                        'match': True
+                    })
+                else:
+                    differences.append({
+                        'field': field,
+                        'excel_value': excel_value,
+                        'docx_value': doc_value,
+                        'difference': 'type mismatch or different values'
+                    })
+
+            if differences:
+                result['summary']['mismatched_ars'] += 1
+                status = 'mismatch'
+            else:
+                result['summary']['matched_ars'] += 1
+                status = 'match'
+
+            result['summary']['total_field_matches'] += len(matches)
+            result['summary']['total_field_differences'] += len(differences)
+
+            result['ar_comparisons'].append({
+                'ar_number': ar_number,
+                'status': status,
+                'matches': matches,
+                'differences': differences,
+                'total_matches': len(matches),
+                'total_differences': len(differences)
+            })
+
+    except Exception as e:
+        logging.error(f"Error in Recommendation Info check: {e}")
+        result['error'] = f'Error performing Recommendation Info check: {str(e)}'
+
+    return result
+
 @app.route('/')
 def index():
     """Main upload page."""
@@ -585,6 +781,12 @@ def upload_files():
             doc_data.get('assessment_recommendations', []),
             doc_data.get('recommendation_summary_table', '')
         )
+
+        # Perform Recommendation Info cross-check (Excel vs DOCX summary table)
+        rec_info_check = compare_recommendation_info_check(
+            excel_data.get('recommendation_info', {}),
+            doc_data.get('recommendation_summary_table', '')
+        )
         
         # Perform totals validation
         totals_validation = None
@@ -639,6 +841,7 @@ def upload_files():
             'general_comparison': general_comparison,
             'energy_comparison': energy_comparison,
             'ar_sanity_check': ar_sanity_check,
+            'rec_info_check': rec_info_check,
             'totals_validation': totals_validation,
             'link_validation': link_validation,
             'doc_general_info': doc_general_info,
