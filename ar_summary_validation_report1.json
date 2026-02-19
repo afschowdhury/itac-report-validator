@@ -1,0 +1,441 @@
+[
+  {
+    "ar_number": 1,
+    "summary": "AR No. 1 \u2013 HVAC Tune-Up to Increase Energy Efficiency  Performing a tune-up of the HVAC system will optimize its performance and increase energy efficiency. This recommendation includes adjusting and calibrating system controls, cleaning components, and ensuring proper operation. The annual savings from this recommendation are estimated to be $8,06 with no implementation cost",
+    "validation": {
+      "ar_number": 1,
+      "context": "\n    AR Number: 1\n    \n    Summary Text:\n    AR No. 1 \u2013 HVAC Tune-Up to Increase Energy Efficiency  Performing a tune-up of the HVAC system will optimize its performance and increase energy efficiency. This recommendation includes adjusting and calibrating system controls, cleaning components, and ensuring proper operation. The annual savings from this recommendation are estimated to be $8,06 with no implementation cost\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 72020\n  - energy_cost_savings_per_year: 8066\n  - total_cost_savings_per_year: 8066\n  - co2_reduction_tons_per_year: 27\n  - implementation_cost: 0\n  - payback_period_years: 0.0",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0,
+      "summary_text": "AR No. 1 \u2013 HVAC Tune-Up to Increase Energy Efficiency  Performing a tune-up of the HVAC system will optimize its performance and increase energy efficiency. This recommendation includes adjusting and calibrating system controls, cleaning components, and ensuring proper operation. The annual savings from this recommendation are estimated to be $8,06 with no implementation cost",
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 72020,
+          "summary_value": 72020,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 8066,
+          "summary_value": 8066,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 8066,
+          "summary_value": 8066,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 27,
+          "summary_value": 27,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 0,
+          "summary_value": 0,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.0,
+          "summary_value": 0,
+          "match": true
+        }
+      ],
+      "differences": []
+    },
+    "comparison": {
+      "ar_number": 1,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 72020,
+          "summary_value": 72020,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 8066,
+          "summary_value": 8066,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 8066,
+          "summary_value": 8066,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 27,
+          "summary_value": 27,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 0,
+          "summary_value": 0,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.0,
+          "summary_value": 0,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 2,
+    "summary": "AR No. 2 \u2013 Reduce the Discharge Pressure of the Compressed Air System Reducing the discharge pressure of the compressed air system will decrease the energy consumption of the air compressor while still maintaining adequate pressure for equipment operation. The annual savings from this recommendation are estimated to be $2,792 and an implementation cost of $10.",
+    "validation": {
+      "ar_number": 2,
+      "context": "\n    AR Number: 2\n    \n    Summary Text:\n    AR No. 2 \u2013 Reduce the Discharge Pressure of the Compressed Air System Reducing the discharge pressure of the compressed air system will decrease the energy consumption of the air compressor while still maintaining adequate pressure for equipment operation. The annual savings from this recommendation are estimated to be $2,792 and an implementation cost of $10.\n    \n    Numerical Data Matches (5):\n    \n  - electricity_savings_kwh_per_year: 24928\n  - energy_cost_savings_per_year: 2792\n  - total_cost_savings_per_year: 2792\n  - co2_reduction_tons_per_year: 10\n  - payback_period_years: 0.04",
+      "has_differences": false,
+      "total_matches": 5,
+      "total_differences": 0,
+      "summary_text": "AR No. 2 \u2013 Reduce the Discharge Pressure of the Compressed Air System Reducing the discharge pressure of the compressed air system will decrease the energy consumption of the air compressor while still maintaining adequate pressure for equipment operation. The annual savings from this recommendation are estimated to be $2,792 and an implementation cost of $10.",
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 24928,
+          "summary_value": 24928,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 2792,
+          "summary_value": 2792,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 2792,
+          "summary_value": 2792,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 10,
+          "summary_value": 10,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.04,
+          "summary_value": 0.04,
+          "match": true
+        }
+      ],
+      "differences": []
+    },
+    "comparison": {
+      "ar_number": 2,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 24928,
+          "summary_value": 24928,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 2792,
+          "summary_value": 2792,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 2792,
+          "summary_value": 2792,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 10,
+          "summary_value": 10,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.04,
+          "summary_value": 0.04,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 5,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 3,
+    "summary": "AR No. 3 \u2013 Install Occupancy Sensors Installing occupancy sensors in appropriate areas will automatically control lighting based on space occupancy, eliminating unnecessary lighting usage when spaces are vacant. The annual savings from this recommendation are estimated to be $6,307 with an implementation cost of $300.",
+    "validation": {
+      "ar_number": 3,
+      "context": "\n    AR Number: 3\n    \n    Summary Text:\n    AR No. 3 \u2013 Install Occupancy Sensors Installing occupancy sensors in appropriate areas will automatically control lighting based on space occupancy, eliminating unnecessary lighting usage when spaces are vacant. The annual savings from this recommendation are estimated to be $6,307 with an implementation cost of $300.\n    \n    Numerical Data Matches (6):\n    \n  - electricity_savings_kwh_per_year: 56313\n  - energy_cost_savings_per_year: 6307\n  - total_cost_savings_per_year: 6307\n  - co2_reduction_tons_per_year: 21\n  - implementation_cost: 300\n  - payback_period_years: 0.05",
+      "has_differences": false,
+      "total_matches": 6,
+      "total_differences": 0,
+      "summary_text": "AR No. 3 \u2013 Install Occupancy Sensors Installing occupancy sensors in appropriate areas will automatically control lighting based on space occupancy, eliminating unnecessary lighting usage when spaces are vacant. The annual savings from this recommendation are estimated to be $6,307 with an implementation cost of $300.",
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 56313,
+          "summary_value": 56313,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 6307,
+          "summary_value": 6307,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 6307,
+          "summary_value": 6307,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 21,
+          "summary_value": 21,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 300,
+          "summary_value": 300,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.05,
+          "summary_value": 0.05,
+          "match": true
+        }
+      ],
+      "differences": []
+    },
+    "comparison": {
+      "ar_number": 3,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 56313,
+          "summary_value": 56313,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 6307,
+          "summary_value": 6307,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 6307,
+          "summary_value": 6307,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 21,
+          "summary_value": 21,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 300,
+          "summary_value": 300,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.05,
+          "summary_value": 0.05,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 6,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 4,
+    "summary": "AR No. 4 \u2013 Eliminate Leaks in Compressed Air Lines Eliminating leaks in the compressed air lines will reduce unnecessary waste of compressed air and reduce energy consumption. The savings from this recommendation are estimated to save $905 annually and $45 in implementation cost.",
+    "validation": {
+      "ar_number": 4,
+      "context": "\n    AR Number: 4\n    \n    Summary Text:\n    AR No. 4 \u2013 Eliminate Leaks in Compressed Air Lines Eliminating leaks in the compressed air lines will reduce unnecessary waste of compressed air and reduce energy consumption. The savings from this recommendation are estimated to save $905 annually and $45 in implementation cost.\n    \n    Numerical Data Matches (5):\n    \n  - electricity_savings_kwh_per_year: 8083\n  - energy_cost_savings_per_year: 905\n  - total_cost_savings_per_year: 905\n  - co2_reduction_tons_per_year: 3\n  - payback_period_years: 0.05",
+      "has_differences": false,
+      "total_matches": 5,
+      "total_differences": 0,
+      "summary_text": "AR No. 4 \u2013 Eliminate Leaks in Compressed Air Lines Eliminating leaks in the compressed air lines will reduce unnecessary waste of compressed air and reduce energy consumption. The savings from this recommendation are estimated to save $905 annually and $45 in implementation cost.",
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 8083,
+          "summary_value": 8083,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 905,
+          "summary_value": 905,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 905,
+          "summary_value": 905,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 3,
+          "summary_value": 3,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.05,
+          "summary_value": 0.05,
+          "match": true
+        }
+      ],
+      "differences": []
+    },
+    "comparison": {
+      "ar_number": 4,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 8083,
+          "summary_value": 8083,
+          "match": true
+        },
+        {
+          "field": "energy_cost_savings_per_year",
+          "ar_value": 905,
+          "summary_value": 905,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 905,
+          "summary_value": 905,
+          "match": true
+        },
+        {
+          "field": "co2_reduction_tons_per_year",
+          "ar_value": 3,
+          "summary_value": 3,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.05,
+          "summary_value": 0.05,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 5,
+      "total_differences": 0
+    }
+  },
+  {
+    "ar_number": 5,
+    "summary": "AR No. 5 \u2013Utilize Higher Efficiency Lamps and/or Ballasts Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. The annual savings from this recommendation are estimated to be $9,783 with an implementation cost of $6,965 Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels.",
+    "validation": {
+      "ar_number": 5,
+      "context": "\n    AR Number: 5\n    \n    Summary Text:\n    AR No. 5 \u2013Utilize Higher Efficiency Lamps and/or Ballasts Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. The annual savings from this recommendation are estimated to be $9,783 with an implementation cost of $6,965 Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels.\n    \n    Numerical Data Matches (5):\n    \n  - electricity_savings_kwh_per_year: 82050\n  - demand_savings_kw_per_year: 175\n  - total_cost_savings_per_year: 9783\n  - implementation_cost: 6965\n  - payback_period_years: 0.71",
+      "has_differences": false,
+      "total_matches": 5,
+      "total_differences": 0,
+      "summary_text": "AR No. 5 \u2013Utilize Higher Efficiency Lamps and/or Ballasts Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels. The annual savings from this recommendation are estimated to be $9,783 with an implementation cost of $6,965 Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels.",
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 82050,
+          "summary_value": 82050,
+          "match": true
+        },
+        {
+          "field": "demand_savings_kw_per_year",
+          "ar_value": 175,
+          "summary_value": 175,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 9783,
+          "summary_value": 9783,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 6965,
+          "summary_value": 6965,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.71,
+          "summary_value": 0.71,
+          "match": true
+        }
+      ],
+      "differences": []
+    },
+    "comparison": {
+      "ar_number": 5,
+      "matches": [
+        {
+          "field": "electricity_savings_kwh_per_year",
+          "ar_value": 82050,
+          "summary_value": 82050,
+          "match": true
+        },
+        {
+          "field": "demand_savings_kw_per_year",
+          "ar_value": 175,
+          "summary_value": 175,
+          "match": true
+        },
+        {
+          "field": "total_cost_savings_per_year",
+          "ar_value": 9783,
+          "summary_value": 9783,
+          "match": true
+        },
+        {
+          "field": "implementation_cost",
+          "ar_value": 6965,
+          "summary_value": 6965,
+          "match": true
+        },
+        {
+          "field": "payback_period_years",
+          "ar_value": 0.71,
+          "summary_value": 0.71,
+          "match": true
+        }
+      ],
+      "differences": [],
+      "total_matches": 5,
+      "total_differences": 0
+    }
+  }
+]

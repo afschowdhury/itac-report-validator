@@ -7,29 +7,34 @@ Extracts data using document_extractor.py and excel_keyinfo_extractor.py and
 highlights mismatches between the two sources.
 """
 
+import logging
 import os
-import json
 import tempfile
 from pathlib import Path
-from typing import Dict, Any, Tuple, List
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from werkzeug.utils import secure_filename
-import logging
+from typing import Any, Dict, List
+
+import tomli
+from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from icecream import ic
+from werkzeug.utils import secure_filename
 
 ic.configureOutput(includeContext=True, prefix='DEBUG: ')
 
 
 
 # Import our existing extractors
-from document_extractor import extract_itac_report, extract_general_info_fields, extract_energy_usage
-from excel_keyinfo_extractor import extract_all_structured_info
 from doc_extractor_utils import (
-    get_single_ar_summary_table,
-    get_recommended_summary_table_json,
     compare_ar_with_summary,
-    validate_recommendation_totals
+    get_recommended_summary_table_json,
+    get_single_ar_summary_table,
+    validate_recommendation_totals,
 )
+from document_extractor import (
+    extract_energy_usage,
+    extract_general_info_fields,
+    extract_itac_report,
+)
+from excel_keyinfo_extractor import extract_all_structured_info
 from link_validator import validate_all_links
 
 # Configure logging
@@ -620,6 +625,305 @@ def api_compare():
     except Exception as e:
         logging.error(f"API error: {e}")
         return jsonify({'error': str(e)}), 500
+
+# ============================================================================
+# AI Agents API Endpoints
+# ============================================================================
+
+def discover_agents() -> List[Dict[str, Any]]:
+    """
+    Dynamically discover available AI agents in the agents/ folder.
+    
+    Looks for subdirectories containing both agent.py and config.toml files.
+    
+    Returns:
+        List of agent metadata dictionaries with id, name, description, etc.
+    """
+    agents_dir = Path(__file__).parent / 'agents'
+    discovered_agents = []
+    
+    if not agents_dir.exists():
+        logging.warning(f"Agents directory not found: {agents_dir}")
+        return []
+    
+    for item in agents_dir.iterdir():
+        if not item.is_dir():
+            continue
+        
+        # Skip special directories
+        if item.name.startswith('_') or item.name.startswith('.'):
+            continue
+        
+        agent_file = item / 'agent.py'
+        config_file = item / 'config.toml'
+        
+        # Check if both required files exist
+        if agent_file.exists() and config_file.exists():
+            try:
+                # Read config to get agent metadata
+                with open(config_file, 'rb') as f:
+                    config = tomli.load(f)
+                
+                agent_info = {
+                    'id': item.name,
+                    'name': config.get('agent', {}).get('name', item.name),
+                    'description': config.get('agent', {}).get('description', 'No description available'),
+                    'version': config.get('agent', {}).get('version', '1.0.0'),
+                    'config_path': str(config_file)
+                }
+                
+                discovered_agents.append(agent_info)
+                logging.info(f"Discovered agent: {agent_info['name']} ({agent_info['id']})")
+                
+            except Exception as e:
+                logging.error(f"Error reading agent config from {config_file}: {e}")
+                continue
+    
+    return discovered_agents
+
+@app.route('/api/agents', methods=['GET'])
+def list_agents():
+    """
+    API endpoint to list all available AI agents.
+    
+    Returns:
+        JSON response with list of available agents
+    """
+    try:
+        agents = discover_agents()
+        return jsonify({
+            'success': True,
+            'agents': agents,
+            'count': len(agents)
+        })
+    except Exception as e:
+        logging.error(f"Error listing agents: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/agents/<agent_id>/run', methods=['POST'])
+def run_agent(agent_id: str):
+    """
+    API endpoint to run a specific AI agent.
+    
+    Args:
+        agent_id: The ID of the agent to run
+        
+    Request Body:
+        JSON containing document data (doc_data, excel_data, etc.)
+        
+    Returns:
+        JSON response with agent analysis results
+    """
+    try:
+        # Get request data
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+        
+        # Discover agents to validate agent_id
+        agents = discover_agents()
+        agent_info = next((a for a in agents if a['id'] == agent_id), None)
+        
+        if not agent_info:
+            return jsonify({'success': False, 'error': f'Agent not found: {agent_id}'}), 404
+        
+        logging.info(f"Running agent: {agent_info['name']} ({agent_id})")
+        
+        # Currently only summary_checker is implemented
+        if agent_id == 'summary_checker':
+            return run_summary_checker_agent(data)
+        else:
+            return jsonify({
+                'success': False,
+                'error': f'Agent {agent_id} execution not yet implemented'
+            }), 501
+            
+    except Exception as e:
+        logging.error(f"Error running agent {agent_id}: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+def run_summary_checker_agent(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Run the Summary Checker agent on the provided document data.
+    
+    Args:
+        data: Dictionary containing doc_data with AR information
+        
+    Returns:
+        JSON response with validation results and analysis
+    """
+    try:
+        from agents.summary_checker import analyze_with_llm, check_all_ar_summaries
+        from doc_extractor_utils import (
+            get_recommended_summary_table_json,
+            get_single_ar_summary_table,
+            parse_ar_summaries,
+        )
+        
+        # Extract required data from request
+        doc_data = data.get('doc_data', {})
+        
+        if not doc_data:
+            return jsonify({
+                'success': False,
+                'error': 'Missing doc_data in request'
+            }), 400
+        
+        # Get AR summaries
+        ar_summaries_html = doc_data.get('ar_summary', '')
+        if not ar_summaries_html:
+            return jsonify({
+                'success': False,
+                'error': 'No AR summaries found in document'
+            }), 400
+        
+        # Parse AR summaries
+        ar_summaries = parse_ar_summaries(ar_summaries_html)
+        
+        if not ar_summaries:
+            return jsonify({
+                'success': False,
+                'error': 'Could not parse AR summaries from document'
+            }), 400
+        
+        # Get recommendation summary table
+        rec_summary_html = doc_data.get('recommendation_summary_table', '')
+        if not rec_summary_html:
+            return jsonify({
+                'success': False,
+                'error': 'No recommendation summary table found in document'
+            }), 400
+        
+        rec_summary = get_recommended_summary_table_json(rec_summary_html)
+        summary_recommendations = rec_summary.get('recommendations', [])
+        
+        if not summary_recommendations:
+            return jsonify({
+                'success': False,
+                'error': 'Could not extract recommendations from summary table'
+            }), 400
+        
+        # Get individual AR data
+        assessment_recommendations = doc_data.get('assessment_recommendations', [])
+        ar_data_list = []
+        for ar_html in assessment_recommendations:
+            ar_data = get_single_ar_summary_table(ar_html)
+            if ar_data.get('ar_number'):
+                ar_data_list.append(ar_data)
+        
+        if not ar_data_list:
+            return jsonify({
+                'success': False,
+                'error': 'Could not extract individual AR data from document'
+            }), 400
+        
+        # Run validation
+        logging.info(f"Validating {len(ar_summaries)} AR summaries...")
+        validation_results = check_all_ar_summaries(
+            ar_summaries,
+            summary_recommendations,
+            ar_data_list
+        )
+        
+        # Run LLM analysis
+        logging.info("Running LLM analysis on validation results...")
+        analysis_report = analyze_with_llm(validation_results)
+        
+        return jsonify({
+            'success': True,
+            'agent_id': 'summary_checker',
+            'agent_name': 'AR Summary Checker',
+            'validation_results': validation_results,
+            'analysis_report': analysis_report,
+            'summary': {
+                'total_ars': len(ar_summaries),
+                'ars_with_issues': sum(1 for r in validation_results 
+                                      if r.get('validation', {}).get('has_differences', False)),
+                'validation_complete': True
+            }
+        })
+        
+    except ImportError as e:
+        logging.error(f"Import error in summary checker: {e}")
+        return jsonify({
+            'success': False,
+            'error': f'Failed to import required modules: {str(e)}'
+        }), 500
+    except Exception as e:
+        logging.error(f"Error in summary checker agent: {e}")
+        return jsonify({
+            'success': False,
+            'error': f'Agent execution failed: {str(e)}'
+        }), 500
+
+@app.route('/api/agents/run_all', methods=['POST'])
+def run_all_agents():
+    """
+    API endpoint to run all available AI agents.
+    
+    Request Body:
+        JSON containing document data
+        
+    Returns:
+        JSON response with results from all agents
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+        
+        agents = discover_agents()
+        results = []
+        
+        for agent in agents:
+            agent_id = agent['id']
+            logging.info(f"Running agent {agent_id}...")
+            
+            try:
+                # Run each agent
+                if agent_id == 'summary_checker':
+                    result = run_summary_checker_agent(data)
+                    if isinstance(result, tuple):
+                        result_data, status_code = result
+                        result_json = result_data.get_json()
+                    else:
+                        result_json = result.get_json()
+                    
+                    results.append({
+                        'agent_id': agent_id,
+                        'agent_name': agent['name'],
+                        'result': result_json
+                    })
+                else:
+                    results.append({
+                        'agent_id': agent_id,
+                        'agent_name': agent['name'],
+                        'result': {
+                            'success': False,
+                            'error': 'Agent execution not yet implemented'
+                        }
+                    })
+            except Exception as e:
+                logging.error(f"Error running agent {agent_id}: {e}")
+                results.append({
+                    'agent_id': agent_id,
+                    'agent_name': agent['name'],
+                    'result': {
+                        'success': False,
+                        'error': str(e)
+                    }
+                })
+        
+        return jsonify({
+            'success': True,
+            'results': results,
+            'total_agents': len(agents),
+            'completed': len(results)
+        })
+        
+    except Exception as e:
+        logging.error(f"Error running all agents: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.errorhandler(413)
 def too_large(e):

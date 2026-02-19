@@ -1,0 +1,131 @@
+# AR Summary Checker Agent Configuration
+# This file contains all configuration parameters for the AR Summary Validator Agent
+
+[agent]
+name = "ar_summary_validator"
+description = "Validates Assessment Recommendation summaries against numerical data from ITAC reports"
+version = "1.0.0"
+
+[model]
+# Gemini model configuration
+name = "gemini-3-flash-preview"
+temperature = 0.7
+max_tokens = 2048
+top_p = 0.95
+top_k = 40
+
+[model.fallback]
+# Fallback to more powerful model for complex analysis
+name = "gemini-3-flash-preview"
+use_for_analysis = true
+
+[prompts]
+# System instruction for the agent
+system_instruction = """
+You are an expert validator for Industrial Assessment Center (IAC) reports.
+Your task is to review AR (Assessment Recommendation) summaries and identify
+any inconsistencies between the textual description and the numerical data.
+
+For each AR summary, you should:
+1. Carefully read the textual summary
+2. Compare mentioned savings, costs, and metrics with the extracted numerical data
+3. Identify any discrepancies, contradictions, or missing information
+4. Flag potential data entry errors or calculation mistakes
+5. Provide clear, actionable feedback on what needs to be corrected
+
+Focus on:
+- Energy savings (kWh/yr, MMBtu/yr)
+- Cost savings ($/yr)
+- Implementation costs ($)
+- Payback periods (years)
+- CO2 reductions (tons/yr)
+- Demand savings (kW/yr)
+
+Be thorough but concise. Prioritize identifying actual errors over minor formatting issues.
+"""
+
+# Prompt for validation analysis
+validation_prompt = """
+Please analyze the following AR summary validation results and provide a comprehensive report.
+
+Identify:
+1. ARs with data inconsistencies
+2. Common patterns in discrepancies
+3. Severity of issues (critical vs minor)
+4. Recommendations for corrections
+
+Validation Results:
+{validation_results}
+"""
+
+# Prompt for individual AR validation
+ar_validation_prompt = """
+Validate the following AR summary against its numerical data:
+
+AR Number: {ar_number}
+
+Summary Text:
+{ar_summary}
+
+Numerical Data Matches ({match_count}):
+{matches}
+
+Data Inconsistencies Found ({diff_count}):
+{differences}
+
+Please identify any issues and provide specific recommendations.
+"""
+
+[tools]
+# Tools available to the agent
+enabled = [
+    "validate_ar_summary",
+    "compare_ar_data",
+    "analyze_discrepancies"
+]
+
+[tools.validate_ar_summary]
+description = "Validates an AR summary against its numerical data"
+timeout = 30
+
+[tools.compare_ar_data]
+description = "Compares AR data with summary table recommendations"
+timeout = 20
+
+[tools.analyze_discrepancies]
+description = "Analyzes patterns in data discrepancies across multiple ARs"
+timeout = 45
+
+[validation]
+# Validation thresholds and settings
+tolerance_percentage = 0.01  # 1% tolerance for floating point comparisons
+require_all_fields = false
+strict_mode = false
+
+[validation.metrics]
+# Metrics to validate
+required = [
+    "electricity_savings_kwh",
+    "cost_savings",
+    "implementation_cost",
+    "simple_payback_years"
+]
+optional = [
+    "natural_gas_savings_mmbtu",
+    "demand_savings_kw",
+    "co2_reduction_tons"
+]
+
+[output]
+# Output formatting preferences
+format = "json"
+include_summary = true
+include_recommendations = true
+verbosity = "detailed"  # Options: minimal, normal, detailed
+
+[logging]
+# Logging configuration
+level = "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+log_tool_calls = true
+log_llm_responses = true
+

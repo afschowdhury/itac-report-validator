@@ -1,10 +1,25 @@
-# AR Summary Checker Agent
+# AI Agents for ITAC Report Validation
 
 This directory contains AI agents built with Google's Agent Development Kit (ADK) for validating ITAC (Industrial Assessment Center) reports.
 
 ## Overview
 
 The **Summary Checker Agent** validates Assessment Recommendation (AR) summaries by comparing textual descriptions against extracted numerical data to identify inconsistencies, errors, and discrepancies.
+
+### New Structure (v2.0)
+
+The agents are now organized using ADK best practices with separate configuration files:
+
+```
+agents/
+├── __init__.py                    # Package exports
+├── summary_checker/               # AR Summary Checker Agent (NEW)
+│   ├── __init__.py               # Module exports
+│   ├── agent.py                  # ADK agent implementation
+│   └── config.toml               # Configuration (prompts, model params)
+├── summary_agent.py               # Legacy compatibility layer
+└── demo_summary_checker.py        # Demo script
+```
 
 ## Features
 
@@ -16,20 +31,35 @@ The **Summary Checker Agent** validates Assessment Recommendation (AR) summaries
 
 ## Architecture
 
-The agent uses Google ADK's **LLM Agent** architecture:
+The agent uses Google ADK's **LLM Agent** architecture with TOML-based configuration:
 
 ```
-┌─────────────────────────────────────┐
-│   AR Summary Checker Agent          │
-│   (LlmAgent with Gemini)            │
-└─────────────────┬───────────────────┘
+┌─────────────────────────────────────────────────┐
+│   AR Summary Checker Agent                      │
+│   (LlmAgent with Gemini 2.0 Flash)             │
+│   Config: agents/summary_checker/config.toml    │
+└─────────────────┬───────────────────────────────┘
                   │
-                  ├─► validate_ar_summary() - Function Tool
+                  ├─► validate_ar_summary() - FunctionTool
+                  │   Validates summary against data
                   │
-                  ├─► parse_ar_summaries() - Data Parser
+                  ├─► compare_ar_data() - FunctionTool
+                  │   Compares AR with summary table
                   │
-                  └─► compare_ar_with_summary() - Data Comparator
+                  └─► analyze_discrepancies() - FunctionTool
+                      Finds patterns in errors
 ```
+
+### Configuration File (config.toml)
+
+All agent parameters are stored in `agents/summary_checker/config.toml`:
+
+- **Agent settings**: name, description, version
+- **Model parameters**: temperature, max_tokens, top_p, top_k
+- **Prompts**: system instructions, validation prompts
+- **Tools**: enabled tools and their configurations
+- **Validation settings**: thresholds, required metrics
+- **Output preferences**: format, verbosity
 
 ### Agent Types (from Google ADK)
 
@@ -54,15 +84,27 @@ export GOOGLE_API_KEY='your-api-key-here'
 
 ## Usage
 
-### Basic Usage
+### Basic Usage (New ADK Structure)
 
 ```python
-from agents.summary_agent import check_all_ar_summaries, analyze_with_llm
+from agents.summary_checker import (
+    create_agent,
+    check_all_ar_summaries,
+    analyze_with_llm,
+    get_agent_config
+)
 from doc_extractor_utils import (
     parse_ar_summaries,
     get_recommended_summary_table_json,
     get_single_ar_summary_table
 )
+
+# Get agent configuration
+config = get_agent_config()
+print(f"Using model: {config['model']['name']}")
+
+# Create the agent (optional - for custom usage)
+agent = create_agent(api_key=os.getenv('GOOGLE_API_KEY'))
 
 # Load your extracted HTML data
 ar_summaries = parse_ar_summaries(ar_summary_html)
@@ -80,6 +122,14 @@ results = check_all_ar_summaries(
 # Get AI-powered analysis
 analysis = analyze_with_llm(results, api_key=os.getenv('GOOGLE_API_KEY'))
 print(analysis)
+```
+
+### Legacy Usage (Backward Compatible)
+
+```python
+# Old imports still work with deprecation warnings
+from agents.summary_agent import check_all_ar_summaries, analyze_with_llm
+# ... rest of code remains the same
 ```
 
 ### Running the Demo
@@ -155,19 +205,44 @@ The LLM provides a comprehensive analysis including:
 
 ## Advanced Usage
 
-### Creating Custom Agents
+### Creating and Customizing Agents
 
 ```python
-from agents.summary_agent import create_summary_checker_agent
+from agents.summary_checker import create_agent
+from pathlib import Path
 
-# Create the agent
-agent = create_summary_checker_agent(api_key='your-api-key')
+# Create agent with default configuration
+agent = create_agent(api_key='your-api-key')
 
-# The agent is configured with:
-# - Name: "ar_summary_validator"
-# - Model: "gemini-2.0-flash"
-# - Custom instructions for IAC report validation
-# - Validation tools
+# Create agent with custom config file
+custom_config_path = Path('path/to/custom_config.toml')
+agent = create_agent(
+    api_key='your-api-key',
+    config_path=custom_config_path
+)
+
+# Override specific parameters
+agent = create_agent(
+    api_key='your-api-key',
+    model='gemini-2.0-flash-exp',  # Use experimental model
+    name='custom_validator'
+)
+```
+
+### Editing Configuration
+
+Modify `agents/summary_checker/config.toml` to customize:
+
+```toml
+[model]
+name = "gemini-2.0-flash"
+temperature = 0.7    # Adjust creativity (0.0-1.0)
+max_tokens = 2048    # Max response length
+
+[prompts]
+system_instruction = """
+Your custom prompt here...
+"""
 ```
 
 ### Custom Validation Logic
@@ -187,18 +262,35 @@ result = validate_ar_summary(
 
 ```
 agents/
-├── __init__.py                 # Package initialization
-├── summary_agent.py            # Main agent implementation
-├── demo_summary_checker.py     # Demo script
-└── README.md                   # This file
+├── __init__.py                    # Package exports (v2.0)
+├── summary_checker/               # AR Summary Checker Agent
+│   ├── __init__.py               # Module exports
+│   ├── agent.py                  # ADK agent implementation
+│   └── config.toml               # All configurations
+├── summary_agent.py               # Legacy compatibility layer
+├── demo_summary_checker.py        # Demo script (updated for v2.0)
+├── README.md                      # This file
+├── ARCHITECTURE.md                # Detailed architecture docs
+└── SUMMARY.md                     # Summary documentation
 ```
 
 ## Dependencies
 
-- `google-adk`: Google Agent Development Kit
+- `google-adk`: Google Agent Development Kit (v0.1.0+)
 - `google-genai`: Google Generative AI SDK
+- `tomli`: TOML configuration parsing (Python < 3.11)
 - `beautifulsoup4`: HTML parsing
 - Other dependencies in `requirements.txt`
+
+Install all dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Or install just the agent dependencies:
+```bash
+pip install google-adk google-genai tomli
+```
 
 ## References
 
@@ -207,14 +299,52 @@ agents/
 - [Workflow Agents](https://google.github.io/adk-docs/agents/workflow-agents/)
 - [Function Tools](https://google.github.io/adk-docs/tools/function-tools/)
 
+## Running with ADK CLI
+
+The agent can be run using ADK's command-line interface:
+
+```bash
+# Run agent in terminal (interactive)
+cd /path/to/itac-report-validator
+adk run agents.summary_checker
+
+# Run agent with dev UI (browser-based)
+adk web
+
+# Run as API server
+adk api_server agents.summary_checker
+```
+
+## Migration Guide
+
+### From v1.0 to v2.0
+
+If you're using the old structure, here's how to migrate:
+
+**Old (v1.0):**
+```python
+from agents.summary_agent import create_summary_checker_agent
+agent = create_summary_checker_agent(api_key=key)
+```
+
+**New (v2.0):**
+```python
+from agents.summary_checker import create_agent
+agent = create_agent(api_key=key)
+```
+
+The old imports will continue to work but show deprecation warnings.
+
 ## Future Enhancements
 
-- [ ] Add multi-agent workflow for hierarchical validation
-- [ ] Implement sequential agent for step-by-step validation pipeline
+- [ ] Add energy validator agent (separate folder)
+- [ ] Add financial validator agent (separate folder)
+- [ ] Implement workflow agents (Sequential, Loop) for orchestration
 - [ ] Add custom tools for domain-specific validation rules
 - [ ] Integration with report generation system
 - [ ] Real-time validation during document extraction
 - [ ] Support for batch processing multiple reports
+- [ ] Add agent templates for easy agent creation
 
 ## License
 

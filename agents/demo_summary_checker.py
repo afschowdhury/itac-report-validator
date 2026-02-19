@@ -20,9 +20,12 @@ from doc_extractor_utils import (
     get_recommended_summary_table_json,
     get_single_ar_summary_table
 )
-from agents.summary_agent import (
+# Import from new ADK-based structure
+from agents.summary_checker import (
     check_all_ar_summaries,
-    analyze_with_llm
+    analyze_with_llm,
+    create_agent,
+    get_agent_config
 )
 
 
@@ -35,9 +38,20 @@ def load_html_file(filepath: str) -> str:
 def main():
     """Main demo function."""
     print("=" * 70)
-    print("AR SUMMARY CHECKER AGENT - DEMO")
+    print("AR SUMMARY CHECKER AGENT - DEMO (ADK-Based)")
     print("=" * 70)
     print()
+    
+    # Show agent configuration
+    try:
+        config = get_agent_config()
+        print(f"📋 Agent: {config['agent']['name']}")
+        print(f"🤖 Model: {config['model']['name']}")
+        print(f"🌡️  Temperature: {config['model']['temperature']}")
+        print()
+    except Exception as e:
+        print(f"⚠️  Could not load config: {e}")
+        print()
     
     # Configuration
     html_dir = Path("EXTRACTED_HTML")

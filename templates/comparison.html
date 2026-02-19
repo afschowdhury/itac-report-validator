@@ -63,6 +63,86 @@
 .section-toggle:hover {
     background-color: rgba(0,0,0,0.05);
 }
+
+/* AI Analysis Section Styles */
+#aiAnalysisSection .card-header {
+    border: none;
+}
+.agent-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.agent-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+}
+.agent-result {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.analysis-report {
+    line-height: 1.8;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+.analysis-report p {
+    margin-bottom: 0.75rem;
+}
+.analysis-report h5 {
+    color: #667eea;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid #e9ecef;
+}
+.analysis-report strong {
+    color: #2c3e50;
+    font-weight: 700;
+}
+.analysis-report ul, .analysis-report ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.analysis-report li {
+    margin-bottom: 0.4rem;
+}
+.analysis-report code {
+    background-color: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    color: #e83e8c;
+}
+.analysis-report table {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+.analysis-report hr {
+    border-color: #dee2e6;
+    margin: 1.5rem 0;
+}
+.analysis-report em {
+    color: #6c757d;
+}
+.bg-gradient {
+    position: relative;
+    overflow: hidden;
+}
+.bg-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
 </style>
 {% endblock %}
 
@@ -1089,6 +1169,38 @@
     </div>
     {% endif %}
 
+    <!-- AI Analysis Section -->
+    <div class="card shadow-sm mb-4" id="aiAnalysisSection">
+        <div class="card-header bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <h5 class="mb-0 text-white d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-robot me-2"></i>
+                    AI Analysis
+                </span>
+                <button class="btn btn-sm btn-light" onclick="runAllAgents()">
+                    <i class="fas fa-play-circle me-1"></i>Run All Agents
+                </button>
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info mb-4">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>AI-Powered Validation:</strong> Use AI agents to perform intelligent analysis on your report data. 
+                Click individual agent buttons to run specific checks, or use "Run All Agents" to execute all available agents.
+            </div>
+
+            <!-- Agents Container -->
+            <div id="agentsContainer">
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading agents...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Discovering available AI agents...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Document Sections (Optional Viewing) -->
     <div class="card shadow-sm">
         <div class="card-header bg-light section-toggle" data-bs-toggle="collapse" data-bs-target="#documentSections">
@@ -1130,8 +1242,517 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Embedded Document Data for AI Agents -->
+<script id="document-data" type="application/json">
+{{ doc_data | tojson }}
+</script>
+
 <script>
+// AI Agent Management System
+let availableAgents = [];
+let agentResults = {};
+
+// Load document data
+function getDocumentData() {
+    try {
+        const dataElement = document.getElementById('document-data');
+        return JSON.parse(dataElement.textContent);
+    } catch (e) {
+        console.error('Error loading document data:', e);
+        return null;
+    }
+}
+
+// Fetch available agents
+async function loadAgents() {
+    try {
+        const response = await fetch('/api/agents');
+        const data = await response.json();
+        
+        if (data.success) {
+            availableAgents = data.agents;
+            renderAgentButtons();
+        } else {
+            showAgentsError('Failed to load agents: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Error loading agents:', error);
+        showAgentsError('Failed to load agents: ' + error.message);
+    }
+}
+
+// Render agent buttons
+function renderAgentButtons() {
+    const container = document.getElementById('agentsContainer');
+    
+    if (availableAgents.length === 0) {
+        container.innerHTML = `
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                No AI agents found. Please ensure agents are properly configured.
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '<div class="row g-3 mb-4">';
+    
+    availableAgents.forEach(agent => {
+        html += `
+            <div class="col-md-6">
+                <div class="card agent-card h-100 border-primary">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-brain text-primary me-2"></i>
+                            ${escapeHtml(agent.name)}
+                        </h6>
+                        <p class="card-text text-muted small">${escapeHtml(agent.description)}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-secondary">${escapeHtml(agent.version)}</span>
+                            <button class="btn btn-sm btn-primary" onclick="runAgent('${agent.id}')">
+                                <i class="fas fa-play me-1"></i>Run Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    // Add results containers
+    html += '<div id="agentResults">';
+    availableAgents.forEach(agent => {
+        html += `
+            <div id="result-${agent.id}" class="agent-result" style="display: none;">
+                <div class="card mb-3">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="fas fa-brain text-primary me-2"></i>
+                            ${escapeHtml(agent.name)} Results
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Analyzing...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Running analysis...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+}
+
+// Run a specific agent
+async function runAgent(agentId) {
+    const resultContainer = document.getElementById(`result-${agentId}`);
+    resultContainer.style.display = 'block';
+    
+    // Show loading state
+    const agent = availableAgents.find(a => a.id === agentId);
+    resultContainer.querySelector('.card-body').innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Analyzing...</span>
+            </div>
+            <p class="mt-2 text-muted">Running ${escapeHtml(agent.name)}...</p>
+        </div>
+    `;
+    
+    try {
+        const docData = getDocumentData();
+        if (!docData) {
+            throw new Error('Document data not available');
+        }
+        
+        const response = await fetch(`/api/agents/${agentId}/run`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ doc_data: docData })
+        });
+        
+        const result = await response.json();
+        agentResults[agentId] = result;
+        displayAgentResult(agentId, result);
+        
+    } catch (error) {
+        console.error(`Error running agent ${agentId}:`, error);
+        displayAgentError(agentId, error.message);
+    }
+}
+
+// Run all agents sequentially
+async function runAllAgents() {
+    for (const agent of availableAgents) {
+        await runAgent(agent.id);
+    }
+}
+
+// Display agent result
+function displayAgentResult(agentId, result) {
+    const resultContainer = document.getElementById(`result-${agentId}`);
+    const cardBody = resultContainer.querySelector('.card-body');
+    
+    if (!result.success) {
+        cardBody.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-times-circle me-2"></i>
+                <strong>Error:</strong> ${escapeHtml(result.error)}
+            </div>
+        `;
+        return;
+    }
+    
+    // Format based on agent type
+    if (agentId === 'summary_checker') {
+        cardBody.innerHTML = formatSummaryCheckerResult(result);
+    } else {
+        // Generic result display
+        cardBody.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                Analysis completed successfully
+            </div>
+            <pre class="bg-light p-3 rounded"><code>${escapeHtml(JSON.stringify(result, null, 2))}</code></pre>
+        `;
+    }
+}
+
+// Format Summary Checker Agent results
+function formatSummaryCheckerResult(result) {
+    const summary = result.summary || {};
+    const validationResults = result.validation_results || [];
+    const analysisReport = result.analysis_report || '';
+    
+    let html = '';
+    
+    // Summary statistics
+    html += `
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card text-center border-0 bg-light">
+                    <div class="card-body py-3">
+                        <h6 class="card-title text-muted mb-1">Total ARs</h6>
+                        <h3 class="text-info mb-0">${summary.total_ars || 0}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 bg-light">
+                    <div class="card-body py-3">
+                        <h6 class="card-title text-muted mb-1">ARs with Issues</h6>
+                        <h3 class="${summary.ars_with_issues > 0 ? 'text-danger' : 'text-success'} mb-0">${summary.ars_with_issues || 0}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center border-0 bg-light">
+                    <div class="card-body py-3">
+                        <h6 class="card-title text-muted mb-1">Status</h6>
+                        <h3 class="mb-0">
+                            ${summary.validation_complete ? '<span class="badge bg-success">Complete</span>' : '<span class="badge bg-warning">Incomplete</span>'}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // AI Analysis Report
+    if (analysisReport) {
+        html += `
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-robot me-2"></i>AI Analysis Report
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="analysis-report">${formatMarkdown(analysisReport)}</div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Detailed validation results
+    if (validationResults.length > 0) {
+        html += `
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0">
+                        <i class="fas fa-list-check me-2"></i>Detailed Validation Results
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="validationAccordion">
+        `;
+        
+        validationResults.forEach((ar, index) => {
+            const validation = ar.validation || {};
+            const hasIssues = validation.has_differences;
+            const statusClass = hasIssues ? 'danger' : 'success';
+            const statusIcon = hasIssues ? 'exclamation-triangle' : 'check-circle';
+            
+            html += `
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button ${index > 0 ? 'collapsed' : ''}" type="button" 
+                                data-bs-toggle="collapse" data-bs-target="#ar${index}">
+                            <span class="badge bg-${statusClass} me-2">
+                                <i class="fas fa-${statusIcon}"></i>
+                            </span>
+                            AR ${ar.ar_number || index + 1}
+                            ${hasIssues ? `(${validation.total_differences} issue(s))` : '(No issues)'}
+                        </button>
+                    </h2>
+                    <div id="ar${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
+                         data-bs-parent="#validationAccordion">
+                        <div class="accordion-body">
+                            <h6>Summary:</h6>
+                            <p class="small text-muted">${escapeHtml(ar.summary || 'N/A')}</p>
+                            
+                            ${validation.matches && validation.matches.length > 0 ? `
+                                <div class="mb-3">
+                                    <h6 class="text-success">
+                                        <i class="fas fa-check-circle me-1"></i>Matches (${validation.matches.length})
+                                    </h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        ${validation.matches.map(m => 
+                                            `<span class="badge bg-success-subtle text-success">${escapeHtml(m.field)}: ${escapeHtml(String(m.ar_value))}</span>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${validation.differences && validation.differences.length > 0 ? `
+                                <div>
+                                    <h6 class="text-danger">
+                                        <i class="fas fa-times-circle me-1"></i>Differences (${validation.differences.length})
+                                    </h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Field</th>
+                                                    <th>AR Value</th>
+                                                    <th>Summary Value</th>
+                                                    <th>Difference</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${validation.differences.map(d => `
+                                                    <tr>
+                                                        <td>${escapeHtml(d.field)}</td>
+                                                        <td>${escapeHtml(String(d.ar_value))}</td>
+                                                        <td>${escapeHtml(String(d.summary_value))}</td>
+                                                        <td>${escapeHtml(String(d.difference))}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    return html;
+}
+
+// Display agent error
+function displayAgentError(agentId, errorMessage) {
+    const resultContainer = document.getElementById(`result-${agentId}`);
+    const cardBody = resultContainer.querySelector('.card-body');
+    
+    cardBody.innerHTML = `
+        <div class="alert alert-danger">
+            <i class="fas fa-times-circle me-2"></i>
+            <strong>Error:</strong> ${escapeHtml(errorMessage)}
+        </div>
+    `;
+}
+
+// Show agents loading error
+function showAgentsError(message) {
+    const container = document.getElementById('agentsContainer');
+    container.innerHTML = `
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            ${escapeHtml(message)}
+        </div>
+    `;
+}
+
+// Utility: Escape HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Utility: Enhanced markdown formatting
+function formatMarkdown(text) {
+    if (!text) return '';
+    
+    // Split into lines for processing
+    const lines = text.split('\n');
+    let html = '';
+    let inList = false;
+    let inOrderedList = false;
+    let inTable = false;
+    let tableHeaders = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        
+        // Skip empty lines between content
+        if (line.trim() === '') {
+            if (inList) {
+                html += '</ul>\n';
+                inList = false;
+            }
+            if (inOrderedList) {
+                html += '</ol>\n';
+                inOrderedList = false;
+            }
+            if (inTable) {
+                html += '</tbody></table>\n';
+                inTable = false;
+                tableHeaders = [];
+            }
+            html += '<br>';
+            continue;
+        }
+        
+        // Headers (### Header)
+        if (line.match(/^###\s+(.+)/)) {
+            if (inList) { html += '</ul>\n'; inList = false; }
+            if (inOrderedList) { html += '</ol>\n'; inOrderedList = false; }
+            const headerText = line.replace(/^###\s+/, '');
+            html += `<h5 class="mt-3 mb-2 text-primary fw-bold">${escapeHtml(headerText)}</h5>\n`;
+            continue;
+        }
+        
+        // Table rows (| col1 | col2 |)
+        if (line.match(/^\|(.+)\|$/)) {
+            const cols = line.split('|').map(c => c.trim()).filter(c => c);
+            
+            // Check if it's a separator line
+            if (cols.every(c => c.match(/^:?-+:?$/))) {
+                continue; // Skip separator
+            }
+            
+            if (!inTable) {
+                // First row is headers
+                tableHeaders = cols;
+                html += '<table class="table table-sm table-bordered mt-2 mb-2"><thead class="table-light"><tr>';
+                cols.forEach(col => {
+                    html += `<th>${escapeHtml(col)}</th>`;
+                });
+                html += '</tr></thead><tbody>';
+                inTable = true;
+            } else {
+                // Data row
+                html += '<tr>';
+                cols.forEach(col => {
+                    html += `<td>${escapeHtml(col)}</td>`;
+                });
+                html += '</tr>';
+            }
+            continue;
+        } else if (inTable) {
+            html += '</tbody></table>\n';
+            inTable = false;
+            tableHeaders = [];
+        }
+        
+        // Ordered list (1. Item)
+        if (line.match(/^\d+\.\s+(.+)/)) {
+            if (inList) { html += '</ul>\n'; inList = false; }
+            if (!inOrderedList) {
+                html += '<ol class="mb-2">';
+                inOrderedList = true;
+            }
+            const itemText = line.replace(/^\d+\.\s+/, '');
+            html += `<li>${formatInlineMarkdown(itemText)}</li>\n`;
+            continue;
+        }
+        
+        // Unordered list (* Item or - Item)
+        if (line.match(/^[\*\-]\s+(.+)/)) {
+            if (inOrderedList) { html += '</ol>\n'; inOrderedList = false; }
+            if (!inList) {
+                html += '<ul class="mb-2">';
+                inList = true;
+            }
+            const itemText = line.replace(/^[\*\-]\s+/, '');
+            html += `<li>${formatInlineMarkdown(itemText)}</li>\n`;
+            continue;
+        }
+        
+        // Horizontal rule (--- or ***)
+        if (line.match(/^(\-\-\-|\*\*\*)$/)) {
+            if (inList) { html += '</ul>\n'; inList = false; }
+            if (inOrderedList) { html += '</ol>\n'; inOrderedList = false; }
+            html += '<hr class="my-3">\n';
+            continue;
+        }
+        
+        // Regular paragraph
+        if (inList) { html += '</ul>\n'; inList = false; }
+        if (inOrderedList) { html += '</ol>\n'; inOrderedList = false; }
+        
+        html += `<p class="mb-2">${formatInlineMarkdown(line)}</p>\n`;
+    }
+    
+    // Close any open tags
+    if (inList) html += '</ul>\n';
+    if (inOrderedList) html += '</ol>\n';
+    if (inTable) html += '</tbody></table>\n';
+    
+    return html;
+}
+
+// Format inline markdown (bold, italic, code, links)
+function formatInlineMarkdown(text) {
+    return escapeHtml(text)
+        // Bold (**text**)
+        .replace(/\*\*(.+?)\*\*/g, '<strong class="text-dark">$1</strong>')
+        // Italic (*text*)
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        // Inline code (`code`)
+        .replace(/`([^`]+)`/g, '<code class="bg-light px-1 rounded">$1</code>')
+        // Links are already in markdown, but we can handle them if needed
+        .replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Load agents if AI Analysis section exists
+    if (document.getElementById('aiAnalysisSection')) {
+        loadAgents();
+    }
+    
+    // Original code below
     // Initialize tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

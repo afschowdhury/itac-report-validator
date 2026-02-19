@@ -5,6 +5,8 @@ openpyxl
 pandas
 google-adk
 google-genai
+tomli
 icecream
 requests>=2.31.0
 urllib3>=2.0.0
+python-dotenv

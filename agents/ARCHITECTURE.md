@@ -1,10 +1,19 @@
-# AR Summary Checker Agent - Architecture
+# AR Summary Checker Agent - Architecture (v2.0)
+
+## Overview
+
+This document describes the architecture of the ITAC Report Validation system using Google's Agent Development Kit (ADK) with a modular, configuration-driven design.
+
+**Version**: 2.0  
+**Last Updated**: January 2026  
+**ADK Version**: 0.1.0+
 
 ## System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    ITAC Report Validation System                     │
+│                ITAC Report Validation System (v2.0)                  │
+│                     ADK-Based Architecture                           │
 └─────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -26,24 +35,31 @@
 └─────────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────────┐
-│                     AI AGENT LAYER (ADK)                             │
-│                     (summary_agent.py)                               │
+│                     AI AGENT LAYER (ADK v2.0)                        │
+│                  agents/summary_checker/                             │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │  ┌────────────────────────────────────────────────────────┐         │
 │  │     AR Summary Checker Agent (LlmAgent)                │         │
-│  │     Model: Gemini 2.0 Flash                            │         │
-│  │     Type: LLM Agent                                    │         │
+│  │     Model: Gemini 2.0 Flash (configurable)            │         │
+│  │     Config: config.toml                                │         │
+│  │     Type: LLM Agent with FunctionTools                 │         │
 │  └────────────────────────────────────────────────────────┘         │
 │                           │                                          │
 │                           ├─► validate_ar_summary()                 │
-│                           │   (Function Tool)                        │
+│                           │   (FunctionTool - validates summary)     │
+│                           │                                          │
+│                           ├─► compare_ar_data()                     │
+│                           │   (FunctionTool - compares data)         │
+│                           │                                          │
+│                           ├─► analyze_discrepancies()               │
+│                           │   (FunctionTool - pattern analysis)      │
 │                           │                                          │
 │                           ├─► check_all_ar_summaries()              │
-│                           │   (Batch Processor)                      │
+│                           │   (Batch processor)                      │
 │                           │                                          │
 │                           └─► analyze_with_llm()                    │
-│                               (AI Analysis)                          │
+│                               (LLM analysis with custom prompts)     │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
                               ↓
@@ -263,7 +279,84 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Extension Points
+## New Agent Folder Structure (v2.0)
+
+```
+agents/
+├── __init__.py                    # Package exports
+│
+├── summary_checker/               # AR Summary Checker Agent
+│   ├── __init__.py               # Module exports
+│   ├── agent.py                  # LlmAgent implementation
+│   └── config.toml               # Configuration (TOML)
+│       ├── [agent] section       # Name, description, version
+│       ├── [model] section       # Model name, temperature, etc.
+│       ├── [prompts] section     # All prompt templates
+│       ├── [tools] section       # Tool configurations
+│       └── [validation] section  # Validation settings
+│
+├── summary_agent.py               # Legacy compatibility wrapper
+├── demo_summary_checker.py        # Demo script
+├── README.md                      # Usage documentation
+└── ARCHITECTURE.md                # This file
+```
+
+### Key Design Principles
+
+1. **Separation of Concerns**
+   - Agent logic (`agent.py`) separate from configuration (`config.toml`)
+   - Tools are independent, reusable functions
+   - Each agent in its own folder
+
+2. **Configuration-Driven**
+   - All parameters in TOML files
+   - Easy to modify without code changes
+   - Version-controlled configuration
+
+3. **ADK Best Practices**
+   - Uses `LlmAgent` class properly
+   - Tools registered as `FunctionTool` instances
+   - Supports `InMemoryRunner` for local execution
+   - Compatible with ADK CLI (`adk run`, `adk web`)
+
+4. **Backward Compatibility**
+   - Old imports still work (with deprecation warnings)
+   - Gradual migration path
+   - Same public API
+
+## Configuration File Structure (config.toml)
+
+```toml
+# Agent metadata
+[agent]
+name = "ar_summary_validator"
+description = "Validates Assessment Recommendation summaries"
+version = "1.0.0"
+
+# LLM model configuration
+[model]
+name = "gemini-2.0-flash"
+temperature = 0.7
+max_tokens = 2048
+top_p = 0.95
+top_k = 40
+
+# Prompt templates
+[prompts]
+system_instruction = """..."""
+validation_prompt = """..."""
+
+# Tool configuration
+[tools]
+enabled = ["validate_ar_summary", "compare_ar_data", "analyze_discrepancies"]
+
+# Validation settings
+[validation]
+tolerance_percentage = 0.01
+strict_mode = false
+```
+
+## Extension Points & Future Multi-Agent Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -273,6 +366,7 @@
            ┌──────────────────────────┐
            │  Master Validator Agent   │
            │  (Sequential Workflow)    │
+           │  agents/orchestrator/     │
            └───────────┬──────────────┘
                        │
        ┌───────────────┼───────────────┐
@@ -281,7 +375,16 @@
 │  Summary    │ │  Energy     │ │  Financial  │
 │  Checker    │ │  Validator  │ │  Validator  │
 │  Agent      │ │  Agent      │ │  Agent      │
+│  ✓ DONE     │ │  agents/    │ │  agents/    │
+│             │ │  energy/    │ │  financial/ │
 └─────────────┘ └─────────────┘ └─────────────┘
-  [CURRENT]         [FUTURE]        [FUTURE]
+```
+
+Each future agent will follow the same structure:
+```
+agents/<agent_name>/
+├── __init__.py
+├── agent.py
+└── config.toml
 ```
 
