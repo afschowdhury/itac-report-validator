@@ -403,8 +403,9 @@ def extract_energy_waste_info_dict(xlsx_path: str) -> Dict[str, Any]:
             'Total': 'total_utility'
         }
         
-        # Find the data table (usually starts around row 3)
-        tables = detect_tables(ws, max_col=min(ws.max_column or 15, 15))
+        # Limit to the first 9 columns (A-I) -- the main data table spans
+        # columns A-H; anything further right is internal calculations.
+        tables = detect_tables(ws, max_col=9)
         
         if tables:
             main_table = tables[0]  # Use the first/main table
@@ -419,7 +420,6 @@ def extract_energy_waste_info_dict(xlsx_path: str) -> Dict[str, Any]:
                 cost = None
                 unit_cost = None
                 consumption_units = ""
-                total_cost = None
                 
                 # Find relevant columns with improved column mapping
                 for key, value in row.items():
@@ -439,10 +439,6 @@ def extract_energy_waste_info_dict(xlsx_path: str) -> Dict[str, Any]:
                             consumption_units = str(value).strip()
                     elif 'unit' in key_lower and 'cost' in key_lower:
                         unit_cost = safe_convert_numeric(value)
-                    elif key_lower in ['col_12']:  # Sometimes total costs appear in rightmost columns
-                        if value and isinstance(value, (int, float)) and value > 0:
-                            total_cost = safe_convert_numeric(value)
-                
                 if source_name and (consumption is not None or cost is not None):
                     # Map to standardized energy type
                     standardized_type = energy_type_mapping.get(source_name, 
@@ -483,10 +479,7 @@ def extract_energy_waste_info_dict(xlsx_path: str) -> Dict[str, Any]:
                                 "unit": "unknown"
                             }
                     
-                    # Use the higher total cost if available (for electrical fees, etc.)
                     final_cost = cost if cost is not None else 0
-                    if total_cost and total_cost > final_cost:
-                        final_cost = total_cost
                     
                     source_info = {
                         "type": standardized_type,
