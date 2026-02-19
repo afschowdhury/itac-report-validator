@@ -221,11 +221,21 @@ def _build_type_comparison(doc_item: Dict[str, Any], excel_item: Dict[str, Any],
     excel_usage = excel_item.get('usage', {})
 
     if doc_usage and excel_usage:
+        excel_usage_lower = {k.lower(): (k, v) for k, v in excel_usage.items()}
+
         for unit, value in doc_usage.items():
             if unit in excel_usage:
                 type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage[unit])
+            elif unit.lower() in excel_usage_lower:
+                _, excel_val = excel_usage_lower[unit.lower()]
+                type_comparison['usage_comparison'][unit] = compare_values(value, excel_val)
             elif 'value' in excel_usage and len(doc_usage) == 1:
                 type_comparison['usage_comparison'][unit] = compare_values(value, excel_usage['value'])
+
+        if not type_comparison['usage_comparison'] and len(doc_usage) == 1 and len(excel_usage) == 1:
+            doc_unit, doc_val = next(iter(doc_usage.items()))
+            excel_val = next(iter(excel_usage.values()))
+            type_comparison['usage_comparison'][doc_unit] = compare_values(doc_val, excel_val)
 
     return type_comparison
 
