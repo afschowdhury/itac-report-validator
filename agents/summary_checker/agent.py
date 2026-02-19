@@ -4,6 +4,7 @@ AR Summary Checker Agent - ADK Implementation
 This module implements the AR Summary Validation agent using Google's Agent Development Kit.
 """
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -304,7 +305,8 @@ def check_all_ar_summaries(
 
 
 def analyze_with_llm(
-    validation_results: List[Dict[str, Any]],
+    ar_data_list: List[Dict[str, Any]],
+    ar_summaries: List[Dict[str, Any]],
     api_key: Optional[str] = None,
     config_path: Optional[Path] = None
 ) -> str:
@@ -312,7 +314,8 @@ def analyze_with_llm(
     Use LLM to analyze validation results and provide insights.
     
     Args:
-        validation_results: Results from check_all_ar_summaries
+        ar_data_list: Numeric data extracted per AR
+        ar_summaries: Text summaries per AR
         api_key: Google API key
         config_path: Path to config file
         
@@ -336,18 +339,34 @@ def analyze_with_llm(
     # Build the analysis prompt
     validation_prompt_template = prompts.get('validation_prompt', '')
     
-    # Format validation results
-    results_text = ""
-    for result in validation_results:
-        if result.get('status') == 'error':
-            results_text += f"\n\nAR {result['ar_number']}: ERROR - {result['message']}"
-            continue
-        
-        validation = result.get('validation', {})
-        results_text += f"\n\nAR {validation.get('ar_number')}:"
-        results_text += f"\n{validation.get('context', '')}"
-    
-    prompt = validation_prompt_template.format(validation_results=results_text)
+    def format_ar_summaries_text(items: List[Dict[str, Any]]) -> str:
+        if not items:
+            return "None"
+        lines = []
+        for item in items:
+            ar_no = item.get('ar_no') or item.get('ar_number')
+            summary = item.get('ar_summary', '')
+            lines.append(f"AR {ar_no}:\n{summary}")
+        return "\n\n".join(lines)
+
+    def format_ar_data_list_text(items: List[Dict[str, Any]]) -> str:
+        if not items:
+            return "None"
+        lines = []
+        for item in items:
+            ar_no = item.get('ar_number')
+            data = item.get('data', {})
+            data_text = json.dumps(data, indent=2, sort_keys=True)
+            lines.append(f"AR {ar_no}:\n{data_text}")
+        return "\n\n".join(lines)
+
+    summaries_text = format_ar_summaries_text(ar_summaries)
+    ar_data_list_text = format_ar_data_list_text(ar_data_list)
+
+    prompt = validation_prompt_template.format(
+        ar_summaries=summaries_text,
+        ar_data_list=ar_data_list_text
+    )
 
     ic(prompt)
     

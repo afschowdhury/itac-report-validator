@@ -827,7 +827,10 @@ def run_summary_checker_agent(data: Dict[str, Any]) -> Dict[str, Any]:
         
         # Run LLM analysis
         logging.info("Running LLM analysis on validation results...")
-        analysis_report = analyze_with_llm(validation_results)
+        analysis_report = analyze_with_llm(
+            ar_data_list,
+            ar_summaries
+        )
         
         return jsonify({
             'success': True,

@@ -1,34 +1,32 @@
-This report provides a comprehensive analysis of the validation results for Assessment Recommendations (AR) 1 through 5. The analysis identifies data inconsistencies, evaluates the severity of these issues, and provides actionable recommendations for correction.
+This report provides a comprehensive analysis of the validation results for AR (Assessment Recommendation) Summaries 1 through 5. 
 
 ---
 
-### 1. Analysis of ARs with Data Inconsistencies
+### 1. ARs with Data Inconsistencies
 
-**AR 1: HVAC Tune-Up**
-*   **Discrepancy:** The summary text lists annual savings as **$8,06**, while the numerical data record shows **$8,066**.
-*   **Missing Field:** The implementation cost is listed as $0 in the data matches but is noted as "no implementation cost" in the text (this is consistent, but the typo in the savings figure is a primary concern).
+#### **AR 1: HVAC Tune-Up**
+*   **Inconsistency:** The summary text lists annual savings as **$8,06**, whereas the numerical data confirms **$8,066**.
+*   **Impact:** The summary text contains a significant typo (truncated digit), underrepresenting savings by a factor of 10.
 
-**AR 2: Compressed Air System Pressure**
-*   **Discrepancy:** The summary text states an implementation cost of **$10**. However, the numerical data shows a payback period of **0.04 years**. 
-    *   *Calculation:* $2,792 (savings) × 0.04 (payback) = **$111.68**. 
-    *   A $10 cost with $2,792 savings should result in a payback of **0.003 years**.
-*   **Data Omission:** The `implementation_cost` field is missing from the "Numerical Data Matches" list.
+#### **AR 2: Compressed Air System**
+*   **Inconsistency:** The summary text specifies an implementation cost of **$10**, but the `implementation_cost` field is missing from the Numerical Data Matches list.
+*   **Impact:** Disconnect between narrative and structured data.
 
-**AR 4: Compressed Air Leaks**
-*   **Data Omission:** While the text and numerical data for savings and payback align ($45 / $905 ≈ 0.05), the field `implementation_cost` is **missing** from the Numerical Data Matches list.
+#### **AR 4: Eliminate Leaks**
+*   **Inconsistency:** The summary text specifies an implementation cost of **$45**, but the `implementation_cost` field is missing from the Numerical Data Matches list.
+*   **Impact:** Disconnect between narrative and structured data.
 
-**AR 5: High Efficiency Lamps/Ballasts**
-*   **Text Redundancy:** The summary text repeats the entire final sentence: *"Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels"* appears twice.
-*   **Data Consistency:** The numbers ($9,783 savings, $6,965 cost, 0.71 payback) are mathematically consistent.
+#### **AR 5: High Efficiency Lighting**
+*   **Inconsistency:** The summary text contains a **verbatim duplicate sentence**: *"Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels"* appears at both the beginning and the end of the paragraph.
+*   **Impact:** Professionalism/formatting issue; redundant reading.
 
 ---
 
 ### 2. Common Patterns in Discrepancies
 
-1.  **Decimal/Typo Errors in Summary Text:** There is a recurring issue where the summary text truncates or mistypes numerical values (e.g., $8,06 instead of $8,066).
-2.  **Implementation Cost Mapping:** The `implementation_cost` field is frequently missing from the structured data matches (AR 2 and AR 4), even when it is mentioned in the summary text.
-3.  **Calculation Misalignment:** There is a disconnect between the "simple payback" calculation and the reported implementation cost in the text (notably in AR 2).
-4.  **Formatting/Editing Oversight:** Textual summaries contain redundant sentences, suggesting a lack of final proofreading before validation.
+1.  **Missing Implementation Cost Fields:** In both AR 2 and AR 4, the narrative provides an implementation cost, but the structured numerical data fails to capture/match that specific field.
+2.  **Narrative Truncation/Typos:** Financial figures in the summary text (AR 1) are prone to manual entry errors that do not align with the backend calculations.
+3.  **Redundancy/Editing Errors:** AR 5 suggests a lack of final proofreading, resulting in "copy-paste" errors where sentences are repeated.
 
 ---
 
@@ -36,22 +34,23 @@ This report provides a comprehensive analysis of the validation results for Asse
 
 | AR # | Severity | Issue Type | Description |
 | :--- | :--- | :--- | :--- |
-| **AR 1** | **Critical** | Data Integrity | A 10x difference in reported savings ($8,06 vs $8,066) misleads stakeholders on ROI. |
-| **AR 2** | **High** | Math/Logic | The $10 cost in text contradicts the 0.04-year payback data. One of these values is incorrect. |
-| **AR 5** | **Minor** | Editorial | Redundant text does not affect data accuracy but reduces professional quality. |
-| **AR 4** | **Minor** | Metadata | Missing data field in the validation list, though the value in the text appears correct. |
+| **AR 1** | **Critical** | Financial Misrepresentation | The summary text understates savings by over $7,200 due to a typo ($8,06 vs $8,066). |
+| **AR 2** | **Minor** | Data Omission | Implementation cost exists in text but is missing from the data table. |
+| **AR 4** | **Minor** | Data Omission | Implementation cost exists in text but is missing from the data table. |
+| **AR 5** | **Minor** | Formatting/Quality | Redundant text duplication; does not affect the calculation but affects report quality. |
+| **AR 3** | **None** | Perfect Match | All data points and text align. |
 
 ---
 
 ### 4. Recommendations for Corrections
 
-#### Immediate Data Fixes:
-*   **AR 1:** Correct the summary text to display **$8,066** instead of $8,06.
-*   **AR 2:** Verify the actual implementation cost. If the payback is 0.04, update the text to **$112**. If the cost is truly $10, update the payback period to **0.00** (or 0.004).
-*   **AR 5:** Remove the duplicate sentence at the end of the summary.
+#### **Immediate Technical Corrections:**
+*   **AR 1:** Update summary text to: "...estimated to be **$8,066** with no implementation cost."
+*   **AR 2:** Add `implementation_cost: 10` to the numerical data matches.
+*   **AR 4:** Add `implementation_cost: 45` to the numerical data matches.
+*   **AR 5:** Delete the second occurrence of the sentence: *"Upgrading to higher efficiency lamps and/or ballasts will significantly reduce electrical consumption while maintaining required lighting levels."*
 
-#### Process Improvements:
-*   **Automated Validation:** Implement a script that flags any AR where `implementation_cost / total_cost_savings` does not equal the `payback_period` (within a rounding tolerance).
-*   **Field Mapping:** Ensure the `implementation_cost` field is properly indexed in the database so it appears in the "Numerical Data Matches" for all ARs.
-*   **Text Formatting:** Apply a "unique sentence" filter to the summary generation tool to prevent the verbatim repetition of descriptions seen in AR 5.
-*   **Currency Masking:** Ensure the summary generation tool uses standard currency formatting (e.g., $8,066.00) to prevent truncation errors like the one in AR 1.
+#### **Process Improvements:**
+1.  **Automated Text Sync:** Implement a system where the dollar amounts in the "Summary Text" are dynamically pulled from the numerical data fields to prevent manual typing errors (like the one in AR 1).
+2.  **Field Validation:** Ensure the validation script flags an error if a value (like Implementation Cost) is mentioned in the text but is null or missing in the structured data.
+3.  **Deduplication Filter:** Run a simple string-check algorithm to identify and flag repeating sentences within a single summary paragraph.
